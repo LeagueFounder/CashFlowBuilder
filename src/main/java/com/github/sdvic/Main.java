@@ -1,6 +1,8 @@
 package com.github.sdvic;
 /****************************************************************************************
- * * Application to extract Cash Flow data from Quick Books P&L
+ * Application to extract Cash Flow data from Quick Books P&L
+ * rev 0.2 March 26, 2019
+ * copyright Vic Wintriss 2019
  ****************************************************************************************/
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
