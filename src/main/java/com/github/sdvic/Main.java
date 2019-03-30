@@ -1,93 +1,93 @@
 package com.github.sdvic;
 /****************************************************************************************
  * Application to extract Cash Flow data from Quick Books P&L
- * rev 0.2 March 26, 2019
- * copyright Vic Wintriss 2019
+ * rev 0.3 March 29, 2019
+ * copyright 2019 Vic Wintriss 
  ****************************************************************************************/
-import org.apache.poi.ss.usermodel.*;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
-
-import static org.apache.poi.ss.usermodel.Cell.*;
 
 public class Main
 {
-    public static File file;
+    public static File PandLfile;
     public static FileInputStream fis;
-    public static XSSFWorkbook workbook;
-    public static Map<String, Integer> accountList = new HashMap<String, Integer>();
-    public static String v;
-    public static int k;
+    public static XSSFWorkbook pandlWorkbook;
+    public static XSSFWorkbook sarah5yearWorkbook;
+    public static HashMap<Cell, Cell> accountList = new HashMap<Cell, Cell>();
+    public static String k;
+    public static int v;
     public static int cashContributions;
-
+    public static Sheet pandlSheet;
+    public static Sheet sarah5yearSheet;
+    public static int pandlLastRow;
+    public static int sarah5yearLastRow;
+    public static Row pandlRow;
+    public static Row sarah5yearRow;
+    public static Cell cell;
+    public static Cell valueCell;
+    private static String key;
+    private static Cell keyCell;
 
     public static void main(String[] args) throws IOException
     {
         DataFormatter formatter = new DataFormatter();
         try
         {
-            file = new File("/Users/VicMini/Desktop/LeaguePandL.xlsx");
-            fis = new FileInputStream(file);
-            workbook = new XSSFWorkbook(fis);
+            pandlWorkbook = new XSSFWorkbook(new FileInputStream(new File("/Users/VicMini/Desktop/LeaguePandL.xlsx")));
+            pandlSheet = pandlWorkbook.getSheetAt(0);
+            pandlLastRow = pandlSheet.getLastRowNum();
+            sarah5yearWorkbook = new XSSFWorkbook(new FileInputStream(new File("/Users/VicMini/Desktop/SarahFiveYearPlan.xlsx")));
+
+            sarah5yearSheet = sarah5yearWorkbook.getSheetAt(0);
+            sarah5yearLastRow = sarah5yearSheet.getLastRowNum();
         }
         catch (Exception e)
         {
             System.out.println("Can't read /Users/VicMini/Desktop/LeaguePandL.xlsx");
         }
-        for (Sheet sheet : workbook)
+        System.out.println("========================== P & L =====================");
+        for (int i = 0; i <= pandlLastRow; i++)
         {
-            System.out.println(" There is (are) " + workbook.getNumberOfSheets() + " sheet(s) in PandL.xlsx");
-            for (Row row : sheet)
+            pandlRow = pandlSheet.getRow(i);
+            if (pandlRow != null)
             {
-                for (Cell cell : row)
-                {
+                keyCell = pandlRow.getCell(0);
+                valueCell = pandlRow.getCell(1);
+                System.out.print(keyCell + "    " + valueCell);
+            }
+        }
+        for (int i = 0; i <= sarah5yearLastRow; i++)
+        {
 
-                    switch (cell.getCellType())
-                    {
-                        case CELL_TYPE_BOOLEAN:
-                            break;
-                        case CELL_TYPE_NUMERIC:
-                            k = (int) cell.getNumericCellValue();//key = dollars
-                            break;
-                        case CELL_TYPE_STRING:
-                            try
-                            {
-                                v = cell.getStringCellValue();//val = text
-                                accountList.put(v,k);
-                            }
-                            catch (NumberFormatException ex)
-                            {
-                                System.out.println("Number Format Exception");
-                            }
-                            break;
-                        case CELL_TYPE_BLANK:
-                            break;
-                        case CELL_TYPE_FORMULA:
-                            System.out.println("formula");
-                            break;
-                        default:
-                            System.out.println("default error...no cell type discovered");
-                    }
-                }
-            }
-        }
-        fis.close();
-        for (Map.Entry<String, Integer> entry : accountList.entrySet())
-        {
-            String key = entry.getKey();
-            Integer value = entry.getValue();
-            if (key.contains("47200"))
+            if (sarah5yearSheet.getRow(i).getCell(0).getCellType() != Cell.CELL_TYPE_BLANK)
             {
-                cashContributions = value;
-                System.out.println(value);
+                sarah5yearRow = sarah5yearSheet.getRow(i);
+                keyCell = sarah5yearRow.getCell(0);
+                valueCell = sarah5yearRow.getCell(6);
+                System.out.println(keyCell + "    " + valueCell);
+                Cell testCell = sarah5yearSheet.getRow(i).getCell(12);
+                testCell.setCellValue("Row " + i);
             }
         }
-       // accountList.forEach((k, v) -> System.out.println(k + "k" + v + "v"));
+        try
+        {
+            FileOutputStream out = new FileOutputStream(new File("/Users/VicMini/Desktop/SarahFiveYearPlan.xlsx"));
+            sarah5yearWorkbook.write(out);
+            out.close();
+        }
+        catch(Exception e)
+        {
+            System.out.println("Can't write to /Users/VicMini/Desktop/SarahFiveYearPlan.xlsx");
+        }
     }
 }
-
