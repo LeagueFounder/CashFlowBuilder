@@ -1,7 +1,7 @@
 package com.github.sdvic;
 /****************************************************************************************
  * Application to extract Cash Flow data from Quick Books P&L
- * rev 0.4 March 31, 2019
+ * rev 0.7 April 2, 2019
  * copyright 2019 Vic Wintriss 
  ****************************************************************************************/
 
@@ -35,7 +35,7 @@ public class Main
 
     public static void main(String[] args) throws IOException
     {
-        System.out.println("Cash Flow Generator ver 0.6  4/2/19");
+        System.out.println("Cash Flow Generator ver 0.7  4/2/19");
         try
         {
             pandLworkbook = WorkbookFactory.create(new FileInputStream("/Users/VicMini/Desktop/PandL2018.xlsx"));
