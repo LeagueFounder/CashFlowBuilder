@@ -35,7 +35,7 @@ public class Main
 
     public static void main(String[] args) throws IOException
     {
-        System.out.println("Cash Flow Generator ver 0.5  4/2/19");
+        System.out.println("Cash Flow Generator ver 0.6  4/2/19");
         try
         {
             pandLworkbook = WorkbookFactory.create(new FileInputStream("/Users/VicMini/Desktop/PandL2018.xlsx"));
