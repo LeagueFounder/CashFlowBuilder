@@ -35,13 +35,16 @@
       <FILTER>com.github.sdvic.*</FILTER>
     </SUITE>
   </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="isMigrated" value="true" />
+  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/github/sdvic/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="19" selection-start-line="3" selection-start-column="19" selection-end-line="3" selection-end-column="19" />
+            <state relative-caret-position="558">
+              <caret line="59" column="76" selection-start-line="59" selection-start-column="76" selection-end-line="59" selection-end-column="76" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -82,17 +85,21 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="127" />
-    <option name="y" value="274" />
-    <option name="width" value="1186" />
-    <option name="height" value="982" />
+    <option name="x" value="226" />
+    <option name="y" value="23" />
+    <option name="width" value="1340" />
+    <option name="height" value="976" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes />
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="ProjectPane" />
+    </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="GoToClass.includeLibraries" value="false" />
@@ -224,27 +231,33 @@
       <option name="project" value="LOCAL" />
       <updated>1553661111656</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Working ver 0.4 total tuition only">
+      <created>1554087774416</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1554087774416</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="127" y="192" width="1186" height="982" extended-state="0" />
-    <editor active="true" />
+    <frame x="226" y="23" width="1340" height="976" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.33382246" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.30585515" />
       <window_info id="Structure" order="1" side_tool="true" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info anchor="bottom" id="Run" order="0" weight="0.25144175" />
+      <window_info anchor="bottom" id="Run" order="0" visible="true" weight="0.2508711" />
       <window_info anchor="bottom" id="TODO" order="1" />
       <window_info anchor="bottom" id="Debug" order="2" />
       <window_info anchor="bottom" id="Terminal" order="3" weight="0.3294753" />
       <window_info anchor="bottom" id="Event Log" order="4" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="5" />
-      <window_info anchor="bottom" id="Messages" order="6" weight="0.32871974" />
+      <window_info anchor="bottom" id="Messages" order="6" weight="0.32830626" />
       <window_info anchor="bottom" id="Find" order="7" weight="0.3298731" />
       <window_info anchor="right" id="Palette" order="0" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
@@ -281,7 +294,8 @@
     <MESSAGE value="My first attempt of a cash flow generator for Sarah to extract date from QuickBooks Online." />
     <MESSAGE value="Reading P&amp;L...can't get Strings to Integers" />
     <MESSAGE value="trying to extract total income..." />
-    <option name="LAST_COMMIT_MESSAGE" value="trying to extract total income..." />
+    <MESSAGE value="Working ver 0.4 total tuition only" />
+    <option name="LAST_COMMIT_MESSAGE" value="Working ver 0.4 total tuition only" />
   </component>
   <component name="editorHistoryManager">
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk-10.0.2.jdk/Contents/Home/lib/src.zip!/java.base/java/util/Iterator.java">
@@ -300,8 +314,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/github/sdvic/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="19" selection-start-line="3" selection-start-column="19" selection-end-line="3" selection-end-column="19" />
+        <state relative-caret-position="558">
+          <caret line="59" column="76" selection-start-line="59" selection-start-column="76" selection-end-line="59" selection-end-column="76" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

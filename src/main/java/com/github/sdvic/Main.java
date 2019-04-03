@@ -5,15 +5,10 @@ package com.github.sdvic;
  * copyright 2019 Vic Wintriss 
  ****************************************************************************************/
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 public class Main
 {
@@ -26,57 +21,72 @@ public class Main
     public static int pandlLastRow;//P&L
     public static int sarah5yearLastRow;//5Year
     public static Cell pandLvalueCell;
-    public static int totalTuition;
-    private static Cell pandLnameCell;
+    public static Cell pandLnameCell;
+    public static Cell sarah5yearValueCell;
+    public static int pAndLvalue;
+    public static File pandLfile = new File("/Users/VicMini/Desktop/PandL2018.xlsx");
+    public static File sarahFiveYearFile = new File("/Users/VicMini/Desktop/SarahFiveYearPlan.xlsx");
+    public static OutputStream sarah5YearOutputStream;
+    public static InputStream sarah5YearInputStream;
+    public static InputStream pandLInputStream;
+    public static Workbook pandLworkbook;
+    public static DataFormatter formatter;
+    public static Sheet sheet;
 
     public static void main(String[] args) throws IOException
     {
-        System.out.println("Cash Flow Generator ver 0.4  3/31/19");
+        System.out.println("Cash Flow Generator ver 0.5  4/2/19");
         try
         {
-            pandlWorkbook = new XSSFWorkbook(new FileInputStream(new File("/Users/VicMini/Desktop/PandL2018.xlsx")));//P&L
+            pandLworkbook = WorkbookFactory.create(new FileInputStream("/Users/VicMini/Desktop/PandL2018.xlsx"));
+            System.out.println("P and L Workbook has " + pandLworkbook.getNumberOfSheets() + " Sheets : ");
+            pandLInputStream = new FileInputStream(pandLfile);
+            sarah5YearInputStream = new FileInputStream(sarahFiveYearFile);
+            sarah5YearOutputStream = new FileOutputStream(sarahFiveYearFile);
+            pandlWorkbook = new XSSFWorkbook(pandLInputStream);//P&L
+            //sarah5yearWorkbook = new XSSFWorkbook(sarah5YearInputStream);//5Year
             pandlSheet = pandlWorkbook.getSheetAt(0);//P&L
-            pandlLastRow = pandlSheet.getLastRowNum();//P&L
-            sarah5yearWorkbook = new XSSFWorkbook(new FileInputStream(new File("/Users/VicMini/Desktop/SarahFiveYearPlan.xlsx")));//5Year
-            sarah5yearSheet = sarah5yearWorkbook.getSheetAt(0);//5Year
-            sarah5yearLastRow = sarah5yearSheet.getLastRowNum();//5Year
+            //sarah5yearSheet = sarah5yearWorkbook.getSheetAt(0);//5Year
         }
         catch (Exception e)
         {
             System.out.println("Can't read input file(s)");
         }
         System.out.println("========================== P & L =====================");
-        for (int i = 0; i <= pandlLastRow; i++)
-        {
-            pandlRow = pandlSheet.getRow(i);
-            if (pandlRow != null)
-            {
-                pandLnameCell = pandlRow.getCell(0);
-                pandLvalueCell = pandlRow.getCell(1);
-                if (pandLnameCell.getStringCellValue().contains("Total 47201 Tuition"))
-                {
-                    totalTuition = (int) pandLvalueCell.getNumericCellValue();
-                    System.out.println("bingo...value => " + totalTuition);
-                }
-            }
-        }
+        sheet = pandLworkbook.getSheetAt(0);
+        int totalTuition = findPandLentry("Total 47201 Tuition  Fees");
+        int totalWorkshop = findPandLentry("Total 47202 Workshop Fees");
+        int totalContributions = findPandLentry("43450 Individ, Business Contributions");
+        System.out.println(totalContributions + totalTuition + totalWorkshop);
         System.out.println("========================== 5-YearPlan =====================");
-        Row newDataRow = sarah5yearSheet.getRow(5);
-        Cell newDataCelll = newDataRow.getCell(6);
-        newDataCelll.setCellValue(totalTuition);
-
-        System.out.println("Adding updated info (" + totalTuition + ") to the  " +  " Column, ");
         try
         {
-            FileOutputStream sarah5YearFileOutputStream = new FileOutputStream("/Users/VicMini/Desktop/SarahFiveYearPlan.xlsx");
-            sarah5yearWorkbook.write(sarah5YearFileOutputStream);
-            sarah5YearFileOutputStream.close();
-
+            //sarah5yearWorkbook.write(sarah5YearOutputStream);
+            sarah5YearOutputStream.close();
+            pandLInputStream.close();
         }
         catch (Exception e)
         {
-            System.out.println("Can't write to /Users/VicMini/Desktop/SarahFiveYearPlan.xlsx");
+            System.out.println("Can't write File");
         }
     }
-}
 
+    public static int findPandLentry(String name)
+    {
+        for (Row row : sheet)
+        {
+            for (Cell cell : row)
+            {
+                if (cell.getCellType() == Cell.CELL_TYPE_STRING)
+                {
+                    if (cell.getStringCellValue().contains(name))
+                    {
+                        int cellValue = (int) row.getCell(1).getNumericCellValue();
+                        return cellValue;
+                    }
+                }
+            }
+        }
+        return 4;
+    }
+}
