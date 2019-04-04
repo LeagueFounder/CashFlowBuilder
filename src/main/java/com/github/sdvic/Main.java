@@ -1,7 +1,7 @@
 package com.github.sdvic;
 /****************************************************************************************
  * Application to extract Cash Flow data from Quick Books P&L
- * rev 0.9 April 3, 2019
+ * rev 1.0 April 3, 2019
  * copyright 2019 Vic Wintriss 
  ****************************************************************************************/
 
