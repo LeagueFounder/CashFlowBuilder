@@ -25,7 +25,7 @@ public class Main
 
     public static void main(String[] args) throws IOException
     {
-        System.out.println("Cash Flow Generator ver 0.9  4/3/19");
+        System.out.println("Cash Flow Generator ver 1.0  4/3/19");
         System.out.println("========================== Reading P & L =====================");
         try
         {
