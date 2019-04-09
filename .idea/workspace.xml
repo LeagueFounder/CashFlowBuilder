@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c9539f65-5637-4dcf-8cf6-4943f1ccd1a1" name="Default Changelist" comment="Working ver 0.4 total tuition only">
-      <change afterPath="$PROJECT_DIR$/target/classes/com/github/sdvic/ExtractPandLinfoForProjections.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/github/sdvic/Setup.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../PandLextractor/src/PandLextractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PandLextractor/src/PandLextractor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../ThomasSuperRefactor/.idea/description.html" beforeDir="false" />
@@ -20,12 +18,6 @@
       <change beforePath="$PROJECT_DIR$/../ThomasSuperRefactor/src/com/wintrisstech/Ground.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../ThomasSuperRefactor/src/com/wintrisstech/Thomas.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../ThomasSuperRefactor/src/com/wintrisstech/Track.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/sdvic/ExtractPandLinfoForProjections.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/sdvic/ExtractPandLinfoForProjections.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/sdvic/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/sdvic/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/sdvic/Setup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/sdvic/Setup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/sdvic/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/sdvic/Main.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -60,8 +52,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/github/sdvic/ExtractPandLinfoForProjections.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="675">
-              <caret line="45" column="64" selection-start-line="45" selection-start-column="64" selection-end-line="45" selection-end-column="64" />
+            <state relative-caret-position="180">
+              <caret line="12" selection-start-line="12" selection-end-line="12" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -274,7 +266,14 @@
       <option name="project" value="LOCAL" />
       <updated>1554760047140</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Update ver 1.1">
+      <created>1554768225732</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1554768225733</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -288,7 +287,7 @@
       <window_info id="UI Designer" order="4" />
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info anchor="bottom" id="Run" order="0" weight="0.29616725" />
+      <window_info active="true" anchor="bottom" id="Run" order="0" visible="true" weight="0.29616725" />
       <window_info anchor="bottom" id="TODO" order="1" />
       <window_info anchor="bottom" id="Debug" order="2" />
       <window_info anchor="bottom" id="Terminal" order="3" weight="0.3294753" />
@@ -333,7 +332,9 @@
     <MESSAGE value="trying to extract total income..." />
     <MESSAGE value="Working ver 0.4 total tuition only" />
     <MESSAGE value="ver 1.1 Using ArrayLists for chart of accounts" />
-    <option name="LAST_COMMIT_MESSAGE" value="ver 1.1 Using ArrayLists for chart of accounts" />
+    <MESSAGE value="added more from P and L chart of accounts" />
+    <MESSAGE value="Update ver 1.1" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update ver 1.1" />
   </component>
   <component name="editorHistoryManager">
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk-10.0.2.jdk/Contents/Home/lib/src.zip!/java.base/java/util/Iterator.java">
@@ -369,8 +370,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/github/sdvic/ExtractPandLinfoForProjections.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="45" column="64" selection-start-line="45" selection-start-column="64" selection-end-line="45" selection-end-column="64" />
+        <state relative-caret-position="180">
+          <caret line="12" selection-start-line="12" selection-end-line="12" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
