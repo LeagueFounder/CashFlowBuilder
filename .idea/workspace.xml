@@ -1,29 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c9539f65-5637-4dcf-8cf6-4943f1ccd1a1" name="Default Changelist" comment="New ver 1.1 update">
-      <change beforePath="$PROJECT_DIR$/../PandLextractor/src/PandLextractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PandLextractor/src/PandLextractor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ThomasSuperRefactor/.idea/description.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ThomasSuperRefactor/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ThomasSuperRefactor/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ThomasSuperRefactor/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ThomasSuperRefactor/.idea/project-template.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ThomasSuperRefactor/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ThomasSuperRefactor/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ThomasSuperRefactor/ThomasSuperRefactor.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ThomasSuperRefactor/src/com/wintrisstech/BackgroundObject.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ThomasSuperRefactor/src/com/wintrisstech/BackgroundSky.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ThomasSuperRefactor/src/com/wintrisstech/Control.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ThomasSuperRefactor/src/com/wintrisstech/Ground.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ThomasSuperRefactor/src/com/wintrisstech/Thomas.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ThomasSuperRefactor/src/com/wintrisstech/Track.java" beforeDir="false" />
+    <list default="true" id="c9539f65-5637-4dcf-8cf6-4943f1ccd1a1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/sdvic/ExcelReader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/sdvic/ExcelWriter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/sdvic/ExtractPandLinfoForProjections.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/sdvic/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/sdvic/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/sdvic/ExtractPandLinfoForProjections.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/sdvic/Setup.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/github/sdvic/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/sdvic/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/sdvic/Setup.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/sdvic/Setup.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/sdvic/Setup.class" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -46,8 +31,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/github/sdvic/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="301">
-              <caret line="35" column="63" selection-start-line="35" selection-start-column="63" selection-end-line="35" selection-end-column="63" />
+            <state relative-caret-position="588">
+              <caret line="58" column="44" selection-start-line="58" selection-start-column="44" selection-end-line="58" selection-end-column="44" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -56,10 +41,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/github/sdvic/Setup.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/github/sdvic/ExcelWriter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="975">
-              <caret line="65" column="31" selection-start-line="65" selection-start-column="31" selection-end-line="65" selection-end-column="31" />
+            <state relative-caret-position="90">
+              <caret line="6" column="33" selection-start-line="6" selection-start-column="33" selection-end-line="6" selection-end-column="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/github/sdvic/ExcelReader.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="960">
+              <caret line="64" column="9" selection-start-line="64" selection-start-column="9" selection-end-line="64" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -93,8 +87,11 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/../PandLextractor/src/PandLextractor.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/github/sdvic/ExtractPandLinfoForProjections.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/github/sdvic/Main.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/github/sdvic/EscelFileReader.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/github/sdvic/Setup.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/github/sdvic/ExcelReader.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/github/sdvic/Main.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/github/sdvic/ExcelWriter.java" />
       </list>
     </option>
   </component>
@@ -106,8 +103,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="709" />
-    <option name="y" value="33" />
+    <option name="x" value="746" />
+    <option name="y" value="24" />
     <option name="width" value="1072" />
     <option name="height" value="976" />
   </component>
@@ -284,11 +281,25 @@
       <option name="project" value="LOCAL" />
       <updated>1555385916635</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="New ver 1.2 update">
+      <created>1555386314092</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1555386314092</updated>
+    </task>
+    <task id="LOCAL-00010" summary="ver 1.3 to get both main and setup">
+      <created>1555386679988</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1555386679988</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1667" y="66" width="1072" height="976" extended-state="0" />
+    <frame x="746" y="24" width="1072" height="976" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.19186786" />
@@ -349,7 +360,9 @@
     <MESSAGE value="Update ver 1.1" />
     <MESSAGE value="New ver 1.1 update" />
     <MESSAGE value="New ver 1.2 extracting P%L and CashFlow" />
-    <option name="LAST_COMMIT_MESSAGE" value="New ver 1.2 extracting P%L and CashFlow" />
+    <MESSAGE value="New ver 1.2 update" />
+    <MESSAGE value="ver 1.3 to get both main and setup" />
+    <option name="LAST_COMMIT_MESSAGE" value="ver 1.3 to get both main and setup" />
   </component>
   <component name="editorHistoryManager">
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk-10.0.2.jdk/Contents/Home/lib/src.zip!/java.base/java/util/Iterator.java">
@@ -370,20 +383,29 @@
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/github/sdvic/ExtractPandLinfoForProjections.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/github/sdvic/Setup.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/github/sdvic/EscelFileReader.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/github/sdvic/Setup.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/github/sdvic/ExcelReader.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="975">
-          <caret line="65" column="31" selection-start-line="65" selection-start-column="31" selection-end-line="65" selection-end-column="31" />
+        <state relative-caret-position="960">
+          <caret line="64" column="9" selection-start-line="64" selection-start-column="9" selection-end-line="64" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/github/sdvic/ExcelWriter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="33" selection-start-line="6" selection-start-column="33" selection-end-line="6" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/github/sdvic/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="301">
-          <caret line="35" column="63" selection-start-line="35" selection-start-column="63" selection-end-line="35" selection-end-column="63" />
+        <state relative-caret-position="588">
+          <caret line="58" column="44" selection-start-line="58" selection-start-column="44" selection-end-line="58" selection-end-column="44" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
