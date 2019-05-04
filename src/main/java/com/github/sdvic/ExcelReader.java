@@ -1,7 +1,7 @@
 package com.github.sdvic;
 /****************************************************************************************
  *  * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
- * version 190502
+ * version 190504
  * copyright 2019 Vic Wintriss
  ****************************************************************************************/
 
@@ -18,7 +18,6 @@ public class ExcelReader
     public Sheet pandlSheet;
     public Workbook sarah5yearLocalWorkbook = new XSSFWorkbook();
     public XSSFSheet sarah5yearLocalSheet;
-    public FormulaEvaluator plEvaluator;
     public String version;
     private HashMap<String, Integer> chartOfAccountsMap = new HashMap<>();
 
@@ -28,7 +27,6 @@ public class ExcelReader
         String cellKey = null;
         int cellValue = 0;
         pandlSheet = pandlWorkBook.getSheetAt(0);
-        plEvaluator = pandlWorkBook.getCreationHelper().createFormulaEvaluator();
         sarah5yearLocalWorkbook = (XSSFWorkbook) s5yrwb;
         sarah5yearLocalSheet = (XSSFSheet) sarah5yearLocalWorkbook.getSheetAt(0);
         for (Row row : pandlSheet)//Bring full chart of accounts from Excel (QuickBooks) P&L into HashMap chartOfAcocounts
