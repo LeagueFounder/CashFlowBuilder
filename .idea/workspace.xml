@@ -4,7 +4,7 @@
     <list default="true" id="c9539f65-5637-4dcf-8cf6-4943f1ccd1a1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/sdvic/CashFlowItemAggregator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/sdvic/CashFlowItemAggregator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/sdvic/ExcelReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/sdvic/ExcelReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/sdvic/ExcelWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/sdvic/ExcelWriter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/sdvic/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/sdvic/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/github/sdvic/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/sdvic/Main.class" afterDir="false" />
     </list>
@@ -110,9 +110,9 @@
         <option value="$PROJECT_DIR$/src/main/java/com/github/sdvic/ExtractPandLinfoForProjections.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/github/sdvic/EscelFileReader.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/github/sdvic/Setup.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/github/sdvic/CashFlowItemAggregator.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/github/sdvic/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/github/sdvic/ExcelWriter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/github/sdvic/Main.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/github/sdvic/CashFlowItemAggregator.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/github/sdvic/ExcelReader.java" />
       </list>
     </option>
@@ -125,9 +125,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="110" />
-    <option name="y" value="24" />
-    <option name="width" value="996" />
+    <option name="x" value="888" />
+    <option name="y" value="23" />
+    <option name="width" value="738" />
     <option name="height" value="976" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -352,11 +352,18 @@
       <option name="project" value="LOCAL" />
       <updated>1556858430750</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="version 190504...computing/writing all cash flow chart entries OK">
+      <created>1556996471576</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1556996471576</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="110" y="24" width="996" height="976" extended-state="0" />
+    <frame x="888" y="23" width="738" height="976" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.19186786" />
@@ -424,7 +431,8 @@
     <MESSAGE value="ver 1.6 Reading p&amp;l and cash Flow OK" />
     <MESSAGE value="version 190501d...writing to cash flow OK" />
     <MESSAGE value="version 190502...computing/writing cash flfow chart data OK" />
-    <option name="LAST_COMMIT_MESSAGE" value="version 190502...computing/writing cash flfow chart data OK" />
+    <MESSAGE value="version 190504...computing/writing all cash flow chart entries OK" />
+    <option name="LAST_COMMIT_MESSAGE" value="version 190504...computing/writing all cash flow chart entries OK" />
   </component>
   <component name="editorHistoryManager">
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk-10.0.2.jdk/Contents/Home/lib/src.zip!/java.base/java/util/Iterator.java">
@@ -447,7 +455,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/com/github/sdvic/ExtractPandLinfoForProjections.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/github/sdvic/EscelFileReader.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/github/sdvic/Setup.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/github/sdvic/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/github/sdvic/ExcelWriter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="3" column="17" selection-start-line="3" selection-start-column="17" selection-end-line="3" selection-end-column="17" />
@@ -457,7 +465,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/github/sdvic/ExcelWriter.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/github/sdvic/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="3" column="17" selection-start-line="3" selection-start-column="17" selection-end-line="3" selection-end-column="17" />
