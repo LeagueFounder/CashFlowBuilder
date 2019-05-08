@@ -1,17 +1,15 @@
 package com.github.sdvic;
-/****************************************************************************************
+/********************************************************************************************
  *  * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
- * version 190506
- * copyright 2019 Vic Wintriss 
- ****************************************************************************************/
+ * version 190508
+ * copyright 2019 Vic Wintriss
+ /*******************************************************************************************/
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import javax.swing.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.nio.file.FileSystemException;
 import java.util.HashMap;
-
-import static javax.swing.JOptionPane.showInputDialog;
 
 public class Main implements Runnable
 {
@@ -22,7 +20,7 @@ public class Main implements Runnable
 
     public void run()
     {
-        String version = "version 190506d";
+        String version = "version 190508a";
         System.out.println(version);
         String pandlYear = JOptionPane.showInputDialog("P and L input file year?  Only enter year...no other text...no suffix...");
         int yearColumnIndex = (Integer.parseInt(pandlYear) % 2000) - 12;
@@ -36,7 +34,7 @@ public class Main implements Runnable
             FileInputStream s5yrfis = new FileInputStream(sarah5YearFile);
             XSSFWorkbook sarah5yearWorkbook = new XSSFWorkbook(s5yrfis);
             ExcelReader excelReader = new ExcelReader(pandlWorkbook, sarah5yearWorkbook, version);
-            HashMap<String, Integer> chartOfAccountsMap =  excelReader.getChartOfAccountsMap();
+            HashMap<String, Integer> chartOfAccountsMap = excelReader.getChartOfAccountsMap();
             new CashFlowItemAggregator(sarah5yearWorkbook, chartOfAccountsMap, version, yearColumnIndex);
             ExcelWriter excelWriter = new ExcelWriter(sarah5yearWorkbook, sarah5YearFile);
             excelWriter.write5YearPlan();
@@ -51,5 +49,3 @@ public class Main implements Runnable
         }
     }
 }
-
-
