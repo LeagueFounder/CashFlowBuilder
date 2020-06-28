@@ -1,18 +1,35 @@
 package com.github.sdvic;
 /********************************************************************************************
  *  * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
- * version 190508
- * copyright 2019 Vic Wintriss
+ * version 200625A
+ * copyright 2020 Vic Wintriss
  /*******************************************************************************************/
+
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import javax.swing.*;
-import java.io.File;
-import java.io.FileInputStream;
-import java.nio.file.FileSystemException;
+import java.io.*;
 import java.util.HashMap;
+
+import static org.apache.poi.ss.usermodel.WorkbookFactory.create;
 
 public class Main implements Runnable
 {
+    private final String version = "version 200627B";
+    private final File pandlFile = new File("/Users/VicMini/Desktop/The+League+of+Amazing+Programmers_Profit+and+Loss.xlsx");
+    private final File budgetFile = new File("/Users/VicMini/Desktop/LeagueBudget2020.xlsx");
+    private FileInputStream pandlFIS;
+    private FileInputStream budgetFIS;
+    private FileOutputStream budgetFOS;
+    private XSSFWorkbook pandlWorkbook;
+    private XSSFWorkbook budgetWorkBook;
+    public ExcelReader excelReader;
+    private BudgetWriter budgetWriter;
+    private HashMap<String, Integer> pandlMap = new HashMap<>();
+    private CashItemAggregator aggregator = new CashItemAggregator(budgetWorkBook, pandlMap, version);
+
     public static void main(String[] args)
     {
         SwingUtilities.invokeLater(new Main());
@@ -20,32 +37,29 @@ public class Main implements Runnable
 
     public void run()
     {
-        String version = "version 190508a";
         System.out.println(version);
-        String pandlYear = JOptionPane.showInputDialog("P and L input file year?  Only enter year...no other text...no suffix...");
-        int yearColumnIndex = (Integer.parseInt(pandlYear) % 2000) - 12;
-        System.out.println("processing /Users/VicMini/Desktop/PandL" + pandlYear);
+        JOptionPane.showInputDialog("P and L input file month?  Only enter (int)month.");
+        System.out.println("processing " + pandlFile);
+        System.out.println("processing " + budgetFile);
         try
         {
-            File pandLfile = new File("/Users/VicMini/Desktop/PandL" + pandlYear + ".xlsx");
-            FileInputStream plfis = new FileInputStream(pandLfile);
-            XSSFWorkbook pandlWorkbook = new XSSFWorkbook(plfis);
-            File sarah5YearFile = new File("/Users/VicMini/Desktop/SarahFiveYearPlan.xlsx");
-            FileInputStream s5yrfis = new FileInputStream(sarah5YearFile);
-            XSSFWorkbook sarah5yearWorkbook = new XSSFWorkbook(s5yrfis);
-            ExcelReader excelReader = new ExcelReader(pandlWorkbook, sarah5yearWorkbook, version);
-            HashMap<String, Integer> chartOfAccountsMap = excelReader.getChartOfAccountsMap();
-            new CashFlowItemAggregator(sarah5yearWorkbook, chartOfAccountsMap, version, yearColumnIndex);
-            ExcelWriter excelWriter = new ExcelWriter(sarah5yearWorkbook, sarah5YearFile);
-            excelWriter.write5YearPlan();
+            pandlFIS = new FileInputStream(pandlFile);
+            budgetFIS = new FileInputStream(budgetFile);
+            budgetFOS = new FileOutputStream(budgetFile);
+            pandlWorkbook = new XSSFWorkbook(pandlFIS);
+            budgetWorkBook = new XSSFWorkbook(pandlFIS);
         }
-        catch (FileSystemException e)
+        catch (FileNotFoundException e)
         {
-            System.out.println("File exception in Main.run()" + e);
+            e.printStackTrace();
         }
-        catch (Exception e)
+        catch (IOException e)
         {
-            System.out.println("exception in Main.run()" + e);
+            e.printStackTrace();
         }
+        excelReader = new ExcelReader(pandlWorkbook, budgetWorkBook, version);
+        //budgetWriter = new BudgetWriter(budgetWorkBook, budgetFOS);
+        System.out.println(budgetWorkBook.getSheetAt(0));
+
     }
 }

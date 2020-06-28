@@ -2,16 +2,48 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c9539f65-5637-4dcf-8cf6-4943f1ccd1a1" name="Default Changelist" comment="version 190507...Added void check for PandL entries">
+      <change afterPath="$PROJECT_DIR$/../AmbuPi/.idea/ambupi.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../AmbuPi/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../VentilatorProject.git" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../samples" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AmbuPi/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/../AmbuPi/.idea/.name" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AmbuPi/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../AmbuPi/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AmbuPi/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../AmbuPi/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AmbuPi/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../AmbuPi/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AmbuPi/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../AmbuPi/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AmbuPi/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/../AmbuPi/target/classes/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AmbuPi/target/classes/TestSequences.class" beforeDir="false" afterPath="$PROJECT_DIR$/../AmbuPi/target/classes/TestSequences.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AmbuPi/target/classes/UserExperience.class" beforeDir="false" afterPath="$PROJECT_DIR$/../AmbuPi/target/classes/UserExperience.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AmbuPi/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../AmbuPi/target/maven-archiver/pom.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AmbuPi/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/../AmbuPi/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AmbuPi/target/piwork-900.08-jar-with-dependencies.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AmbuPi/target/piwork-900.08.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/sdvic/CashFlowItemAggregator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/sdvic/CashFlowItemAggregator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myFirstBot.iml" beforeDir="false" afterPath="$PROJECT_DIR$/cashFlowBuilder.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/sdvic/CashFlowItemAggregator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/sdvic/CashItemAggregator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/sdvic/ExcelReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/sdvic/ExcelReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/sdvic/ExcelWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/sdvic/ExcelWriter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/sdvic/ExcelWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/sdvic/BudgetWriter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/sdvic/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/sdvic/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/github/sdvic/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/sdvic/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../_mac/git.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../_mac/laf.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../_mac/path.macros.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../baseRefactoring.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../codestyles/Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../colors.scheme.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../debugger.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../editor.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../filetypes.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../github.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mavenVersion.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../studioFlags.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../vcs.xml" beforeDir="false" />
     </list>
-    <ignored path="$PROJECT_DIR$/out/" />
-    <ignored path="$PROJECT_DIR$/target/" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -25,78 +57,12 @@
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
   </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/github/sdvic/Main.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="20">
-              <caret line="5" column="94" selection-start-line="5" selection-start-column="94" selection-end-line="5" selection-end-column="94" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#691#692#0" expanded="true" />
-                <element signature="e#745#746#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/github/sdvic/ExcelWriter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="75" selection-start-line="5" selection-start-column="75" selection-end-line="5" selection-end-column="75" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/github/sdvic/CashFlowItemAggregator.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="43">
-              <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/github/sdvic/ExcelReader.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="11" selection-start-line="11" selection-end-line="11" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
-  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
       </list>
     </option>
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>System.out</find>
-      <find>****</find>
-      <find>***********</find>
-      <find>System.out.println</find>
-      <find>System</find>
-      <find>flow</find>
-      <find>43450</find>
-      <find>Total 65100 Other Types of Expenses</find>
-    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
@@ -106,39 +72,11 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/../PandLextractor/src/PandLextractor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/github/sdvic/ExtractPandLinfoForProjections.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/github/sdvic/EscelFileReader.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/github/sdvic/Setup.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/github/sdvic/Main.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/github/sdvic/ExcelWriter.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/github/sdvic/ExcelReader.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/github/sdvic/CashFlowItemAggregator.java" />
-      </list>
-    </option>
-  </component>
-  <component name="MavenImportPreferences">
-    <option name="importingSettings">
-      <MavenImportingSettings>
-        <option name="importAutomatically" value="true" />
-      </MavenImportingSettings>
-    </option>
-  </component>
-  <component name="ProjectFrameBounds">
-    <option name="y" value="23" />
-    <option name="width" value="1273" />
-    <option name="height" value="976" />
-  </component>
+  <component name="ProjectId" id="1dotrKejIyrNUrZlSGfAozJbDtk" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
-  <component name="ProjectView">
-    <navigator proportions="" version="1">
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="GoToClass.includeLibraries" value="false" />
@@ -148,44 +86,42 @@
     <property name="MemberChooser.showClasses" value="true" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554087224233" />
+    <property name="extract.method.default.visibility" value="private" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
     <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="project.structure.last.edited" value="SDKs" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="configurable.group.language" />
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
   </component>
   <component name="RunManager">
-    <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
-      <Host>localhost</Host>
-      <Port>5050</Port>
-    </configuration>
     <configuration default="true" type="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
+      <Host>localhost</Host>
+      <Port>5050</Port>
+    </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="14" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="com.github.sdvic.Main" />
-      <module name="myFirstBot" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <module name="CashFlowBuilder" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.github.sdvic.*" />
@@ -249,6 +185,14 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1553400620609</updated>
+      <workItem from="1593103486033" duration="10605000" />
+      <workItem from="1593125988590" duration="2421000" />
+      <workItem from="1593135954721" duration="709000" />
+      <workItem from="1593211696460" duration="1525000" />
+      <workItem from="1593214909072" duration="1365000" />
+      <workItem from="1593276844352" duration="10328000" />
+      <workItem from="1593306642712" duration="4150000" />
+      <workItem from="1593367917979" duration="916000" />
     </task>
     <task id="LOCAL-00001" summary="My first attempt of a cash flow generator for Sarah to extract date from QuickBooks Online.">
       <created>1553488104256</created>
@@ -372,57 +316,8 @@
     <option name="localTasksCounter" value="18" />
     <servers />
   </component>
-  <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1273" height="976" extended-state="0" />
-    <editor active="true" />
-    <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.19186786" />
-      <window_info id="Structure" order="1" side_tool="true" />
-      <window_info id="Image Layers" order="2" />
-      <window_info id="Designer" order="3" />
-      <window_info id="UI Designer" order="4" />
-      <window_info id="Capture Tool" order="5" />
-      <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Run" order="0" visible="true" weight="0.28339142" />
-      <window_info anchor="bottom" id="TODO" order="1" />
-      <window_info anchor="bottom" id="Debug" order="2" />
-      <window_info anchor="bottom" id="Terminal" order="3" weight="0.3294753" />
-      <window_info anchor="bottom" id="Event Log" order="4" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="5" />
-      <window_info anchor="bottom" id="Messages" order="6" weight="0.32752612" />
-      <window_info anchor="bottom" id="Find" order="7" weight="0.329849" />
-      <window_info anchor="right" id="Palette" order="0" />
-      <window_info anchor="right" id="Capture Analysis" order="1" />
-      <window_info anchor="right" id="Ant Build" order="2" />
-      <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info anchor="right" id="Palette&#9;" order="4" />
-      <window_info anchor="right" id="Maven" order="5" />
-      <window_info active="true" anchor="right" id="Coverage" order="6" side_tool="true" visible="true" weight="0.33918595" />
-    </layout>
-    <layout-to-restore>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.19186786" />
-      <window_info id="Structure" order="1" side_tool="true" />
-      <window_info id="Image Layers" order="2" />
-      <window_info id="Designer" order="3" />
-      <window_info id="UI Designer" order="4" />
-      <window_info id="Capture Tool" order="5" />
-      <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Run" order="0" visible="true" weight="0.28339142" />
-      <window_info anchor="bottom" id="TODO" order="1" />
-      <window_info anchor="bottom" id="Debug" order="2" />
-      <window_info anchor="bottom" id="Terminal" order="3" weight="0.3294753" />
-      <window_info anchor="bottom" id="Event Log" order="4" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="5" />
-      <window_info anchor="bottom" id="Messages" order="6" weight="0.32752612" />
-      <window_info anchor="bottom" id="Find" order="7" weight="0.329849" />
-      <window_info anchor="right" id="Palette" order="0" />
-      <window_info anchor="right" id="Capture Analysis" order="1" />
-      <window_info anchor="right" id="Ant Build" order="2" />
-      <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info anchor="right" id="Palette&#9;" order="4" />
-      <window_info anchor="right" id="Maven" order="5" />
-      <window_info active="true" anchor="right" id="Coverage" order="6" side_tool="true" visible="true" weight="0.33918595" />
-    </layout-to-restore>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="My first attempt of a cash flow generator for Sarah to extract date from QuickBooks Online." />
@@ -446,153 +341,59 @@
     <MESSAGE value="version 190507...Added void check for PandL entries" />
     <option name="LAST_COMMIT_MESSAGE" value="version 190507...Added void check for PandL entries" />
   </component>
-  <component name="editorHistoryManager">
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk-10.0.2.jdk/Contents/Home/lib/src.zip!/java.base/java/util/Iterator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="65" column="12" selection-start-line="65" selection-start-column="12" selection-end-line="65" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="45" lean-forward="true" selection-start-line="24" selection-start-column="45" selection-end-line="24" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../PandLextractor/src/PandLextractor.java">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/github/sdvic/ExtractPandLinfoForProjections.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/github/sdvic/EscelFileReader.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/github/sdvic/Setup.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/github/sdvic/ExcelWriter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="75" selection-start-line="5" selection-start-column="75" selection-end-line="5" selection-end-column="75" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/github/sdvic/ExcelReader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" selection-start-line="11" selection-end-line="11" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/github/sdvic/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20">
-          <caret line="5" column="94" selection-start-line="5" selection-start-column="94" selection-end-line="5" selection-end-column="94" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#691#692#0" expanded="true" />
-            <element signature="e#745#746#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/github/sdvic/CashFlowItemAggregator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="43">
-          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-  </component>
-  <component name="masterDetails">
-    <states>
-      <state key="ArtifactsStructureConfigurable.UI">
-        <settings>
-          <artifact-editor />
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="FacetStructureConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="GlobalLibrariesConfigurable.UI">
-        <settings>
-          <last-edited>java</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="JdkListConfigurable.UI">
-        <settings>
-          <last-edited>10</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ModuleStructureConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectJDKs.UI">
-        <settings>
-          <last-edited>IntelliJ IDEA Community Edition IC-173.4127.27</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectLibrariesConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
+  <component name="WindowStateProjectService">
+    <state x="506" y="115" key="#Main" timestamp="1593103511929">
+      <screen x="0" y="23" width="2560" height="982" />
+    </state>
+    <state x="506" y="115" key="#Main/0.23.2560.982@0.23.2560.982" timestamp="1593103511929" />
+    <state x="318" y="94" key="#Project_Structure" timestamp="1593103535140">
+      <screen x="0" y="23" width="2560" height="982" />
+    </state>
+    <state x="318" y="94" key="#Project_Structure/0.23.2560.982@0.23.2560.982" timestamp="1593103535140" />
+    <state x="295" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1593103610069">
+      <screen x="0" y="23" width="2560" height="982" />
+    </state>
+    <state x="295" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.2560.982@0.23.2560.982" timestamp="1593103610069" />
+    <state x="921" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1593118940555">
+      <screen x="0" y="23" width="2560" height="982" />
+    </state>
+    <state x="921" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.23.2560.982@0.23.2560.982" timestamp="1593118940555" />
+    <state width="1617" height="223" key="GridCell.Tab.0.bottom" timestamp="1593368836881">
+      <screen x="0" y="23" width="2560" height="985" />
+    </state>
+    <state width="1619" height="223" key="GridCell.Tab.0.bottom/0.23.2560.982@0.23.2560.982" timestamp="1593122452030" />
+    <state width="1619" height="223" key="GridCell.Tab.0.bottom/0.23.2560.983@0.23.2560.983" timestamp="1593136664679" />
+    <state width="1617" height="223" key="GridCell.Tab.0.bottom/0.23.2560.985@0.23.2560.985" timestamp="1593368836880" />
+    <state width="2183" height="223" key="GridCell.Tab.0.bottom/0.23.2560.986@0.23.2560.986" timestamp="1593309454592" />
+    <state width="1617" height="223" key="GridCell.Tab.0.center" timestamp="1593368836880">
+      <screen x="0" y="23" width="2560" height="985" />
+    </state>
+    <state width="1619" height="223" key="GridCell.Tab.0.center/0.23.2560.982@0.23.2560.982" timestamp="1593122452030" />
+    <state width="1619" height="223" key="GridCell.Tab.0.center/0.23.2560.983@0.23.2560.983" timestamp="1593136664678" />
+    <state width="1617" height="223" key="GridCell.Tab.0.center/0.23.2560.985@0.23.2560.985" timestamp="1593368836880" />
+    <state width="2183" height="223" key="GridCell.Tab.0.center/0.23.2560.986@0.23.2560.986" timestamp="1593309454591" />
+    <state width="1617" height="223" key="GridCell.Tab.0.left" timestamp="1593368836880">
+      <screen x="0" y="23" width="2560" height="985" />
+    </state>
+    <state width="1619" height="223" key="GridCell.Tab.0.left/0.23.2560.982@0.23.2560.982" timestamp="1593122452030" />
+    <state width="1619" height="223" key="GridCell.Tab.0.left/0.23.2560.983@0.23.2560.983" timestamp="1593136664678" />
+    <state width="1617" height="223" key="GridCell.Tab.0.left/0.23.2560.985@0.23.2560.985" timestamp="1593368836880" />
+    <state width="2183" height="223" key="GridCell.Tab.0.left/0.23.2560.986@0.23.2560.986" timestamp="1593309454590" />
+    <state width="1617" height="223" key="GridCell.Tab.0.right" timestamp="1593368836880">
+      <screen x="0" y="23" width="2560" height="985" />
+    </state>
+    <state width="1619" height="223" key="GridCell.Tab.0.right/0.23.2560.982@0.23.2560.982" timestamp="1593122452030" />
+    <state width="1619" height="223" key="GridCell.Tab.0.right/0.23.2560.983@0.23.2560.983" timestamp="1593136664678" />
+    <state width="1617" height="223" key="GridCell.Tab.0.right/0.23.2560.985@0.23.2560.985" timestamp="1593368836880" />
+    <state width="2183" height="223" key="GridCell.Tab.0.right/0.23.2560.986@0.23.2560.986" timestamp="1593309454591" />
+    <state x="845" y="152" width="1324" height="722" key="SettingsEditor" timestamp="1593368817518">
+      <screen x="0" y="23" width="2560" height="985" />
+    </state>
+    <state x="845" y="152" width="1324" height="722" key="SettingsEditor/0.23.2560.982@0.23.2560.982" timestamp="1593107545663" />
+    <state x="845" y="152" key="SettingsEditor/0.23.2560.985@0.23.2560.985" timestamp="1593368817518" />
+    <state x="973" y="273" key="extract.method.dialog" timestamp="1593307539822">
+      <screen x="0" y="23" width="2560" height="985" />
+    </state>
+    <state x="973" y="273" key="extract.method.dialog/0.23.2560.985@0.23.2560.985" timestamp="1593307539822" />
   </component>
 </project>

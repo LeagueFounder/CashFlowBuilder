@@ -17,6 +17,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="myFirstBot" />
+        <module name="CashFlowBuilder" />
       </profile>
     </annotationProcessing>
   </component>

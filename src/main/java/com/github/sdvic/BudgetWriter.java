@@ -9,28 +9,26 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.File;
 import java.io.FileOutputStream;
 
-public class ExcelWriter
+public class BudgetWriter
 {
-    public FileOutputStream fileStreamOut;
-    public Workbook sarah5yearLocalWorkbook;
-    public File fiveYearPlanFile;
+    public Workbook budgetWorkbook;
+    public FileOutputStream budgetFOS;
 
-    public ExcelWriter(Workbook sarah5yearLocalWorkbook, File fiveYearPlanFile)
+    public BudgetWriter(Workbook budgetWorkbook, FileOutputStream budgetFOS)
     {
-        this.sarah5yearLocalWorkbook = sarah5yearLocalWorkbook;
-        this.fiveYearPlanFile = fiveYearPlanFile;
+        this.budgetWorkbook = budgetWorkbook;
+        this.budgetFOS = budgetFOS;
     }
-    public void write5YearPlan()
+    public void writeBudget()
     {
         try
         {
-            fileStreamOut = new FileOutputStream(fiveYearPlanFile);
-            sarah5yearLocalWorkbook.write(fileStreamOut);
-            fileStreamOut.close();
+            budgetWorkbook.write(budgetFOS);
+            budgetFOS.close();
         }
         catch (Exception e)
         {
-            System.out.println("Problem writing 5 year plan");
+            System.out.println("League budget write problems " + e);
         }
     }
 }
