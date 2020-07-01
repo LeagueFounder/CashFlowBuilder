@@ -17,9 +17,9 @@ import static org.apache.poi.ss.usermodel.WorkbookFactory.create;
 
 public class Main implements Runnable
 {
-    private final String version = "version 200627B";
+    private final String version = "version 200630.R";
     private final File pandlFile = new File("/Users/VicMini/Desktop/The+League+of+Amazing+Programmers_Profit+and+Loss.xlsx");
-    private final File budgetFile = new File("/Users/VicMini/Desktop/LeagueBudget2020.xlsx");
+    private final File budgetFile = new File("/Users/VicMini/Desktop/MasterBudget.xlsx");
     private FileInputStream pandlFIS;
     private FileInputStream budgetFIS;
     private FileOutputStream budgetFOS;
@@ -45,9 +45,9 @@ public class Main implements Runnable
         {
             pandlFIS = new FileInputStream(pandlFile);
             budgetFIS = new FileInputStream(budgetFile);
-            budgetFOS = new FileOutputStream(budgetFile);
+            //budgetFOS = new FileOutputStream(budgetFile);
             pandlWorkbook = new XSSFWorkbook(pandlFIS);
-            budgetWorkBook = new XSSFWorkbook(pandlFIS);
+            budgetWorkBook = new XSSFWorkbook(budgetFIS);
         }
         catch (FileNotFoundException e)
         {
@@ -59,7 +59,5 @@ public class Main implements Runnable
         }
         excelReader = new ExcelReader(pandlWorkbook, budgetWorkBook, version);
         //budgetWriter = new BudgetWriter(budgetWorkBook, budgetFOS);
-        System.out.println(budgetWorkBook.getSheetAt(0));
-
     }
 }
