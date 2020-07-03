@@ -22,6 +22,7 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/sdvic/CashItemAggregator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/sdvic/CashItemAggregator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/sdvic/ExcelReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/sdvic/ExcelReader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/sdvic/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/sdvic/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/sdvic/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/sdvic/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../_mac/git.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../_mac/laf.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../_mac/path.macros.xml" beforeDir="false" />
@@ -194,7 +195,12 @@
       <workItem from="1593543434334" duration="1408000" />
       <workItem from="1593550550685" duration="4989000" />
       <workItem from="1593562438237" duration="281000" />
-      <workItem from="1593567129706" duration="7144000" />
+      <workItem from="1593567129706" duration="7429000" />
+      <workItem from="1593613625214" duration="2512000" />
+      <workItem from="1593637094653" duration="9780000" />
+      <workItem from="1593713282552" duration="8892000" />
+      <workItem from="1593745968530" duration="2129000" />
+      <workItem from="1593750939478" duration="566000" />
     </task>
     <task id="LOCAL-00001" summary="My first attempt of a cash flow generator for Sarah to extract date from QuickBooks Online.">
       <created>1553488104256</created>
@@ -322,7 +328,14 @@
       <option name="project" value="LOCAL" />
       <updated>1593562562833</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="version 200630S...finding budget cell month/item">
+      <created>1593576134753</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1593576134753</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -349,7 +362,8 @@
     <MESSAGE value="version 190506...clean up...computing/writing all cash flow chart entries OK" />
     <MESSAGE value="version 190507...Added void check for PandL entries" />
     <MESSAGE value="version 200630R...Reading both P&amp;L and Budget" />
-    <option name="LAST_COMMIT_MESSAGE" value="version 200630R...Reading both P&amp;L and Budget" />
+    <MESSAGE value="version 200630S...finding budget cell month/item" />
+    <option name="LAST_COMMIT_MESSAGE" value="version 200630S...finding budget cell month/item" />
   </component>
   <component name="WindowStateProjectService">
     <state x="506" y="115" key="#Main" timestamp="1593103511929">
@@ -364,45 +378,50 @@
       <screen x="0" y="23" width="2560" height="982" />
     </state>
     <state x="295" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.2560.982@0.23.2560.982" timestamp="1593103610069" />
+    <state x="812" y="244" key="#com.intellij.refactoring.encapsulateFields.EncalpsulateFieldsDialog" timestamp="1593640457463">
+      <screen x="0" y="23" width="2560" height="985" />
+    </state>
+    <state x="812" y="244" key="#com.intellij.refactoring.encapsulateFields.EncalpsulateFieldsDialog/0.23.2560.985@0.23.2560.985" timestamp="1593640457463" />
     <state x="921" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1593118940555">
       <screen x="0" y="23" width="2560" height="982" />
     </state>
     <state x="921" y="23" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.23.2560.982@0.23.2560.982" timestamp="1593118940555" />
-    <state x="667" y="110" key="CommitChangelistDialog2" timestamp="1593562562511">
-      <screen x="0" y="23" width="2560" height="983" />
+    <state x="667" y="110" key="CommitChangelistDialog2" timestamp="1593576134335">
+      <screen x="0" y="23" width="2560" height="985" />
     </state>
     <state x="667" y="110" key="CommitChangelistDialog2/0.23.2560.983@0.23.2560.983" timestamp="1593562562511" />
-    <state width="1984" height="328" key="GridCell.Tab.0.bottom" timestamp="1593575612799">
+    <state x="667" y="110" key="CommitChangelistDialog2/0.23.2560.985@0.23.2560.985" timestamp="1593576134335" />
+    <state width="1348" height="257" key="GridCell.Tab.0.bottom" timestamp="1593750774051">
       <screen x="0" y="23" width="2560" height="985" />
     </state>
     <state width="1619" height="223" key="GridCell.Tab.0.bottom/0.23.2560.982@0.23.2560.982" timestamp="1593122452030" />
     <state width="1984" height="459" key="GridCell.Tab.0.bottom/0.23.2560.983@0.23.2560.983" timestamp="1593562426086" />
-    <state width="1984" height="328" key="GridCell.Tab.0.bottom/0.23.2560.985@0.23.2560.985" timestamp="1593575612799" />
-    <state width="1617" height="223" key="GridCell.Tab.0.bottom/0.23.2560.986@0.23.2560.986" timestamp="1593492731171" />
+    <state width="1348" height="257" key="GridCell.Tab.0.bottom/0.23.2560.985@0.23.2560.985" timestamp="1593750774051" />
+    <state width="1348" height="257" key="GridCell.Tab.0.bottom/0.23.2560.986@0.23.2560.986" timestamp="1593746571475" />
     <state width="1617" height="223" key="GridCell.Tab.0.bottom/0.23.2560.987@0.23.2560.987" timestamp="1593471212121" />
-    <state width="1984" height="328" key="GridCell.Tab.0.center" timestamp="1593575612799">
+    <state width="1348" height="257" key="GridCell.Tab.0.center" timestamp="1593750774050">
       <screen x="0" y="23" width="2560" height="985" />
     </state>
     <state width="1619" height="223" key="GridCell.Tab.0.center/0.23.2560.982@0.23.2560.982" timestamp="1593122452030" />
     <state width="1984" height="459" key="GridCell.Tab.0.center/0.23.2560.983@0.23.2560.983" timestamp="1593562426086" />
-    <state width="1984" height="328" key="GridCell.Tab.0.center/0.23.2560.985@0.23.2560.985" timestamp="1593575612799" />
-    <state width="1617" height="223" key="GridCell.Tab.0.center/0.23.2560.986@0.23.2560.986" timestamp="1593492731170" />
+    <state width="1348" height="257" key="GridCell.Tab.0.center/0.23.2560.985@0.23.2560.985" timestamp="1593750774050" />
+    <state width="1348" height="257" key="GridCell.Tab.0.center/0.23.2560.986@0.23.2560.986" timestamp="1593746571474" />
     <state width="1617" height="223" key="GridCell.Tab.0.center/0.23.2560.987@0.23.2560.987" timestamp="1593471212119" />
-    <state width="1984" height="328" key="GridCell.Tab.0.left" timestamp="1593575612798">
+    <state width="1348" height="257" key="GridCell.Tab.0.left" timestamp="1593750774050">
       <screen x="0" y="23" width="2560" height="985" />
     </state>
     <state width="1619" height="223" key="GridCell.Tab.0.left/0.23.2560.982@0.23.2560.982" timestamp="1593122452030" />
     <state width="1984" height="459" key="GridCell.Tab.0.left/0.23.2560.983@0.23.2560.983" timestamp="1593562426086" />
-    <state width="1984" height="328" key="GridCell.Tab.0.left/0.23.2560.985@0.23.2560.985" timestamp="1593575612798" />
-    <state width="1617" height="223" key="GridCell.Tab.0.left/0.23.2560.986@0.23.2560.986" timestamp="1593492731169" />
+    <state width="1348" height="257" key="GridCell.Tab.0.left/0.23.2560.985@0.23.2560.985" timestamp="1593750774050" />
+    <state width="1348" height="257" key="GridCell.Tab.0.left/0.23.2560.986@0.23.2560.986" timestamp="1593746571473" />
     <state width="1617" height="223" key="GridCell.Tab.0.left/0.23.2560.987@0.23.2560.987" timestamp="1593471212118" />
-    <state width="1984" height="328" key="GridCell.Tab.0.right" timestamp="1593575612799">
+    <state width="1348" height="257" key="GridCell.Tab.0.right" timestamp="1593750774051">
       <screen x="0" y="23" width="2560" height="985" />
     </state>
     <state width="1619" height="223" key="GridCell.Tab.0.right/0.23.2560.982@0.23.2560.982" timestamp="1593122452030" />
     <state width="1984" height="459" key="GridCell.Tab.0.right/0.23.2560.983@0.23.2560.983" timestamp="1593562426086" />
-    <state width="1984" height="328" key="GridCell.Tab.0.right/0.23.2560.985@0.23.2560.985" timestamp="1593575612799" />
-    <state width="1617" height="223" key="GridCell.Tab.0.right/0.23.2560.986@0.23.2560.986" timestamp="1593492731170" />
+    <state width="1348" height="257" key="GridCell.Tab.0.right/0.23.2560.985@0.23.2560.985" timestamp="1593750774051" />
+    <state width="1348" height="257" key="GridCell.Tab.0.right/0.23.2560.986@0.23.2560.986" timestamp="1593746571475" />
     <state width="1617" height="223" key="GridCell.Tab.0.right/0.23.2560.987@0.23.2560.987" timestamp="1593471212120" />
     <state x="950" y="442" key="ReplaceDuplicatesPrompt" timestamp="1593453062516">
       <screen x="0" y="23" width="2560" height="985" />
@@ -413,10 +432,11 @@
     </state>
     <state x="845" y="152" width="1324" height="722" key="SettingsEditor/0.23.2560.982@0.23.2560.982" timestamp="1593107545663" />
     <state x="845" y="152" key="SettingsEditor/0.23.2560.985@0.23.2560.985" timestamp="1593368817518" />
-    <state x="668" y="256" key="Vcs.Push.Dialog.v2" timestamp="1593562578774">
-      <screen x="0" y="23" width="2560" height="983" />
+    <state x="668" y="256" key="Vcs.Push.Dialog.v2" timestamp="1593576150096">
+      <screen x="0" y="23" width="2560" height="985" />
     </state>
     <state x="668" y="256" key="Vcs.Push.Dialog.v2/0.23.2560.983@0.23.2560.983" timestamp="1593562578774" />
+    <state x="668" y="256" key="Vcs.Push.Dialog.v2/0.23.2560.985@0.23.2560.985" timestamp="1593576150096" />
     <state x="973" y="273" key="extract.method.dialog" timestamp="1593453042983">
       <screen x="0" y="23" width="2560" height="985" />
     </state>
