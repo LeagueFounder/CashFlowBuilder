@@ -12,7 +12,7 @@ import java.util.HashMap;
 
 public class Main implements Runnable
 {
-    private final String version = "version 200630.S";
+    private final String version = "version 200703D";
     private final File pandlFile = new File("/Users/VicMini/Desktop/The+League+of+Amazing+Programmers_Profit+and+Loss.xlsx");
     private final File budgetFile = new File("/Users/VicMini/Desktop/XXXVicBudget2020.xlsx");
     private FileInputStream pandlFIS;
@@ -76,11 +76,31 @@ public class Main implements Runnable
             System.out.println("!!!!!!!!!!! (6)budgetWorkBook error");
             e.printStackTrace();
         }
-        System.out.println("(6) created budgetWorkBook => " + budgetWorkBook);
-            //budgetFOS = new FileOutputStream(budgetFile);
+        System.out.println("(6)Created budgetWorkBook => " + budgetWorkBook);
+        try
+        {
+            budgetFOS = new FileOutputStream(budgetFile);
+        }
+        catch (Exception e)
+        {
+            System.out.println("!!!!!!!!!!! (7)budgetFOS error");
+            e.printStackTrace();
+        }
+        System.out.println("(7) created budgetFOS => " + budgetFOS);
         excelReader = new ExcelReader(pandlWorkbook, budgetWorkBook, version);
         pandlMap = excelReader.getPandLMap();
         aggregator = new CashItemAggregator(budgetWorkBook, pandlMap, targetMonth);
+        budgetWorkBook.getSheetAt(0).getRow(0).getCell(0).setCellValue(version);
+        try
+        {
+            budgetWorkBook.write(budgetFOS);
+        }
+        catch (IOException e)
+        {
+            System.out.println("!!!!!!!!!!! (8)Write budgetWorkBook error");
+            e.printStackTrace();
+        }
+        System.out.println("(8)wrote out to budget workbook");
 //        budgetWriter = new BudgetWriter(budgetWorkBook, budgetFOS);
     }
 }
