@@ -1,20 +1,26 @@
 package com.github.sdvic;
 /********************************************************************************************
- *  * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
- * version 200702A
+ * Application to extract Cash Flow data from Quick Books P&L and build Cash Projection
+ * version 200703F
  * copyright 2020 Vic Wintriss
  /*******************************************************************************************/
-import org.apache.poi.ss.usermodel.charts.ScatterChartData;
+
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import javax.swing.*;
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.HashMap;
 
 public class Main implements Runnable
 {
-    private final String version = "version 200703D";
+    private final String version = "200703F";
     private final File pandlFile = new File("/Users/VicMini/Desktop/The+League+of+Amazing+Programmers_Profit+and+Loss.xlsx");
-    private final File budgetFile = new File("/Users/VicMini/Desktop/XXXVicBudget2020.xlsx");
+    private final File budgetFile = new File("/Users/VicMini/Desktop/VicBudget2020.xlsx");
     private FileInputStream pandlFIS;
     private FileInputStream budgetFIS;
     private FileOutputStream budgetFOS;
@@ -25,6 +31,8 @@ public class Main implements Runnable
     private HashMap<String, Integer> pandlMap = new HashMap<>();
     private CashItemAggregator aggregator;
     private int targetMonth;
+    private LocalDateTime now;
+    Calendar cals;
 
     public static void main(String[] args)
     {
@@ -33,8 +41,9 @@ public class Main implements Runnable
 
     public void run()
     {
-        System.out.println(version);
-        targetMonth = Integer.parseInt(JOptionPane.showInputDialog("P and L input file month?  Only enter (int)month."));
+        cals = Calendar.getInstance();
+        targetMonth = Integer.parseInt(JOptionPane.showInputDialog("Please enter QuickBooks P and L input file (int)month."));
+        System.out.println("CashFlowBuilder version " + version + " is adding month " + targetMonth + " data from QuickBooks P&L file: " + pandlFile + " to Budget file: " + budgetFile + " at: ");
         System.out.println("(1)============ processing pandlFile => " + pandlFile + " reading month: " + targetMonth);
         System.out.println("(2)========= processing budgetFile => " + budgetFile);
         try
@@ -86,11 +95,11 @@ public class Main implements Runnable
             System.out.println("!!!!!!!!!!! (7)budgetFOS error");
             e.printStackTrace();
         }
-        System.out.println("(7) created budgetFOS => " + budgetFOS);
+        System.out.println("(7) created budgetFOS => " + budgetFOS + "\n");
         excelReader = new ExcelReader(pandlWorkbook, budgetWorkBook, version);
         pandlMap = excelReader.getPandLMap();
         aggregator = new CashItemAggregator(budgetWorkBook, pandlMap, targetMonth);
-        budgetWorkBook.getSheetAt(0).getRow(0).getCell(0).setCellValue(version);
+        budgetWorkBook.getSheetAt(0).getRow(0).getCell(0).setCellValue(String.valueOf(cals.getTime()));
         try
         {
             budgetWorkBook.write(budgetFOS);
@@ -100,7 +109,7 @@ public class Main implements Runnable
             System.out.println("!!!!!!!!!!! (8)Write budgetWorkBook error");
             e.printStackTrace();
         }
-        System.out.println("(8)wrote out to budget workbook");
+        System.out.println("\n(8)wrote out to budget workbook");
 //        budgetWriter = new BudgetWriter(budgetWorkBook, budgetFOS);
     }
 }
