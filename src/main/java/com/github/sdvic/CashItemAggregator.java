@@ -29,6 +29,10 @@ public class CashItemAggregator
     private int totalSalaries;
     private int payrollServiceFees;
     private int vicTotalSalaries;
+    private int contractServices;
+    private int facilitiesAndEquipment;
+    private int depreciation;
+    private int vicFacilities;
 
     public CashItemAggregator(XSSFWorkbook budgetWorkBook, HashMap<String, Integer> pandLmap, int targetMonth)
     {
@@ -63,19 +67,17 @@ public class CashItemAggregator
                     vicTotalSalaries = totalSalaries + payrollServiceFees;
                     budgetSheet.getRow(row.getRowNum()).getCell(targetMonth).setCellValue(vicTotalSalaries);
                     break;
-//                  case "      Total 47201 Tuition  Fees":
-//                        totalTuitionFees = pandLmap.get("      Total 47201 Tuition  Fees");
-//                        totalWorkshopFees = pandLmap.get("      Total 47202 Workshop Fees");
-//                        vicTuitionFees = totalTuitionFees + totalWorkshopFees;
-//                        budgetSheet.getRow(row.getRowNum()).getCell(targetMonth).setCellValue(vicTuitionFees);
-//                        break;
-//                    case "Facilities":
-//                        Cell facilitiesCell = fiveYearSheet.getRow(10).getCell(1);
-//                        facilitiesCell.setCellType(Cell.CELL_TYPE_NUMERIC);
-//                        int facilityExpense = pandLmap.get("   Total 62800 Facilities and Equipment");
-//                        facilitiesCell.setCellValue(facilityExpense);
-//                        System.out.println(fiveYearProjectionLabelCell.getStringCellValue() + " => " + facilityExpense);
-//                        break;
+                case "   Total 62100 Contract Services":
+                    contractServices = pandLmap.get("   Total 62100 Contract Services");
+                    budgetSheet.getRow(row.getRowNum()).getCell(targetMonth).setCellValue(contractServices);
+                    break;
+
+                case "   Total 62800 Facilities and Equipment":
+                    facilitiesAndEquipment = pandLmap.get("   Total 62800 Facilities and Equipment");
+                    depreciation = pandLmap.get("      62810 Depr and Amort - Allowable");
+                    vicFacilities = facilitiesAndEquipment - depreciation;
+                    budgetSheet.getRow(row.getRowNum()).getCell(targetMonth).setCellValue(vicFacilities);
+                    break;
 //                    case "All Other Expenses":
 //                        Cell otherExpenseCell = fiveYearSheet.getRow(11).getCell(2);
 //                        otherExpenseCell.setCellType(Cell.CELL_TYPE_NUMERIC);

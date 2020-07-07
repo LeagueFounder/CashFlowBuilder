@@ -1,7 +1,7 @@
 package com.github.sdvic;
 /********************************************************************************************
  * Application to extract Cash Flow data from Quick Books P&L and build Cash Projection
- * version 200706A
+ * version 200706B
  * copyright 2020 Vic Wintriss
  /*******************************************************************************************/
 
@@ -18,7 +18,7 @@ import java.util.HashMap;
 
 public class Main implements Runnable
 {
-    private final String version = "200706A";
+    private final String version = "200706B";
     private final File pandlFile = new File("/Users/VicMini/Desktop/The+League+of+Amazing+Programmers_Profit+and+Loss.xlsx");
     private final File budgetFile = new File("/Users/VicMini/Desktop/VicBudget2020.xlsx");
     private FileInputStream pandlFIS;
