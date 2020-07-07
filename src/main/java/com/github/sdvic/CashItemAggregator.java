@@ -23,6 +23,12 @@ public class CashItemAggregator
     private int pandlIndividualBusinessContributions;
     private int pandlGrants;
     private int vicDirectPublicSupport;
+    private int totalTuitionFees;
+    private int totalWorkshopFees;
+    private int vicTuitionFees;
+    private int totalSalaries;
+    private int payrollServiceFees;
+    private int vicTotalSalaries;
 
     public CashItemAggregator(XSSFWorkbook budgetWorkBook, HashMap<String, Integer> pandLmap, int targetMonth)
     {
@@ -44,46 +50,24 @@ public class CashItemAggregator
                     System.out.println("vic direct public support = " + vicDirectPublicSupport);
                     budgetSheet.getRow(row.getRowNum()).getCell(targetMonth).setCellValue(vicDirectPublicSupport);
                     System.out.println("changed dps = " + budgetSheet.getRow(row.getRowNum()).getCell(targetMonth));
-                    //accountItemCell.setCellValue(pandLmap.get("43450 Individ, Business Contributions"));
                     break;
-//                    case "Cash Contributions":
-//                        Cell cashContributionsCell = fiveYearSheet.getRow(3).getCell(1);
-//                        cashContributionsCell.setCellType(Cell.CELL_TYPE_NUMERIC);
-//                        int cashContributions = 0;
-//                        if (pandLmap.get("      43450 Individ, Business Contributions") != null)
-//                        {
-//                            cashContributions = pandLmap.get("      43450 Individ, Business Contributions");
-//                        }
-//                        cashContributionsCell.setCellValue(cashContributions);
-//                        System.out.println(fiveYearProjectionLabelCell.getStringCellValue() + " => " + cashContributions);
-//                        break;
-//                    case "Cash Tuition ":
-//                        Cell cashTuitionCell = fiveYearSheet.getRow(5).getCell(1);
-//                        cashTuitionCell.setCellType(Cell.CELL_TYPE_NUMERIC);
-//                        int cashTuition = 0;
-//                        int workshopFees = 0;
-//                        int totalTuition = 0;
-//                        if (pandLmap.get("      Total 47201 Tuition  Fees") != null)
-//                        {
-//                            cashTuition = pandLmap.get("      Total 47201 Tuition  Fees");
-//                        }
-//                        if (pandLmap.get("      Total 47202 Workshop Fees") != null)
-//                        {
-//                            workshopFees = pandLmap.get("      Total 47202 Workshop Fees");
-//                        }
-//                        totalTuition = cashTuition + workshopFees;
-//                        cashTuitionCell.setCellValue((int) (totalTuition));
-//                        System.out.println(fiveYearProjectionLabelCell.getStringCellValue() + " => " + totalTuition);
-//                        break;
-//                    case "Payroll":
-//                        Cell payrollCell = fiveYearSheet.getRow(9).getCell(1);
-//                        payrollCell.setCellType(Cell.CELL_TYPE_NUMERIC);
-//                        int payrollExpense = pandLmap.get("   Total 62000 Salaries & Related Expenses");
-//                        int payrollFees = pandLmap.get("   62145 Payroll Service Fees");
-//                        int contributedServices = pandLmap.get("      62010 Salaries contributed services");
-//                        int payroll = payrollExpense + payrollFees - contributedServices;
-//                        payrollCell.setCellValue(payroll);
-//                        System.out.println(fiveYearProjectionLabelCell.getStringCellValue() + " => " + payroll);
+                    case "      Total 47201 Tuition  Fees":
+                        totalTuitionFees = pandLmap.get("      Total 47201 Tuition  Fees");
+                        totalWorkshopFees = pandLmap.get("      Total 47202 Workshop Fees");
+                        vicTuitionFees = totalTuitionFees + totalWorkshopFees;
+                        budgetSheet.getRow(row.getRowNum()).getCell(targetMonth).setCellValue(vicTuitionFees);
+                        break;
+                case "   Total 62000 Salaries & Related Expenses":
+                    totalSalaries = pandLmap.get("   Total 62000 Salaries & Related Expenses");
+                    payrollServiceFees = pandLmap.get("   62145 Payroll Service Fees");
+                    vicTotalSalaries = totalSalaries + payrollServiceFees;
+                    budgetSheet.getRow(row.getRowNum()).getCell(targetMonth).setCellValue(vicTotalSalaries);
+                    break;
+//                  case "      Total 47201 Tuition  Fees":
+//                        totalTuitionFees = pandLmap.get("      Total 47201 Tuition  Fees");
+//                        totalWorkshopFees = pandLmap.get("      Total 47202 Workshop Fees");
+//                        vicTuitionFees = totalTuitionFees + totalWorkshopFees;
+//                        budgetSheet.getRow(row.getRowNum()).getCell(targetMonth).setCellValue(vicTuitionFees);
 //                        break;
 //                    case "Facilities":
 //                        Cell facilitiesCell = fiveYearSheet.getRow(10).getCell(1);
