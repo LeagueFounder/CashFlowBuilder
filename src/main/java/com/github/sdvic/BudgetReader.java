@@ -16,10 +16,8 @@ import java.io.IOException;
 public class BudgetReader
 {
     private final File budgetInputFile = new File("/Users/VicMini/Desktop/VicBudget2020.xlsx");
-    private XSSFWorkbook budgetWorkBook;
-    private XSSFCell row;
-    private XSSFCell cell;
     private  FileInputStream budgetInputFIS;
+    private XSSFWorkbook budgetWorkBook;
     public void readBudget()
     {
         try

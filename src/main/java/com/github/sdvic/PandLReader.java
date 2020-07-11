@@ -12,7 +12,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.*;
 import java.util.HashMap;
 
-public class PandLtoHashMapReader
+public class PandLReader
 {
     private File pandInputlFile = new File("/Users/VicMini/Desktop/The+League+of+Amazing+Programmers_Profit+and+Loss.xlsx");
     private FileInputStream pandlInputFIS;
@@ -43,7 +43,6 @@ public class PandLtoHashMapReader
             System.out.println("IOException in readPandLtoHashMap()");
             e.printStackTrace();
         }
-        System.out.println("Successfully created: new FileInputStream(pandInputlFile) &  new XSSFWorkbook(pandlInputFIS)");
         pandlSheet = pandlWorkBook.getSheetAt(0);
         for (Row row : pandlSheet)//Bring full chart of accounts from Excel (QuickBooks) P&L into HashMap chartOfAcocounts
         {
@@ -62,7 +61,7 @@ public class PandLtoHashMapReader
                             cellValue = (int) cell.getNumericCellValue();
                             break;
                         case XSSFCell.CELL_TYPE_STRING://Type 1
-                            cellKey = cell.getStringCellValue();
+                            cellKey = cell.getStringCellValue().trim();
                             break;
                         default:
                             System.out.println("switch error");

@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class BudgetWriter
 {
-    private File budgetOutputFile = new File("/Users/VicMini/Desktop/VicBudget2020Mod.xlsx");
+    private File budgetOutputFile = new File("/Users/VicMini/Desktop/VicBudget2020.xlsx");
     private FileOutputStream budgetOutputFOS;
     private XSSFWorkbook budgetWorkbook;
     public void writeBudget(XSSFWorkbook budgetWorkbook)

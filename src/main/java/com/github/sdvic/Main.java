@@ -1,7 +1,7 @@
 package com.github.sdvic;
 /******************************************************************************************
  * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
- * version 200709
+ * version 200709A
  * copyright 2020 Vic Wintriss
  ******************************************************************************************/
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -9,23 +9,19 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import javax.swing.*;
 import java.io.FileOutputStream;
-import java.time.LocalDateTime;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 
 public class Main implements Runnable
 {
-    private final String version = "200708A";
+    private final String version = "200709A";
     private FileOutputStream budgetOutputFOS;
     private XSSFWorkbook pandlWorkbook;
     private XSSFSheet budgetSheet;
-    public PandLtoHashMapReader pandLtoHashMapReader = new PandLtoHashMapReader();
+    public PandLReader pandLtoHashMapReader = new PandLReader();
     public BudgetWriter budgetWriter = new BudgetWriter();
     private HashMap<String, Integer> pandlHashMap = new HashMap<>();
     private CashItemAggregator aggregator = new CashItemAggregator();
     private int targetMonth;
-
     private BudgetReader budgetReader = new BudgetReader();
 
     public static void main(String[] args)
