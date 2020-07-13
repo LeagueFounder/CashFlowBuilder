@@ -1,7 +1,7 @@
 package com.github.sdvic;
 /******************************************************************************************
  * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
- * version 200709A
+ * version 200712
  * copyright 2020 Vic Wintriss
  ******************************************************************************************/
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -10,10 +10,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import javax.swing.*;
 import java.io.FileOutputStream;
 import java.util.HashMap;
-
 public class Main implements Runnable
 {
-    private final String version = "200709A";
+    private final String version = "200712";
     private FileOutputStream budgetOutputFOS;
     private XSSFWorkbook pandlWorkbook;
     private XSSFSheet budgetSheet;
@@ -28,7 +27,6 @@ public class Main implements Runnable
     {
         SwingUtilities.invokeLater(new Main());
     }
-
     public void run()
     {
         targetMonth = Integer.parseInt(JOptionPane.showInputDialog("Please enter QuickBooks P and L input file (int)month."));
