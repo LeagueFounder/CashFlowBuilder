@@ -1,7 +1,7 @@
 package com.github.sdvic;
 /******************************************************************************************
  * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
- * version 200712
+ * version 200713
  * copyright 2020 Vic Wintriss
  ******************************************************************************************/
 import org.apache.poi.ss.usermodel.*;
@@ -31,14 +31,9 @@ public class PandLReader
             pandlWorkBook = new XSSFWorkbook(pandlInputFIS);
             pandlInputFIS.close();
         }
-        catch (FileNotFoundException e)
+        catch (Exception e)
         {
             System.out.println("FileNotFoundException in readPandLtoHashMap()");
-            e.printStackTrace();
-        }
-        catch (IOException e)
-        {
-            System.out.println("IOException in readPandLtoHashMap()");
             e.printStackTrace();
         }
         pandlSheet = pandlWorkBook.getSheetAt(0);
@@ -72,5 +67,9 @@ public class PandLReader
     public HashMap<String, Integer> getPandlHashMap()
     {
         return pandlHashMap;
+    }
+    public int get43410CorporateContrbutions()
+    {
+        return pandlHashMap.get("43455 Grants");
     }
 }
