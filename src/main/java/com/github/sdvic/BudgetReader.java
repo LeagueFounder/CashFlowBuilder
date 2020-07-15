@@ -1,7 +1,7 @@
 package com.github.sdvic;
 /******************************************************************************************
  * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
- * version 200713
+ * version 200714
  * copyright 2020 Vic Wintriss
  ******************************************************************************************/
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -47,11 +47,12 @@ public class BudgetReader
         }
         cals = Calendar.getInstance();
         now = cals.getTime();
-        CellStyle headerCellStyle = budgetWorkBook.getSheetAt(0).getWorkbook().createCellStyle();
-        headerCellStyle.setFillForegroundColor(IndexedColors.GREY_50_PERCENT.index);
-        budgetWorkBook.getSheetAt(0).getRow(0).getCell(0).setCellStyle(headerCellStyle);
+        //CellStyle headerCellStyle = budgetWorkBook.getSheetAt(0).getWorkbook().createCellStyle();
+        //headerCellStyle.setFillForegroundColor(IndexedColors.GREY_50_PERCENT.index);
+        //budgetWorkBook.getSheetAt(0).getRow(0).getCell(0).setCellStyle(headerCellStyle);
         budgetWorkBook.getSheetAt(0).getRow(0).getCell(0).setCellValue("Budget Run Date: " + now);
-        //budgetSheet.forEach(row -> System.out.println( row.getCell(6) ));
+        System.out.println("Budget Read Complete in BudgetReader, sheet name => " + budgetWorkBook.getSheetAt(0).getSheetName());
+        System.out.println("\n\n");
         //cell.setCellStyle(backgroundStyle);
     }
 
