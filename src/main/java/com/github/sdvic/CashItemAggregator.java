@@ -1,7 +1,7 @@
 package com.github.sdvic;
 /******************************************************************************************
  * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
- * version 200714
+ * version 200716
  * copyright 2020 Vic Wintriss
  ******************************************************************************************/
 
@@ -9,6 +9,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import java.util.HashMap;
 
 public class CashItemAggregator
@@ -39,7 +40,7 @@ public class CashItemAggregator
     private int vicTotalIncome;
     private int vicTotalExpenses;
     private int plContractServices;
-    private int netIncome;
+    private int vicNetIncome;
     private Cell currentBudgetCell;
     private Cell varianceCell;
     private int vicContractServices;
@@ -57,6 +58,10 @@ public class CashItemAggregator
     private int budgetOperationsValue;
     private int operationsVarience;
     private double budgetFacilities;
+    private double payingStudents;
+    private double payingStudentsBudget;
+    private int payingStudentsDerived;
+    private double payingStudentsVariation;
 
     public void aggregateBudget(XSSFWorkbook budgetWorkbook, HashMap<String, Integer> pandLmap, int targetMonth)
     {
@@ -75,7 +80,6 @@ public class CashItemAggregator
             {
                 case "Total 43400 Direct Public Support":
                     pandlCorporateContributions = pandLmap.get("Total 43400 Direct Public Support");
-                    System.out.println(pandlCorporateContributions + "pandl corporate contributions 43400 8888888888888888888888888");
                     pandlIndividualBusinessContributions = pandLmap.get("43450 Individ, Business Contributions");
                     pandlGrants = pandLmap.get("43455 Grants");
                     contributedServices = pandLmap.get("43460 Contributed Services");
@@ -150,13 +154,30 @@ public class CashItemAggregator
                     varianceCell = currentBudgetRow.getCell(varianceColumnIndex);
                     pandlTotalExpenses = pandLmap.get("Total Expenses");
                     vicTotalExpenses = vicTotalSalaries + vicContractServices + vicFacilities + vicOperations;
-                    varianceCell.setCellValue(pandlTotalExpenses - vicTotalExpenses);
+                    System.out.printf("%-40s %-20d %-20d %-20f %n", "Total Expenses", (int)currentBudgetCell.getNumericCellValue(), pandlTotalExpenses, pandlTotalExpenses - currentBudgetCell.getNumericCellValue());
                     currentBudgetCell.setCellValue(pandlTotalExpenses);
+                    varianceCell.setCellValue(pandlTotalExpenses - vicTotalExpenses);
                     break;
-                case "Net Income":
-                    netIncome = vicTotalIncome - pandlTotalExpenses;
-                    varianceCell.setCellValue(netIncome - currentBudgetCell.getNumericCellValue());
-                    currentBudgetCell.setCellValue(netIncome);
+                case "Net Cash Income":
+                    vicNetIncome = vicTotalIncome - pandlTotalExpenses;
+                    System.out.printf("%-40s %-20d %-20d %-20f %n", "Net Cash Income", (int)currentBudgetCell.getNumericCellValue(), pandlTotalExpenses, pandlTotalExpenses - currentBudgetCell.getNumericCellValue());
+                    currentBudgetCell.setCellValue(vicNetIncome);
+                    varianceCell.setCellValue(vicNetIncome - currentBudgetCell.getNumericCellValue());
+                    break;
+                case "Paying Students (Budget)":
+                    payingStudentsBudget = currentBudgetCell.getNumericCellValue();
+                    currentBudgetCell.setCellValue(payingStudentsBudget);
+                    System.out.printf("%-40s %-20d %n", "Paying Students (Budget)", (int)currentBudgetCell.getNumericCellValue());
+                    break;
+                case "Paying Students (Derived)":
+                    payingStudentsDerived = totalTuitionFees/240;
+                    currentBudgetCell.setCellValue(payingStudentsDerived);
+                    System.out.printf("%-40s %-20d %n", "Paying Students (Derived)", (int)currentBudgetCell.getNumericCellValue());
+                    break;
+                case "Paying Students VARIATION":
+                    payingStudentsVariation = payingStudentsDerived - payingStudentsBudget;
+                    currentBudgetCell.setCellValue(payingStudentsVariation);
+                    System.out.printf("%-40s %-20d %n", "Paying Students VARIATION", (int)currentBudgetCell.getNumericCellValue());
                     break;
                 default:
             }
