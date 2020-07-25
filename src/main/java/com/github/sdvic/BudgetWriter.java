@@ -1,7 +1,7 @@
 package com.github.sdvic;
 /******************************************************************************************
  * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
- * version 200717
+ * version 200725
  * copyright 2020 Vic Wintriss
  ******************************************************************************************/
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -14,16 +14,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 public class BudgetWriter
 {
-    private File budgetOutputFile = new File("/Users/VicMini/Desktop/SarahColorCodedMasterBudget2020.xlsx");
+    private File updated2020MasterBudgetOutputFile = new File("/Users/VicMini/Desktop/Updated2020MasterBudgetOutputFile.xlsx");
     private FileOutputStream budgetOutputFOS;
     private XSSFWorkbook budgetWorkbook;
     public void writeBudget(XSSFWorkbook budgetWorkbook)
     {
         this.budgetWorkbook = budgetWorkbook;
-
         try
         {
-            budgetOutputFOS = new FileOutputStream(budgetOutputFile);
+            budgetOutputFOS = new FileOutputStream(updated2020MasterBudgetOutputFile);
             budgetWorkbook.write(budgetOutputFOS);
             budgetOutputFOS.close();
         }
@@ -31,5 +30,6 @@ public class BudgetWriter
         {
             e.printStackTrace();
         }
+        System.out.println("Finished writing budget workbook to File: " + updated2020MasterBudgetOutputFile);
     }
 }
