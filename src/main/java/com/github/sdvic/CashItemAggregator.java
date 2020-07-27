@@ -1,18 +1,20 @@
 package com.github.sdvic;
 /******************************************************************************************
  * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
- * version 200725
+ * version 200726
  * copyright 2020 Vic Wintriss
  ******************************************************************************************/
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.xssf.usermodel.*;
 
 import java.time.LocalDate;
 import java.util.HashMap;
 
+import static java.lang.Integer.parseInt;
 import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_NUMERIC;
 
 public class CashItemAggregator
@@ -74,6 +76,9 @@ public class CashItemAggregator
     private int budgetTotalExpenses;
     private Row budgetRow;
     private LocalDate now;
+    private int updateHeaderColumnIndex = 0;
+    private int header0RowIndex = 0;
+    private int header1RowIndex = 1;
 
     public void aggregateBudget(XSSFWorkbook budgetWorkbook, HashMap<String, Integer> pandLmap, int targetMonth)
     {
@@ -82,12 +87,15 @@ public class CashItemAggregator
         budgetSheet = budgetWorkbook.getSheetAt(0);
         for (Row row:budgetSheet)//Create variance columns
         {
-            row.createCell(monthVarianceColumnIndex,0);//numeric
-            row.createCell(ytdVarianceColumnIndex,0);//numeric
+            row.createCell(monthVarianceColumnIndex,0);//set numeric type
+            row.createCell(ytdVarianceColumnIndex,0);//set numeric type
         }
-        budgetSheet.getRow(0).getCell(0).setCellValue(now + " Update");
-        budgetSheet.getRow(0).getCell(monthVarianceColumnIndex).setCellValue("Month " + targetMonth);
-        budgetSheet.getRow(1).getCell(targetMonth).setCellValue("*Actual");
+        budgetSheet.getRow(header0RowIndex).getCell(updateHeaderColumnIndex).setCellValue(now + " Update");
+        budgetSheet.getRow(header0RowIndex).getCell(monthVarianceColumnIndex).setCellValue("Month " + targetMonth);
+        budgetSheet.getRow(header1RowIndex).getCell(monthVarianceColumnIndex).setCellValue("VARIANCE");
+        budgetSheet.getRow(header0RowIndex).getCell(ytdVarianceColumnIndex).setCellValue("YTD");
+        budgetSheet.getRow(header1RowIndex).getCell(ytdVarianceColumnIndex).setCellValue("VARIANCE");
+        budgetSheet.getRow(header1RowIndex).getCell(targetMonth).setCellValue("*Actual");
         System.out.println("Aggregating, Month " + targetMonth + " Budget Proof => ");
         System.out.printf("%-40s %-20s %-20s %-20s %n", "BUDGET ACCOUNT", "BUDGET AMOUNT", "PandL AMOUNT", "Month " + targetMonth + " VARIANCE");
         for (int i = 0; i < budgetSheet.getLastRowNum() - 1; i++)
@@ -108,7 +116,7 @@ public class CashItemAggregator
             switch (switchKey)
             {
                 case "Total 43400 Direct Public Support":
-                    currentBudgetCell.setCellType(0);//numeric
+                    currentBudgetCell.setCellType(XSSFCell.CELL_TYPE_NUMERIC);//numeric
                     pandlCorporateContributions = pandLmap.get("Total 43400 Direct Public Support");
                     pandlIndividualBusinessContributions = pandLmap.get("43450 Individ, Business Contributions");
                     pandlGrants = pandLmap.get("43455 Grants");
@@ -120,29 +128,29 @@ public class CashItemAggregator
                     budgetDirectPublicSupportVariance = vicDirectPublicSupport - budgetDirectPublicSupport;
                     System.out.printf("%-40s %-20d %-20d %-20d %n", "Direct Public Support", budgetDirectPublicSupport, vicDirectPublicSupport, budgetDirectPublicSupportVariance);
                     monthVarianceCell.setCellValue(budgetDirectPublicSupportVariance);
-                    System.out.println("============sw0");
+                    System.out.println("sw0");
                     break;
                 case "Total 47201 Tuition  Fees":
-                    currentBudgetCell.setCellType(0);//numeric
+                    currentBudgetCell.setCellType(XSSFCell.CELL_TYPE_NUMERIC);//numeric
                     totalTuitionFees = pandLmap.get("Total 47201 Tuition  Fees");
                     totalWorkshopFees = pandLmap.get("Total 47202 Workshop Fees");
                     vicTuitionFees = totalTuitionFees + totalWorkshopFees;
                     budgetTuitionFeeVariance = (int) (vicTuitionFees - currentBudgetCell.getNumericCellValue());
                     System.out.printf("%-40s %-20d %-20d %-20d %n", "Tuition  Fees", (int) currentBudgetCell.getNumericCellValue(), vicTuitionFees, budgetTuitionFeeVariance);
                     monthVarianceCell.setCellValue(budgetTuitionFeeVariance);
-                    System.out.println("============sw1");
+                    System.out.println("sw1");
                     break;
                 case "Total Income":
-                    currentBudgetCell.setCellType(0);//numeric
+                    currentBudgetCell.setCellType(XSSFCell.CELL_TYPE_NUMERIC);//numeric
                     vicTotalIncome = vicDirectPublicSupport + vicTuitionFees + totalGrantScholarship;
                     budgetTotalIncome = currentBudgetCell.getNumericCellValue();
                     budgetTotalIncomeVariance = (int) (vicTotalIncome - currentBudgetCell.getNumericCellValue());
                     System.out.printf("%-40s %-20d %-20d %-20d %n", "Total Income", (int) currentBudgetCell.getNumericCellValue(), vicTotalIncome, budgetTotalIncomeVariance);
                     monthVarianceCell.setCellValue(budgetTotalIncomeVariance);
-                    System.out.println("============sw2");
+                    System.out.println("sw2");
                     break;
                 case "Total 62000 Salaries & Related Expenses":
-                    currentBudgetCell.setCellType(0);//numeric
+                    currentBudgetCell.setCellType(XSSFCell.CELL_TYPE_NUMERIC);//numeric
                     totalSalaries = pandLmap.get("Total 62000 Salaries & Related Expenses");
                     payrollServiceFees = pandLmap.get("62145 Payroll Service Fees");
                     vicSalaries = totalSalaries + payrollServiceFees;
@@ -150,30 +158,29 @@ public class CashItemAggregator
                     monthVarianceCell.setCellValue(vicSalaries - budgetTotalSalaries);
                     System.out.printf("%-40s %-20d %-20d %-20d %n", "Salaries", (int) currentBudgetCell.getNumericCellValue(), vicSalaries, vicSalaries - totalSalaries);
                     monthVarianceCell.setCellValue(vicSalaries);
-                    System.out.println("============sw3");
+                    System.out.println("sw3");
                     break;
                 case "Total 62100 Contract Services":
-                    currentBudgetCell.setCellType(0);//numeric
+                    currentBudgetCell.setCellType(XSSFCell.CELL_TYPE_NUMERIC);//numeric
                     plContractServices = pandLmap.get("Total 62100 Contract Services");
                     budgetContractServices = (int) currentBudgetCell.getNumericCellValue();
                     contractServiceVariance = plContractServices - budgetContractServices;
                     System.out.printf("%-40s %-20d %-20d %-20d %n", "Total Contract Services", (int) currentBudgetCell.getNumericCellValue(), plContractServices, contractServiceVariance);
                     monthVarianceCell.setCellValue(contractServiceVariance);
-                    System.out.println("============sw4");
+                    System.out.println("sw4");
                     break;
                 case "Total 62800 Facilities and Equipment":
-                    currentBudgetCell.setCellType(0);//numeric
+                    currentBudgetCell.setCellType(XSSFCell.CELL_TYPE_NUMERIC);//numeric
                     pandlFacilitiesAndEquipment = pandLmap.get("Total 62800 Facilities and Equipment");
                     pandlDepreciation = pandLmap.get("62810 Depr and Amort - Allowable");
                     vicFacilities = pandlFacilitiesAndEquipment - pandlDepreciation;
                     budgetFacilities = currentBudgetCell.getNumericCellValue();
                     monthVarianceCell.setCellValue(vicFacilities - pandlFacilitiesAndEquipment);
                     System.out.printf("%-40s %-20d %-20d %-20d %n", "Facilities and Equipment", (int) currentBudgetCell.getNumericCellValue(), plContractServices, vicFacilities - pandlFacilitiesAndEquipment);
-                    monthVarianceCell.setCellValue(vicFacilities);
-                    System.out.println("============sw5");
+                    System.out.println("sw5");
                     break;
                 case "Total 65000 Operations":
-                    currentBudgetCell.setCellType(0);//numeric
+                    currentBudgetCell.setCellType(XSSFCell.CELL_TYPE_NUMERIC);//numeric
                     supplies = pandLmap.get("Total 65040 Supplies");
                     operations = pandLmap.get("Total 65000 Operations");
                     pandlTotalExpenses = pandLmap.get("Total 65100 Other Types of Expenses");
@@ -184,42 +191,42 @@ public class CashItemAggregator
                     operationsVarience = (int) (vicOperations - currentBudgetCell.getNumericCellValue());
                     System.out.printf("%-40s %-20d %-20d %-20d %n", "Operations", (int) currentBudgetCell.getNumericCellValue(), vicOperations, vicOperations - (int) currentBudgetCell.getNumericCellValue());
                     monthVarianceCell.setCellValue(operationsVarience);
-                    System.out.println("============sw6");
+                    System.out.println("sw6");
                     break;
                 case "Total Expenses":
-                    currentBudgetCell.setCellType(0);//numeric
+                    currentBudgetCell.setCellType(XSSFCell.CELL_TYPE_NUMERIC);//numeric
                     vicExpenses = vicSalaries + vicContractServices + vicFacilities + vicOperations;
-                    System.out.println("============sw7");
+                    monthVarianceCell.setCellValue(vicExpenses - currentBudgetCell.getNumericCellValue());
+                    System.out.println("sw7");
                     break;
-                case "Net Cash Income":
-                    currentBudgetCell.setCellType(0);//numeric
+                case "Net Income":
+                    currentBudgetCell.setCellType(XSSFCell.CELL_TYPE_NUMERIC);//numeric
                     vicNetIncome = vicTotalIncome - pandlTotalExpenses;
-                    System.out.printf("%-40s %-20d %-20d %-20d %n", "Net Cash Income", (int) currentBudgetCell.getNumericCellValue(), pandlTotalExpenses, pandlTotalExpenses - (int) currentBudgetCell.getNumericCellValue());
                     monthVarianceCell.setCellValue(vicNetIncome - currentBudgetCell.getNumericCellValue());
-                    System.out.println("============sw8");
-                    break;
-                case "Paying Students (Budget)":
-                    currentBudgetCell.setCellType(0);//numeric
-                    payingStudentsBudget = (int) currentBudgetCell.getNumericCellValue();
-                    System.out.printf("%-40s %-20d %n", "Paying Students (Budget)", (int) currentBudgetCell.getNumericCellValue());
-                    System.out.println("============sw9");
+                    System.out.printf("%-40s %-20d %-20d %-20d %n", "Net Cash Income", (int) currentBudgetCell.getNumericCellValue(), pandlTotalExpenses, pandlTotalExpenses - (int) currentBudgetCell.getNumericCellValue());
+                    System.out.println("sw8");
                     break;
                 case "Paying Students (Actual)":
                     try//Check for void actual student count entry...actual student count not entered in budget yet
                     {
-                        currentBudgetCell.setCellType(0);//numeric
                         payingStudentsActual = (int) currentBudgetCell.getNumericCellValue();
                         System.out.printf("%-40s %-20d %n", "Paying Students (Actual)", (int) currentBudgetCell.getNumericCellValue());
-                        System.out.println("============sw10");
                     }
                     catch (Exception e)
                     {
-                        System.out.println("Exception in case: Paying Students (Actual)...probably empty budget cell => " + e);
+                        System.out.println("Exception in case sw10: Paying Students (Actual)...probably empty budget cell => " + e);
                     }
-                    System.out.println("============sw11");
+                    System.out.println("sw10");
+                    break;
+                case "Paying Students (Budget)":
+                    payingStudentsBudget = 999;
+                    payingStudentsVariance = payingStudentsActual - (int)payingStudentsBudget;
+                    monthVarianceCell.setCellValue(payingStudentsVariance);
+                    System.out.printf("%-40s %-20f %n", "Paying Students (Budget)", payingStudentsBudget);
+                    System.out.println("sw9");
                     break;
                 default:
-                    System.out.println("============switch default...SwitchKey => "  + switchKey);
+                    System.out.println("switch default...SwitchKey => "  + switchKey);
             }
         }
     }
@@ -229,21 +236,20 @@ public class CashItemAggregator
         return budgetWorkbook;
     }
 
-    public int computeYTDvariance(Row budgetItemRow)
-    {
-        int ytdVariance = 0;
-        int i = 1;
-        while (budgetSheet.getRow(1).getCell(i).getStringCellValue().equals("Actual"))
-        {
-            if (budgetItemRow.getCell(i).getCellType() == CELL_TYPE_NUMERIC)
-            {
-                ytdVariance += budgetItemRow.getCell(i).getNumericCellValue();
-            }
-            i++;
-        }
-        return ytdVariance;
-    }
-
+//    public int computeYTDvariance(Row budgetItemRow)
+//    {
+//        int ytdVariance = 0;
+//        int i = 1;
+//        while (budgetSheet.getRow(1).getCell(i).getStringCellValue().equals("Actual"))
+//        {
+//            if (budgetItemRow.getCell(i).getCellType() == CELL_TYPE_NUMERIC)
+//            {
+//                ytdVariance += budgetItemRow.getCell(i).getNumericCellValue();
+//            }
+//            i++;
+//        }
+//        return ytdVariance;
+//    }
 }
 
 
