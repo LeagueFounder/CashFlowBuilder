@@ -4,8 +4,6 @@ package com.github.sdvic;
  * version 200726
  * copyright 2020 Vic Wintriss
  ******************************************************************************************/
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -32,10 +30,15 @@ public class Main implements Runnable
     public void run()
     {
         targetMonth = Integer.parseInt(JOptionPane.showInputDialog("Please enter QuickBooks P and L input file (int)month."));
-        budgetReader.readBudget();
+        budgetReader = new BudgetReader();
         pandLReader.readPandLtoHashMap();
+        budgetReader.readBudget();
         cashItemAggregator.aggregateBudget(budgetReader.getBudgetWorkBook(), pandLReader.getPandlHashMap(), targetMonth);
         budgetWriter.writeBudget(cashItemAggregator.getBudgetWorkbook());
+    }
 
+    public int getTargetMonth()
+    {
+        return targetMonth;
     }
 }
