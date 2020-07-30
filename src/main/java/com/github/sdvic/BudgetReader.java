@@ -1,7 +1,7 @@
 package com.github.sdvic;
 /******************************************************************************************
  * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
- * version 200729
+ * version 200730
  * copyright 2020 Vic Wintriss
  ******************************************************************************************/
 
@@ -16,6 +16,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
+
+import static org.apache.poi.ss.usermodel.BuiltinFormats.*;
+import static org.apache.poi.ss.usermodel.BuiltinFormats.getBuiltinFormat;
 
 public class BudgetReader
 {
@@ -41,7 +44,6 @@ public class BudgetReader
         {
             e.printStackTrace();
         }
-        System.out.println("......");
         System.out.println("Finished reading budget in BudgetReader from File " + budgetInputFile + " sheet size => " + budgetWorkBook.getSheetAt(0).getLastRowNum());
     }
 
