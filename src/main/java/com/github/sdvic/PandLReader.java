@@ -1,11 +1,12 @@
 package com.github.sdvic;
 /******************************************************************************************
  * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
- * version 200731
+ * version 200804
  * copyright 2020 Vic Wintriss
  ******************************************************************************************/
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.*;
@@ -19,6 +20,7 @@ public class PandLReader
     private String cellKey = null;
     private int cellValue = 0;
     private HashMap<String, Integer> pandlHashMap = new HashMap<>();
+    FormulaEvaluator evaluator;// = wb.getCreationHelper().createFormulaEvaluator();
     /*******************************************************************************************************************
      * P&L Reader
      * Copies entire QuickBooks P&L to Hash Map
@@ -36,6 +38,8 @@ public class PandLReader
             System.out.println("FileNotFoundException in readPandLtoHashMap()");
             e.printStackTrace();
         }
+        evaluator = pandlWorkBook.getCreationHelper().createFormulaEvaluator();
+        XSSFFormulaEvaluator.evaluateAllFormulaCells(pandlWorkBook);
         pandlSheet = pandlWorkBook.getSheetAt(0);
         for (Row row : pandlSheet)//Bring full chart of accounts from Excel (QuickBooks) P&L into HashMap chartOfAcocounts
         {
@@ -63,7 +67,7 @@ public class PandLReader
             }
         }
         //pandlHashMap.forEach((K, V) -> System.out.println( K + " => " + V ));
-        System.out.println("Finished reading PandL to HashMap In PandLreader Compelete, HashMap size => " + pandlHashMap.size());
+        System.out.println("Finished reading PandL In PandLreader from " + pandInputlFile + " to: pandlHashMap, HashMap size => " + pandlHashMap.size());
     }
     public HashMap<String, Integer> getPandlHashMap()
     {
