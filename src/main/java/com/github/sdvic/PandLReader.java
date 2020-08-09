@@ -1,7 +1,7 @@
 package com.github.sdvic;
 /******************************************************************************************
  * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
- * version 200804
+ * version 200809
  * copyright 2020 Vic Wintriss
  ******************************************************************************************/
 import org.apache.poi.ss.usermodel.*;
@@ -13,22 +13,26 @@ import java.io.*;
 import java.util.HashMap;
 public class PandLReader
 {
-    private File pandInputlFile = new File("/Users/VicMini/Desktop/The+League+of+Amazing+Programmers_Profit+and+Loss.xlsx");
+    private String inputFileName;
+    private File pandInputlFile;
     private FileInputStream pandlInputFIS;
     private XSSFWorkbook pandlWorkBook;
     private XSSFSheet pandlSheet;
-    private String cellKey = null;
-    private int cellValue = 0;
+    private String cellKey;
+    private int cellValue;
     private HashMap<String, Integer> pandlHashMap = new HashMap<>();
-    FormulaEvaluator evaluator;// = wb.getCreationHelper().createFormulaEvaluator();
+    private FormulaEvaluator evaluator;
+
     /*******************************************************************************************************************
      * P&L Reader
      * Copies entire QuickBooks P&L to Hash Map
      ******************************************************************************************************************/
-    public void readPandLtoHashMap()
+    public void readPandLtoHashMap(int targetMonth)
     {
         try
         {
+            inputFileName = "/Users/VicMini/Desktop/" + targetMonth + "The+League+of+Amazing+Programmers_Profit+and+Loss.xlsx";
+            pandInputlFile = new File(inputFileName);
             pandlInputFIS = new FileInputStream(pandInputlFile);
             pandlWorkBook = new XSSFWorkbook(pandlInputFIS);
             pandlInputFIS.close();
@@ -72,5 +76,9 @@ public class PandLReader
     public HashMap<String, Integer> getPandlHashMap()
     {
         return pandlHashMap;
+    }
+    public XSSFWorkbook getPandlWorkBook()
+    {
+        return pandlWorkBook;
     }
 }
