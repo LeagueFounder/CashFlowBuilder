@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>your.package.name</groupId>
     <artifactId>myfirstbot</artifactId>
-    <version>200816-SNAPSHOT</version>
+    <version>200817-SNAPSHOT</version>
     <build>
         <plugins>
             <plugin>

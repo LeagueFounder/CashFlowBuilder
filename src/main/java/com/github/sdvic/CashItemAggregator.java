@@ -1,7 +1,7 @@
 package com.github.sdvic;
 /******************************************************************************************
  * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
- * version 200816
+ * version 200817
  * copyright 2020 Vic Wintriss
  ******************************************************************************************/
 
@@ -11,7 +11,6 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.HashMap;
@@ -31,17 +30,12 @@ public class CashItemAggregator
     private int totalGrantScholarship;
     private int budgetTotalExpenses;
     private int monthIncomeVariance;
-    private int pandlCorporateContributions;
-    private int pandlIndividualBusinessContributions;
-    private int pandlGrants;
-    private int contributedServices;
-    private int investments;
     private int budgetDirectPublicSupport;
-    private int budgetDirectPublicSupportVariance;
+    private int directPublicSupportVariance;
     private int totalTuitionFees;
     private int totalWorkshopFees;
-    private int budgetTuitionFeeVariance;
-    private int budgetTotalIncomeVariance;
+    private int tuitionFeeVariance;
+    private int totalIncomeVariance;
     private int totalSalaries;
     private int budgetTotalSalaries;
     private int budgetContractServices;
@@ -58,7 +52,7 @@ public class CashItemAggregator
     private int travel;
     private int penalties;
     private int budgetOperations;
-    private int operationsVarience;
+    private int operationsVariance;
     private int totalExpenseVariance;
     private int payingStudentsBudget;
     private int payingStudentsVariance;
@@ -66,64 +60,48 @@ public class CashItemAggregator
     private int budgetTotalIncome;
     private int budgetMonthProfit;
     private int cashOnlyProfit;
+    private int pandlTotalIncome;
+    private int pandlLeagueScholarship;
+    private int pandlContributedServices;
+    private int pandlGiftsInKindGoods;
 
     public void aggregateBudget(HashMap<String, Integer> pandLmap, HashMap<String, Integer> budgetMap, int targetMonthColumnIndex)
     {
         this.targetMonthColumnIndex = targetMonthColumnIndex;
-        System.out.printf("%-40s %-20s %-20s %-20s %n", "BUDGET ACCOUNT", "BUDGET AMOUNT", "Actual AMOUNT", "Month " + targetMonthColumnIndex + " VARIANCE");
         for (String key : budgetMap.keySet())
         {
-            String switchKey = key;
+            String switchKey = key.trim();
             switch (switchKey)
             {
                 case "Cash Combined Direct Public Support":
-                    pandlCorporateContributions = pandLmap.get("Total 43400 Direct Public Support");
-                    pandlIndividualBusinessContributions = pandLmap.get("43450 Individ, Business Contributions");
-                    pandlGrants = pandLmap.get("43455 Grants");
-                    contributedServices = pandLmap.get("43460 Contributed Services");
-                    investments = pandLmap.get("Total 45000 Investments");
                     budgetDirectPublicSupport = budgetMap.get("Cash Combined Direct Public Support");
                     totalGrantScholarship = pandLmap.get("Total 47204 Grant Scholarship");
-                    cashCombinedDirectPublicSupport = pandlCorporateContributions + pandlIndividualBusinessContributions + pandlGrants - contributedServices + investments + totalGrantScholarship;
-                    cashOnlyIncome = cashCombinedDirectPublicSupport + cashCombinedTuitionFees + totalGrantScholarship;
-                    budgetDirectPublicSupportVariance = cashCombinedDirectPublicSupport - budgetDirectPublicSupport;
-                    System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Cash Combined Direct Public Support", budgetDirectPublicSupport, cashCombinedDirectPublicSupport, budgetDirectPublicSupportVariance);
+                    pandlTotalIncome = pandLmap.get("Total Income");
+                    pandlLeagueScholarship = pandLmap.get("Total 47203 League Scholarship");
+                    pandlContributedServices = pandLmap.get("43460 Contributed Services");
+                    pandlGiftsInKindGoods = pandLmap.get("43440 Gifts in Kind - Goods");
                     break;
                 case "Cash Combined Tuition Fees":
                     totalTuitionFees = pandLmap.get("Total 47201 Tuition  Fees");
                     totalWorkshopFees = pandLmap.get("Total 47202 Workshop Fees");
                     budgetTuitionFees = budgetMap.get("Cash Combined Tuition Fees");
-                    cashCombinedTuitionFees = totalTuitionFees + totalWorkshopFees;
-                    budgetTuitionFeeVariance = cashCombinedTuitionFees - budgetTuitionFees;
-                    System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Cash Combined Tuition  Fees", budgetTuitionFees, cashCombinedTuitionFees, budgetTuitionFeeVariance);
                     break;
                 case "Cash Only Income":
                     budgetTotalIncome = budgetMap.get("Cash Only Income");
-                    cashOnlyIncome = cashCombinedDirectPublicSupport + cashCombinedTuitionFees + totalGrantScholarship;
-                    budgetTotalIncomeVariance = cashOnlyIncome - budgetTotalIncome;
-                    System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Cash Only Income", budgetTotalIncome, cashOnlyIncome, budgetTotalIncomeVariance);
                     break;
                 case "Cash Combined Salaries":
                     totalSalaries = pandLmap.get("Total 62000 Salaries & Related Expenses");
                     payrollServiceFees = pandLmap.get("62145 Payroll Service Fees");
                     budgetTotalSalaries = budgetMap.get("Cash Combined Salaries");
-                    cashCombinedSalaries = totalSalaries + payrollServiceFees;
-                    monthSalaryVariance = cashCombinedSalaries - budgetTotalSalaries;
-                    System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Cash Combined Salaries", budgetTotalSalaries, cashCombinedSalaries, monthSalaryVariance);
                     break;
                 case "Cash Combined Contract Services":
                     cashCombinedContractServices = pandLmap.get("Total 62100 Contract Services");
                     budgetContractServices = budgetMap.get("Cash Combined Contract Services");
-                    contractServiceVariance = cashCombinedContractServices - budgetContractServices;
-                    System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Cash Combined Contract Services", budgetContractServices, cashCombinedContractServices, contractServiceVariance);
                     break;
                 case "Cash Combined Facilities and Equipment":
                     pandlFacilitiesAndEquipment = pandLmap.get("Total 62800 Facilities and Equipment");
                     pandlDepreciation = pandLmap.get("62810 Depr and Amort - Allowable");
                     budgetFacilities = budgetMap.get("Cash Combined Facilities and Equipment");
-                    cashCombinedFacilitiesAndFacilities = pandlFacilitiesAndEquipment - pandlDepreciation;
-                    facilitiesVariance = cashCombinedFacilitiesAndFacilities - budgetFacilities;
-                    System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Cash Combined Facilities and Equipment", budgetFacilities, cashCombinedFacilitiesAndFacilities, facilitiesVariance);
                     break;
                 case "Cash Combined Operations":
                     supplies = pandLmap.get("Total 65040 Supplies");
@@ -132,35 +110,61 @@ public class CashItemAggregator
                     travel = pandLmap.get("Total 68300 Travel and Meetings");
                     penalties = pandLmap.get("90100 Penalties");
                     budgetOperations = budgetMap.get("Cash Combined Operations");
-                    cashCombinedOperations = supplies + operations + pandlTotalExpenses + travel + penalties;
-                    operationsVarience = cashCombinedOperations - budgetOperations;
-                    System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Cash Combined Operations", budgetOperations, cashCombinedOperations, operationsVarience);
                     break;
                 case "Cash Only Expenses":
                     budgetTotalExpenses = budgetMap.get("Cash Only Expenses");
-                    cashOnlyExpenses = cashCombinedSalaries + cashCombinedContractServices + cashCombinedFacilitiesAndFacilities + cashCombinedOperations;
-                    totalExpenseVariance = cashOnlyExpenses - budgetTotalExpenses;
-                    System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Cash Only Expenses", budgetTotalExpenses, cashOnlyExpenses, totalExpenseVariance);
                     break;
                 case "Cash Only Profit":
                     budgetMonthProfit = budgetMap.get("Cash Only Profit");
-                    cashOnlyProfit = cashOnlyIncome - cashOnlyExpenses;
-                    monthIncomeVariance = cashOnlyIncome - budgetTotalIncome;
-                    System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Cash Only Profit", budgetMonthProfit, cashOnlyProfit, monthIncomeVariance);
                     break;
                 case "Paying Students (Actual)":
                     payingStudentsActual = budgetMap.get("Paying Students (Actual)");
                     break;
                 case "Paying Students (Budget)":
                     payingStudentsBudget = budgetMap.get("Paying Students (Budget)");
-                    payingStudentsVariance = payingStudentsActual - payingStudentsBudget;
-                    System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Paying Students (Budget)", payingStudentsBudget, payingStudentsActual, payingStudentsVariance);
                     break;
                 default:
             }
         }
-        System.out.println("finished aggregating budget with QuckBooks P&L\n");
-        System.out.println("\nFinished computing budget/pandl items");
+        /***************************************************************************************************************
+         * Compute Combined Cash Budget Figures
+         ***************************************************************************************************************/
+        monthIncomeVariance = cashOnlyIncome - budgetTotalIncome;
+        cashOnlyProfit = cashOnlyIncome - cashOnlyExpenses;
+        cashOnlyExpenses = cashCombinedSalaries + cashCombinedContractServices + cashCombinedFacilitiesAndFacilities + cashCombinedOperations;
+        totalExpenseVariance = cashOnlyExpenses - budgetTotalExpenses;
+        cashCombinedOperations = supplies + operations + pandlTotalExpenses + travel + penalties;
+        operationsVariance = cashCombinedOperations - budgetOperations;
+        contractServiceVariance = cashCombinedContractServices - budgetContractServices;
+        cashCombinedFacilitiesAndFacilities = pandlFacilitiesAndEquipment - pandlDepreciation;
+        facilitiesVariance = cashCombinedFacilitiesAndFacilities - budgetFacilities;
+        cashCombinedSalaries = totalSalaries + payrollServiceFees;
+        monthSalaryVariance = cashCombinedSalaries - budgetTotalSalaries;
+        cashOnlyIncome = cashCombinedDirectPublicSupport + cashCombinedTuitionFees + totalGrantScholarship;
+        totalIncomeVariance = cashOnlyIncome - budgetTotalIncome;
+        cashCombinedTuitionFees = totalTuitionFees + totalWorkshopFees;
+        tuitionFeeVariance = cashCombinedTuitionFees - budgetTuitionFees;
+        cashCombinedDirectPublicSupport = pandlTotalIncome - pandlLeagueScholarship - pandlContributedServices - pandlGiftsInKindGoods;
+        cashOnlyIncome = cashCombinedDirectPublicSupport + cashCombinedTuitionFees + totalGrantScholarship;
+        directPublicSupportVariance = cashCombinedDirectPublicSupport - budgetDirectPublicSupport;
+        payingStudentsVariance = payingStudentsActual - payingStudentsBudget;
+        /***************************************************************************************************************
+         * Print Budget Proof Figures
+         ***************************************************************************************************************/
+        System.out.printf("%-40s %-20s %-20s %-20s %n", "BUDGET ACCOUNT", "BUDGET AMOUNT", "Actual AMOUNT", "Month " + targetMonthColumnIndex + " VARIANCE");
+        System.out.printf("%-40s %-20s %-20s %-20s %n", "------------------------------------", "-------------", "-------------", "----------------");
+        System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Cash Combined Direct Public Support", budgetDirectPublicSupport, cashCombinedDirectPublicSupport, directPublicSupportVariance);
+        System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Cash Combined Tuition  Fees", budgetTuitionFees, cashCombinedTuitionFees, tuitionFeeVariance);
+        System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Cash Only Income", budgetTotalIncome, cashOnlyIncome, totalIncomeVariance);
+        System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Cash Combined Salaries", budgetTotalSalaries, cashCombinedSalaries, monthSalaryVariance);
+        System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Cash Combined Contract Services", budgetContractServices, cashCombinedContractServices, contractServiceVariance);
+        System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Cash Combined Facilities and Equipment", budgetFacilities, cashCombinedFacilitiesAndFacilities, facilitiesVariance);
+        System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Cash Combined Operations", budgetOperations, cashCombinedOperations, operationsVariance);
+        System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Cash Only Expenses", budgetTotalExpenses, cashOnlyExpenses, totalExpenseVariance);
+        System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Cash Only Profit", budgetMonthProfit, cashOnlyProfit, monthIncomeVariance);
+        System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Paying Students", payingStudentsBudget, payingStudentsActual, payingStudentsVariance);
+        System.out.println("\nfinished aggregating budget with QuckBooks P&L");
+        System.out.println("Finished computing budget/pandl items");
 
     }
     public void updateBudgetWorkbook(XSSFWorkbook budgetWorkbook, int targetMonthColumnIndex)
@@ -180,15 +184,15 @@ public class CashItemAggregator
                 {
                     case "Cash Combined Direct Public Support":
                         row.getCell(targetMonthColumnIndex).setCellValue(cashCombinedDirectPublicSupport);
-                        row.getCell(13).setCellValue(budgetDirectPublicSupportVariance);
+                        row.getCell(13).setCellValue(directPublicSupportVariance);
                         break;
                     case "Cash Combined Tuition Fees":
                         row.getCell(targetMonthColumnIndex).setCellValue(cashCombinedTuitionFees);
-                        row.getCell(13).setCellValue(budgetTuitionFeeVariance);
+                        row.getCell(13).setCellValue(tuitionFeeVariance);
                         break;
                     case "Cash Only Income":
                         row.getCell(targetMonthColumnIndex).setCellValue(cashOnlyIncome);
-                        row.getCell(13).setCellValue(budgetTotalIncomeVariance);
+                        row.getCell(13).setCellValue(totalIncomeVariance);
                         break;
                     case "Cash Combined Salaries":
                         row.getCell(targetMonthColumnIndex).setCellValue(cashCombinedSalaries);
@@ -204,7 +208,7 @@ public class CashItemAggregator
                         break;
                     case "Cash Combined Operations":
                         row.getCell(targetMonthColumnIndex).setCellValue(cashCombinedOperations);
-                        row.getCell(13).setCellValue(operationsVarience);
+                        row.getCell(13).setCellValue(operationsVariance);
                         break;
                     case "Cash Only Expenses":
                         row.getCell(targetMonthColumnIndex).setCellValue(cashOnlyExpenses);

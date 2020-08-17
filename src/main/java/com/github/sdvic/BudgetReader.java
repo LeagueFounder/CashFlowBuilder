@@ -1,7 +1,7 @@
 package com.github.sdvic;
 /******************************************************************************************
  * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
- * version 200816
+ * version 200817
  * copyright 2020 Vic Wintriss
  ******************************************************************************************/
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
@@ -101,7 +101,7 @@ public class BudgetReader
                 }
         }
         //budgetHashMap.forEach((K, V) -> System.out.println( K + " => " + V ));
-        System.out.println("Finished reading Budget In budgetReader from " + budgetInputFileName + " to: budgetHashMap, HashMap size: " + budgetHashMap.size());
+        System.out.println("Finished reading Budget In budgetReader from " + budgetInputFileName + " to: budgetHashMap, HashMap size: " + budgetHashMap.size() + "\n");
     }
 
     public HashMap<String, Integer> getBudgetHashMap()
