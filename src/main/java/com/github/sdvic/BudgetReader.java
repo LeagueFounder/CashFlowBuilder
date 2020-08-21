@@ -1,7 +1,7 @@
 package com.github.sdvic;
 /******************************************************************************************
  * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
- * version 200817
+ * version 200820
  * copyright 2020 Vic Wintriss
  ******************************************************************************************/
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
@@ -32,6 +32,7 @@ public class BudgetReader
 
     public void readBudget(int targetMonth, String followOnAnswer)
     {
+        System.out.println("(3) Starting reading Budget In budgetReader from " + budgetInputFileName + " to: budgetHashMap, HashMap size: " + budgetHashMap.size());
         try
         {
             if (followOnAnswer.equals("Yes"))
@@ -62,7 +63,7 @@ public class BudgetReader
         {
                 if (row.getCell(0) != null && row.getCell(targetMonth) != null)
                 {
-                    switch (row.getCell(0).getCellType())
+                    switch (row.getCell(0).getCellType())//Get budget key
                     {
                         case XSSFCell.CELL_TYPE_BLANK://Type 3
                             break;
@@ -75,12 +76,12 @@ public class BudgetReader
                             System.out.println("Found number...looking for budget key");
                             break;
                         case XSSFCell.CELL_TYPE_STRING://Type 1
-                            budgetKey = row.getCell(0).getStringCellValue();
+                            budgetKey = row.getCell(0).getStringCellValue();//Key
                             break;
                         default:
                             System.out.println("switch error");
                     }
-                    switch (row.getCell(targetMonth).getCellType())
+                    switch (row.getCell(targetMonth).getCellType())//Get budget value
                     {
                         case XSSFCell.CELL_TYPE_BLANK://Type 3
                             break;
@@ -90,7 +91,7 @@ public class BudgetReader
                             budgetValue = (int) row.getCell(targetMonth).getNumericCellValue();
                             break;
                         case XSSFCell.CELL_TYPE_NUMERIC:
-                            budgetValue = (int) row.getCell(targetMonth).getNumericCellValue();
+                            budgetValue = (int) row.getCell(targetMonth).getNumericCellValue();//Value
                             break;
                         case XSSFCell.CELL_TYPE_STRING://Type 1
                             break;
@@ -101,7 +102,7 @@ public class BudgetReader
                 }
         }
         //budgetHashMap.forEach((K, V) -> System.out.println( K + " => " + V ));
-        System.out.println("Finished reading Budget In budgetReader from " + budgetInputFileName + " to: budgetHashMap, HashMap size: " + budgetHashMap.size() + "\n");
+        System.out.println("(4) Finished reading Budget In budgetReader from " + budgetInputFileName + " to: budgetHashMap, HashMap size: " + budgetHashMap.size());
     }
 
     public HashMap<String, Integer> getBudgetHashMap()

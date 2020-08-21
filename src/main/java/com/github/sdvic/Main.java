@@ -1,7 +1,7 @@
 package com.github.sdvic;
 /******************************************************************************************
  * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
- * version 200817
+ * version 200820
  * copyright 2020 Vic Wintriss
  ******************************************************************************************/
 
@@ -27,7 +27,9 @@ public class Main implements Runnable
         budgetReader = new BudgetReader();
         pandLReader.readPandL(targetMonth);//Read QuickBooks Excel P&L into HashMap
         budgetReader.readBudget(targetMonth, followOnAnswer);//Read Budget Excel into HashMap
-        cashItemAggregator.aggregateBudget(pandLReader.getPandlHashMap(), budgetReader.getBudgetHashMap(), targetMonth);
+        cashItemAggregator.extractBudgetItemsFromPandLMap(pandLReader.getPandlHashMap(), budgetReader.getBudgetHashMap());
+        cashItemAggregator.extractBudgetItemsFromBudgetMap(pandLReader.getPandlHashMap(), budgetReader.getBudgetHashMap(), targetMonth);
+        cashItemAggregator.computeCombinedCashBudgetSheetEntries();
         cashItemAggregator.updateBudgetWorkbook(budgetReader.getBudgetWorkBook(), targetMonth);
         budgetWriter.writeBudget(budgetReader.getBudgetWorkBook());
     }
