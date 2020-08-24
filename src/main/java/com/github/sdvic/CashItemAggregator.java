@@ -1,7 +1,7 @@
 package com.github.sdvic;
 /******************************************************************************************
  * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
- * version 200822
+ * version 200823
  * copyright 2020 Vic Wintriss
  ******************************************************************************************/
 
@@ -54,7 +54,7 @@ public class CashItemAggregator
     private int pandlOtherExpenses;
     private int pandlLeagueScholarship;
     private int pandlGrantsAndGifts;
-    private int pandlTuition;
+    private int pandlTotalProgramIncome;
     private int pandlRent;
     private int pandlMiscIncome;
     private int pandlBreakRoomSupplies;
@@ -92,14 +92,15 @@ public class CashItemAggregator
         for (String key : budgetHashMap.keySet())
         {
             String switchKey = key.trim();
+            if (pandLmap.get(switchKey) != null)//Check for missing P&L items
             switch (switchKey)
             {
-                case "Total 43400 Direct Public Support":
+                case "Grants and Gifts":
                     pandlGrantsAndGifts = pandLmap.get("Total 43400 Direct Public Support");
                     pandlContributedServices = pandLmap.get("43460 Contributed Services");//Non cash item...must be subtracted
                     break;
                 case "Tuition":
-                    pandlTuition = pandLmap.get("Total 47200 Program Income");
+                    pandlProgramIncome = pandLmap.get("Total 47200 Program Income");
                     pandlLeagueScholarship = pandLmap.get("Total 47203 League Scholarship");//Non cash item...must be subtracted
                     break;
                 case "Misc Income":
@@ -128,6 +129,7 @@ public class CashItemAggregator
                     pandlPenalties = pandLmap.get("90100 Penalties");
                     break;
                 default:
+                    break;
             }
         }
         System.out.println("(6) Finished Extracting Items for Budget From PandL Map");
@@ -142,49 +144,59 @@ public class CashItemAggregator
         for (String key : budgetMap.keySet())
         {
             String switchKey = key.trim();
-            switch (switchKey)
+            if (switchKey != null)
             {
-                case "Grants and Gifts":
-                    budgetGrantsGifts = budgetMap.get("Grants and Gifts");
-                    break;
-                case "Tuition":
-                    budgetTuition = budgetMap.get("Tuition");
-                    break;
-                case "Misc Income":
-                    budgetMiscIncome = budgetMap.get("Misc Income");
-                    break;
+                switch (switchKey)
+                {
+                    case "Grants and Gifts":
+                        budgetGrantsGifts = budgetMap.get("Grants and Gifts");
+                        break;
+                    case "Tuition":
+                        budgetTuition = budgetMap.get("Tuition");
+                        break;
+                    case "Misc Income":
+                        budgetMiscIncome = budgetMap.get("Misc Income");
+                        break;
                     case "Total Income":
-                    budgetTotalIncome = budgetMap.get("Total Income");
-                    break;
-                case "Salaries":
-                    budgetSalaries = budgetMap.get("Salaries");
-                    break;
-                case "Contract Services":
-                    budgetContractServices = budgetMap.get("Contract Services");
-                    break;
-                case "Rent":
-                    budgetRent = budgetMap.get("Rent");
-                    break;
-                case "Operations":
-                    budgetOperations = budgetMap.get("Operations");
-                    break;
-                case "Misc Expenses":
-                    budgetMiscExpenses = budgetMap.get("Misc Expenses");
-                    break;
-                case "Total Expenses":
-                    budgetTotalExpenses = budgetMap.get("Total Expenses");
-                    break;
-                case "Profit":
-                    budgetProfit = budgetMap.get("Profit");
-                    break;
-                case "Paying Students (Actual)":
-                    cashPayingStudents = budgetMap.get("Paying Students (Actual)");
-                    break;
-                case "Paying Students (Budget)":
-                    budgetPayingStudents = budgetMap.get("Paying Students (Budget)");
-                    break;
-                default:
+                        budgetTotalIncome = budgetMap.get("Total Income");
+                        break;
+                    case "Salaries":
+                        budgetSalaries = budgetMap.get("Salaries");
+                        break;
+                    case "Contract Services":
+                        budgetContractServices = budgetMap.get("Contract Services");
+                        break;
+                    case "Rent":
+                        budgetRent = budgetMap.get("Rent");
+                        break;
+                    case "Operations":
+                        budgetOperations = budgetMap.get("Operations");
+                        break;
+                    case "Misc Expenses":
+                        budgetMiscExpenses = budgetMap.get("Misc Expenses");
+                        break;
+                    case "Total Expenses":
+                        budgetTotalExpenses = budgetMap.get("Total Expenses");
+                        break;
+                    case "Profit":
+                        budgetProfit = budgetMap.get("Profit");
+                        break;
+                    case "Profit Variance":
+                        if (budgetMap.get("Profit Variance") != null)
+                        {
+                            profitVariance = budgetMap.get("Profit Variance");
+                        }
+                        break;
+                    case "Paying Students (Actual)":
+                        cashPayingStudents = budgetMap.get("Paying Students (Actual)");
+                        break;
+                    case "Paying Students (Budget)":
+                        budgetPayingStudents = budgetMap.get("Paying Students (Budget)");
+                        break;
+                    default:
+                }
             }
+
         }
         System.out.println("(8) Finished Extracting Items for Budget From Budget Map");
     }
@@ -197,7 +209,7 @@ public class CashItemAggregator
         cashGrantsGifts = pandlGrantsAndGifts - pandlContributedServices;
         grantsGiftsVariance = cashGrantsGifts - budgetGrantsGifts;
         cashTuition = pandlProgramIncome - pandlLeagueScholarship;
-        tuitionVariance = cashTuition -budgetTuition;
+        tuitionVariance = cashTuition - budgetTuition;
         cashMiscIncome = pandlMiscIncome;
         miscIncomeVariance = cashMiscIncome - budgetMiscIncome;
         cashTotalIncome = cashGrantsGifts + cashTuition + cashMiscIncome;
@@ -215,7 +227,6 @@ public class CashItemAggregator
         cashTotalExpenses = cashSalaries + cashContractServices + cashRent + cashOperations + cashMiscExpenses;
         totalExpenseVariance = cashTotalExpenses - budgetTotalExpenses;
         cashProfit = cashTotalIncome - cashTotalExpenses;
-        System.out.println(budgetProfit + " " + cashProfit + " " + profitVariance);
         profitVariance = cashProfit - budgetProfit;
         payingStudentsVariance = cashPayingStudents - budgetPayingStudents;
         /***************************************************************************************************************
@@ -232,8 +243,9 @@ public class CashItemAggregator
         System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Rent",  budgetRent, cashRent, rentVariance);
         System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Operations", budgetOperations, cashOperations, operationsVariance);
         System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Misc Expenses", budgetMiscExpenses, cashMiscExpenses, miscExpenseVariance);
-        System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "TotalExpenses", budgetTotalExpenses, cashTotalExpenses, totalExpenseVariance);
+        System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Total Expenses", budgetTotalExpenses, cashTotalExpenses, totalExpenseVariance);
         System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Profit", budgetProfit, cashProfit, profitVariance);
+        System.out.printf("%-40s %-20s %-20s %,-20d %n", "Profit Variance", "-", "-", profitVariance);
         System.out.printf("%-40s %,-20d %,-20d %,-20d %n%n", "Paying Students", budgetPayingStudents, cashPayingStudents, payingStudentsVariance);
         System.out.println("(10) Finished computing Budget Sheet Entries");
     }
@@ -299,6 +311,9 @@ public class CashItemAggregator
                     case "Profit":
                         row.getCell(targetMonthColumnIndex).setCellValue(cashProfit);
                         row.getCell(13).setCellValue(profitVariance);
+                        break;
+                     case "Profit Variance":
+                        row.getCell(targetMonthColumnIndex).setCellValue(profitVariance);
                         break;
                     case "Paying Students (Budget)":
                         row.getCell(13).setCellValue(payingStudentsVariance);
