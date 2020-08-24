@@ -1,10 +1,9 @@
 package com.github.sdvic;
 /******************************************************************************************
  * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
- * version 200823
+ * version 200824
  * copyright 2020 Vic Wintriss
  ******************************************************************************************/
-
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -82,130 +81,51 @@ public class CashItemAggregator
     private int profitVariance;
     private int cashPayingStudents;
     private int budgetPayingStudents;
+    private int targetMonth;
 
-    /******************************************************************************************
-     * Extract Needed Budget Items from P & L Map
-     ******************************************************************************************/
-    public void extractBudgetItemsFromPandLMap(HashMap<String, Integer> pandLmap, HashMap<String, Integer> budgetHashMap)
-    {
-        System.out.println("(5) Extracting Items for Budget From PandL Map");
-        for (String key : budgetHashMap.keySet())
-        {
-            String switchKey = key.trim();
-            if (pandLmap.get(switchKey) != null)//Check for missing P&L items
-            switch (switchKey)
-            {
-                case "Grants and Gifts":
-                    pandlGrantsAndGifts = pandLmap.get("Total 43400 Direct Public Support");
-                    pandlContributedServices = pandLmap.get("43460 Contributed Services");//Non cash item...must be subtracted
-                    break;
-                case "Tuition":
-                    pandlProgramIncome = pandLmap.get("Total 47200 Program Income");
-                    pandlLeagueScholarship = pandLmap.get("Total 47203 League Scholarship");//Non cash item...must be subtracted
-                    break;
-                case "Misc Income":
-                    pandlMiscIncome = pandLmap.get("Total 45000 Investments");
-                    break;
-                case "Salaries":
-                    pandlSalaries = pandLmap.get("Total 62000 Salaries & Related Expenses");
-                    pandlContributedServices = pandLmap.get("62010 Salaries contributed services");//Non cash item...must be subtracted
-                    break;
-                case "Contract Services":
-                    pandlContractServices = pandLmap.get("Total 62100 Contract Services");
-                    pandlPayrollServiceFees = pandLmap.get("62145 Payroll Service Fees");
-                    break;
-                case "Rent":
-                    pandlRent = pandLmap.get("Total 62800 Facilities and Equipment");
-                    pandlDepreciation = pandLmap.get("62810 Depr and Amort - Allowable");//Non cash item...must be subtracted
-                    break;
-                case "Operations":
-                    pandlOperations = pandLmap.get("Total 65000 Operations");
-                    pandlBreakRoomSupplies = pandLmap.get("65055 Breakroom Supplies");
-                    pandlOtherExpenses = pandLmap.get("65100 Other Types of Expenses");
-                    pandlTravel = pandLmap.get("Total 68300 Travel and Meetings");
-                    pandlScholarships = pandLmap.get("65090 Scholarships");
-                    break;
-                case "Misc Expenses":
-                    pandlPenalties = pandLmap.get("90100 Penalties");
-                    break;
-                default:
-                    break;
-            }
-        }
-        System.out.println("(6) Finished Extracting Items for Budget From PandL Map");
-    }
-    /******************************************************************************************
-     * Extract Needed Budget Items from Budget Map
-     ******************************************************************************************/
-    public void extractBudgetItemsFromBudgetMap(HashMap<String, Integer> pandLmap, HashMap<String, Integer> budgetMap, int targetMonthColumnIndex)
-    {
-        System.out.println("(7) Extracting Items for Budget  From Budget Map");
-        this.targetMonthColumnIndex = targetMonthColumnIndex;
-        for (String key : budgetMap.keySet())
-        {
-            String switchKey = key.trim();
-            if (switchKey != null)
-            {
-                switch (switchKey)
-                {
-                    case "Grants and Gifts":
-                        budgetGrantsGifts = budgetMap.get("Grants and Gifts");
-                        break;
-                    case "Tuition":
-                        budgetTuition = budgetMap.get("Tuition");
-                        break;
-                    case "Misc Income":
-                        budgetMiscIncome = budgetMap.get("Misc Income");
-                        break;
-                    case "Total Income":
-                        budgetTotalIncome = budgetMap.get("Total Income");
-                        break;
-                    case "Salaries":
-                        budgetSalaries = budgetMap.get("Salaries");
-                        break;
-                    case "Contract Services":
-                        budgetContractServices = budgetMap.get("Contract Services");
-                        break;
-                    case "Rent":
-                        budgetRent = budgetMap.get("Rent");
-                        break;
-                    case "Operations":
-                        budgetOperations = budgetMap.get("Operations");
-                        break;
-                    case "Misc Expenses":
-                        budgetMiscExpenses = budgetMap.get("Misc Expenses");
-                        break;
-                    case "Total Expenses":
-                        budgetTotalExpenses = budgetMap.get("Total Expenses");
-                        break;
-                    case "Profit":
-                        budgetProfit = budgetMap.get("Profit");
-                        break;
-                    case "Profit Variance":
-                        if (budgetMap.get("Profit Variance") != null)
-                        {
-                            profitVariance = budgetMap.get("Profit Variance");
-                        }
-                        break;
-                    case "Paying Students (Actual)":
-                        cashPayingStudents = budgetMap.get("Paying Students (Actual)");
-                        break;
-                    case "Paying Students (Budget)":
-                        budgetPayingStudents = budgetMap.get("Paying Students (Budget)");
-                        break;
-                    default:
-                }
-            }
-
-        }
-        System.out.println("(8) Finished Extracting Items for Budget From Budget Map");
-    }
     /******************************************************************************************
      * Compute budget sheet entries
      ******************************************************************************************/
-    public void computeCombinedCashBudgetSheetEntries()
+    public void computeCombinedCashBudgetSheetEntries(HashMap<String, Integer> pandLmap, HashMap<String, Integer> budgetMap, int targetMonth)
     {
         System.out.println("(9) Computing Combined Budget Sheet Entries");
+       try{
+           pandlGrantsAndGifts = pandLmap.get("Total 43400 Direct Public Support");
+           pandlContributedServices = pandLmap.get("43460 Contributed Services");//Non cash item...must be subtracted
+           pandlProgramIncome = pandLmap.get("Total 47200 Program Income");
+           pandlLeagueScholarship = pandLmap.get("Total 47203 League Scholarship");//Non cash item...must be subtracted
+           pandlMiscIncome = pandLmap.get("Total 45000 Investments");
+           pandlSalaries = pandLmap.get("Total 62000 Salaries & Related Expenses");
+           pandlContributedServices = pandLmap.get("62010 Salaries contributed services");//Non cash item...must be subtracted
+           pandlContractServices = pandLmap.get("Total 62100 Contract Services");
+           pandlPayrollServiceFees = pandLmap.get("62145 Payroll Service Fees");
+           pandlOperations = pandLmap.get("Total 65000 Operations");
+           pandlBreakRoomSupplies = pandLmap.get("65055 Breakroom Supplies");
+           pandlOtherExpenses = pandLmap.get("65100 Other Types of Expenses");
+           pandlTravel = pandLmap.get("Total 68300 Travel and Meetings");
+           pandlScholarships = pandLmap.get("65090 Scholarships");
+           pandlPenalties = pandLmap.get("90100 Penalties");
+           pandlRent = pandLmap.get("Total 62800 Facilities and Equipment");
+           pandlDepreciation = pandLmap.get("62810 Depr and Amort - Allowable");//Non cash item...must be subtracted
+           budgetGrantsGifts = budgetMap.get("Grants and Gifts");
+           budgetTuition = budgetMap.get("Tuition");
+           budgetMiscIncome = budgetMap.get("Misc Income");
+           budgetTotalIncome = budgetMap.get("Total Income");
+           budgetSalaries = budgetMap.get("Salaries");
+           budgetContractServices = budgetMap.get("Contract Services");
+           budgetOperations = budgetMap.get("Operations");
+           budgetRent = budgetMap.get("Rent");
+           budgetMiscExpenses = budgetMap.get("Misc Expenses");
+           budgetTotalExpenses = budgetMap.get("Total Expenses");
+           budgetProfit = budgetMap.get("Profit");
+           profitVariance = budgetMap.get("Profit Variance");
+           cashPayingStudents = budgetMap.get("Paying Students (Actual)");
+           budgetPayingStudents = budgetMap.get("Paying Students (Budget)");
+       }
+       catch(Exception e)
+       {
+           System.out.println("\n**    Getting: " + e.getMessage() + " while tryng to read pandlMap/budgetMap in method => computeCombinedCashBudgetSheetEntries(HashMap<String, Integer> pandLmap, HashMap<String, Integer> budgetMap, int targetMonth){}");
+       }
         cashGrantsGifts = pandlGrantsAndGifts - pandlContributedServices;
         grantsGiftsVariance = cashGrantsGifts - budgetGrantsGifts;
         cashTuition = pandlProgramIncome - pandlLeagueScholarship;
@@ -232,7 +152,7 @@ public class CashItemAggregator
         /***************************************************************************************************************
          * Print Budget Proof Figures
          ***************************************************************************************************************/
-        System.out.printf("%n %-40s %-20s %-20s %-20s %n", "ACCOUNT", "BUDGET AMOUNT", "CASH AMOUNT", "VARIANCE for Month " + targetMonthColumnIndex);
+        System.out.printf("%n %-40s %-20s %-20s %-20s %n", "ACCOUNT", "BUDGET AMOUNT", "CASH AMOUNT", "VARIANCE for Month " + targetMonth);
         System.out.printf("%-40s %-20s %-20s %-20s %n", "------------------------------------", "-------------", "-------------", "---------------------");
         System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Grants and Gifts", budgetGrantsGifts, cashGrantsGifts, grantsGiftsVariance);
         System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Tuition", budgetTuition, cashTuition, tuitionVariance);

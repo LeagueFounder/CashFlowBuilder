@@ -1,7 +1,7 @@
 package com.github.sdvic;
 /******************************************************************************************
  * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
- * version 200823
+ * version 200824
  * copyright 2020 Vic Wintriss
  ******************************************************************************************/
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
@@ -24,7 +24,7 @@ public class BudgetReader
     private FileInputStream budgetInputFIS;
     private XSSFWorkbook budgetWorkBook;
     private XSSFSheet budgetSheet;
-    private HashMap<String, Integer> budgetHashMap = new HashMap<>();
+    private HashMap<String, Integer> budgetMap = new HashMap<>();
     private int budgetValue;
     private String budgetKey;
     private XSSFCell cell;
@@ -32,7 +32,7 @@ public class BudgetReader
 
     public void readBudget(int targetMonth, String followOnAnswer)
     {
-        System.out.println("(3) Starting reading Budget In budgetReader from " + budgetInputFileName + " to: budgetHashMap, HashMap size: " + budgetHashMap.size());
+        System.out.println("(3) Starting reading Budget In budgetReader from " + budgetInputFileName + " to: budgetHashMap, HashMap size: " + budgetMap.size());
         try
         {
             if (followOnAnswer.equals("Yes"))
@@ -98,16 +98,16 @@ public class BudgetReader
                         default:
                             System.out.println("switch error");
                     }
-                    budgetHashMap.put(budgetKey, budgetValue);
+                    budgetMap.put(budgetKey, budgetValue);
                 }
         }
         //budgetHashMap.forEach((K, V) -> System.out.println( K + " => " + V ));
-        System.out.println("(4) Finished reading Budget In budgetReader from " + budgetInputFileName + " to: budgetHashMap, HashMap size: " + budgetHashMap.size());
+        System.out.println("(4) Finished reading Budget In budgetReader from " + budgetInputFileName + " to: budgetHashMap, HashMap size: " + budgetMap.size());
     }
 
-    public HashMap<String, Integer> getBudgetHashMap()
+    public HashMap<String, Integer> getBudgetMap()
     {
-        return budgetHashMap;
+        return budgetMap;
     }
 
     public XSSFWorkbook getBudgetWorkBook()

@@ -1,7 +1,7 @@
 package com.github.sdvic;
 /******************************************************************************************
  * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
- * version 200823
+ * version 200824
  * copyright 2020 Vic Wintriss
  ******************************************************************************************/
 import org.apache.poi.ss.usermodel.*;
@@ -20,7 +20,7 @@ public class PandLReader
     private XSSFSheet pandlSheet;
     private String cellKey;
     private int cellValue;
-    private HashMap<String, Integer> pandlHashMap = new HashMap<>();
+    private HashMap<String, Integer> pandlMap = new HashMap<>();
     private FormulaEvaluator evaluator;
 
     /*******************************************************************************************************************
@@ -29,7 +29,7 @@ public class PandLReader
      ******************************************************************************************************************/
     public void readPandL(int targetMonth)
     {
-        System.out.println("(1) Started reading PandL In PandLreader from: " + pandInputlFile + " to: pandlHashMap, HashMap size: " + pandlHashMap.size());
+        System.out.println("(1) Started reading PandL In PandLreader from: " + pandInputlFile + " to: pandlHashMap, HashMap size: " + pandlMap.size());
         try
         {
             inputFileName = "/Users/VicMini/Desktop/" + targetMonth + "The+League+of+Amazing+Programmers_Profit+and+Loss.xlsx";
@@ -68,15 +68,15 @@ public class PandLReader
                         default:
                             System.out.println("switch error");
                     }
-                pandlHashMap.put(cellKey, cellValue);
+                pandlMap.put(cellKey, cellValue);
             }
         }
         //pandlHashMap.forEach((K, V) -> System.out.println( K + " => " + V ));
-        System.out.println("(2) Finished reading PandL In PandLreader from: " + pandInputlFile + " to: pandlHashMap, HashMap size: " + pandlHashMap.size());
+        System.out.println("(2) Finished reading PandL In PandLreader from: " + pandInputlFile + " to: pandlHashMap, HashMap size: " + pandlMap.size());
     }
-    public HashMap<String, Integer> getPandlHashMap()
+    public HashMap<String, Integer> getPandlMap()
     {
-        return pandlHashMap;
+        return pandlMap;
     }
     public XSSFWorkbook getPandlWorkBook()
     {
