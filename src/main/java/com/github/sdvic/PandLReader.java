@@ -51,23 +51,23 @@ public class PandLReader
             for (Cell cell : row)
             {
                 switch (cell.getCellType())
-                    {
-                        case XSSFCell.CELL_TYPE_BLANK://Type 3
-                            break;
-                        case XSSFCell.CELL_TYPE_BOOLEAN:
-                            break;
-                        case XSSFCell.CELL_TYPE_FORMULA://Type 2
-                            cellValue = (int)cell.getNumericCellValue();
-                            break;
-                        case XSSFCell.CELL_TYPE_NUMERIC:
-                            cellValue = (int) cell.getNumericCellValue();
-                            break;
-                        case XSSFCell.CELL_TYPE_STRING://Type 1
-                            cellKey = cell.getStringCellValue().trim();
-                            break;
-                        default:
-                            System.out.println("switch error");
-                    }
+                {
+                    case XSSFCell.CELL_TYPE_BLANK://Type 3
+                        break;
+                    case XSSFCell.CELL_TYPE_BOOLEAN:
+                        break;
+                    case XSSFCell.CELL_TYPE_FORMULA://Type 2
+                        cellValue = (int)cell.getNumericCellValue();
+                        break;
+                    case XSSFCell.CELL_TYPE_NUMERIC:
+                        cellValue = (int) cell.getNumericCellValue();
+                        break;
+                    case XSSFCell.CELL_TYPE_STRING://Type 1
+                        cellKey = cell.getStringCellValue().trim();
+                        break;
+                    default:
+                        System.out.println("switch error");
+                }
                 pandlMap.put(cellKey, cellValue);
             }
         }

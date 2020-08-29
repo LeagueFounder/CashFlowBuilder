@@ -100,35 +100,35 @@ public class CashItemAggregator
         System.out.printf("%n %-40s %-20s %-20s %-20s %n", "ACCOUNT", "BUDGET AMOUNT", "P&L AMOUNT", "MONTH " + targetMonth + " VARIANCE");
         System.out.printf("%-40s %-20s %-20s %-20s %n", "------------------------------------", "-------------", "-------------", "---------------------");
         try {
-          /*************************************************************************************************************
-           * GRANTS AND GIFTS
-           *************************************************************************************************************/
-           pandlGrantsAndGifts = pandLmap.get("Total 43400 Direct Public Support");
-           pandlContributedServices = pandLmap.get("43460 Contributed Services");//Non cash item...must be subtracted
-           budgetGrantsGifts = budgetMap.get("Grants and Gifts");
-           cashGrantsGifts = pandlGrantsAndGifts - pandlContributedServices;
-           grantsGiftsVariance = cashGrantsGifts - budgetGrantsGifts;
-           System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Grants and Gifts", budgetGrantsGifts, cashGrantsGifts, grantsGiftsVariance);
-          /*************************************************************************************************************
-           * TUITION
-           *************************************************************************************************************/
-           pandlProgramIncome = pandLmap.get("Total 47200 Program Income");
-           pandlLeagueScholarship = pandLmap.get("Total 47203 League Scholarship");//Non cash item...must be subtracted
-           budgetTuition = budgetMap.get("Tuition");
-           cashTuition = pandlProgramIncome - pandlLeagueScholarship;
-           tuitionVariance = cashTuition - budgetTuition;
-           System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Tuition", budgetTuition, cashTuition, tuitionVariance);
-          /*************************************************************************************************************
-           * MISC INCOME
-           *************************************************************************************************************/
-           pandlInvestments = pandLmap.get("Total 45000 Investments");
-           budgetMiscIncome = budgetMap.get("Misc Income");
-           cashMiscIncome = pandlInvestments;
-           miscIncomeVariance = cashMiscIncome - budgetMiscIncome;
-           System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Misc Income", budgetMiscIncome, cashMiscIncome, miscIncomeVariance);
-           /*************************************************************************************************************
-            * TOTAL INCOME
-            *************************************************************************************************************/
+            /*************************************************************************************************************
+             * GRANTS AND GIFTS
+             *************************************************************************************************************/
+            pandlGrantsAndGifts = pandLmap.get("Total 43400 Direct Public Support");
+            pandlContributedServices = pandLmap.get("43460 Contributed Services");//Non cash item...must be subtracted
+            budgetGrantsGifts = budgetMap.get("Grants and Gifts");
+            cashGrantsGifts = pandlGrantsAndGifts - pandlContributedServices;
+            grantsGiftsVariance = cashGrantsGifts - budgetGrantsGifts;
+            System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Grants and Gifts", budgetGrantsGifts, cashGrantsGifts, grantsGiftsVariance);
+            /*************************************************************************************************************
+             * TUITION
+             *************************************************************************************************************/
+            pandlProgramIncome = pandLmap.get("Total 47200 Program Income");
+            pandlLeagueScholarship = pandLmap.get("Total 47203 League Scholarship");//Non cash item...must be subtracted
+            budgetTuition = budgetMap.get("Tuition");
+            cashTuition = pandlProgramIncome - pandlLeagueScholarship;
+            tuitionVariance = cashTuition - budgetTuition;
+            System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Tuition", budgetTuition, cashTuition, tuitionVariance);
+            /*************************************************************************************************************
+             * MISC INCOME
+             *************************************************************************************************************/
+            pandlInvestments = pandLmap.get("Total 45000 Investments");
+            budgetMiscIncome = budgetMap.get("Misc Income");
+            cashMiscIncome = pandlInvestments;
+            miscIncomeVariance = cashMiscIncome - budgetMiscIncome;
+            System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Misc Income", budgetMiscIncome, cashMiscIncome, miscIncomeVariance);
+            /*************************************************************************************************************
+             * TOTAL INCOME
+             *************************************************************************************************************/
             pandlTotalIncome = pandLmap.get("Total Income");
             cashTotalIncome = cashGrantsGifts + cashTuition;
             budgetTotalIncome = budgetGrantsGifts + budgetTuition + budgetMiscIncome;
@@ -173,8 +173,8 @@ public class CashItemAggregator
             operationsVariance = cashOperations - budgetOperations;
             System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Operations", budgetOperations, cashOperations, operationsVariance);
             /*************************************************************************************************************
-            * MISC EXPENSES
-            *************************************************************************************************************/
+             * MISC EXPENSES
+             *************************************************************************************************************/
             pandlBusinessExpenses = pandLmap.get("Total 60900 Business Expenses");
             budgetMiscExpenses = budgetMap.get("Misc Expenses");
             cashMiscExpenses = pandlBusinessExpenses;
@@ -193,9 +193,9 @@ public class CashItemAggregator
              *************************************************************************************************************/
             budgetProfit = budgetMap.get("Profit");
             profitVariance = budgetMap.get("Profit Variance");
-            System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Profit", budgetProfit, cashProfit, profitVariance);
             cashProfit = cashTotalIncome - cashTotalExpenses;
-            profitVariance = cashProfit - budgetProfit;
+            profitVariance = budgetProfit - cashProfit;
+            System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Profit", budgetProfit, cashProfit, profitVariance);
             /*************************************************************************************************************
              * STUDENTS
              *************************************************************************************************************/
@@ -210,11 +210,11 @@ public class CashItemAggregator
             System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Reconcile Income", budgetTotalIncome, pandlTotalIncome, incomeTotalVariance);
             System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Reconcile Expenses", budgetTotalExpenses, pandlTotalExpenses, expenseTotalVariance);
             System.out.printf("%-40s %,-20d %,-20d %,-20d %n%n", "Reconcile Profit", budgetProfit, pandlNetIncome, profitVariance);
-       }
-       catch(Exception e)
-       {
-           System.out.println("\n**    Getting: " + e.getMessage() + " while tryng to read pandlMap/budgetMap in method => computeCombinedCashBudgetSheetEntries(HashMap<String, Integer> pandLmap, HashMap<String, Integer> budgetMap, int targetMonth){}");
-       }
+        }
+        catch(Exception e)
+        {
+            System.out.println("\n**    Getting: " + e.getMessage() + " while tryng to read pandlMap/budgetMap in method => computeCombinedCashBudgetSheetEntries(HashMap<String, Integer> pandLmap, HashMap<String, Integer> budgetMap, int targetMonth){}");
+        }
         System.out.println("(6) Finished computing Budget Sheet Entries");
     }
     /******************************************************************************************
@@ -244,7 +244,7 @@ public class CashItemAggregator
                         row.getCell(targetMonthColumnIndex).setCellValue(cashTuition);
                         row.getCell(13).setCellValue(tuitionVariance);
                         break;
-                        case "Misc Income":
+                    case "Misc Income":
                         row.getCell(targetMonthColumnIndex).setCellValue(cashMiscIncome);
                         row.getCell(13).setCellValue(miscIncomeVariance);
                         break;
@@ -272,11 +272,11 @@ public class CashItemAggregator
                         row.getCell(targetMonthColumnIndex).setCellValue(cashMiscExpenses);
                         row.getCell(13).setCellValue(miscExpenseVariance);
                         break;
-                        case "Misc Expense Variance":
+                    case "Misc Expense Variance":
                         row.getCell(targetMonthColumnIndex).setCellValue(MiscExpenseVariance);
                         row.getCell(13).setCellValue(miscExpenseVariance);
                         break;
-                        case "Total Expenses":
+                    case "Total Expenses":
                         row.getCell(targetMonthColumnIndex).setCellValue(cashTotalExpenses);
                         row.getCell(13).setCellValue(expenseTotalVariance);
                         break;
@@ -284,7 +284,7 @@ public class CashItemAggregator
                         row.getCell(targetMonthColumnIndex).setCellValue(cashProfit);
                         row.getCell(13).setCellValue(profitVariance);
                         break;
-                     case "Profit Variance":
+                    case "Profit Variance":
                         row.getCell(targetMonthColumnIndex).setCellValue(profitVariance);
                         break;
                     case "Paying Students (Budget)":
@@ -301,6 +301,3 @@ public class CashItemAggregator
         System.out.println("(8) Finished updating budget XSSFsheet");
     }
 }
-
-
-

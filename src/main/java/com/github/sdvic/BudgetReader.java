@@ -61,45 +61,45 @@ public class BudgetReader
         evaluator.evaluateAll();
         for (Row row : budgetSheet)
         {
-                if (row.getCell(0) != null && row.getCell(targetMonth) != null)
+            if (row.getCell(0) != null && row.getCell(targetMonth) != null)
+            {
+                switch (row.getCell(0).getCellType())//Get budget key
                 {
-                    switch (row.getCell(0).getCellType())//Get budget key
-                    {
-                        case XSSFCell.CELL_TYPE_BLANK://Type 3
-                            break;
-                        case XSSFCell.CELL_TYPE_BOOLEAN:
-                            break;
-                        case XSSFCell.CELL_TYPE_FORMULA://Type 2
-                            System.out.println("Found formula...looking for budget key");
-                            break;
-                        case XSSFCell.CELL_TYPE_NUMERIC:
-                            System.out.println("Found number...looking for budget key");
-                            break;
-                        case XSSFCell.CELL_TYPE_STRING://Type 1
-                            budgetKey = row.getCell(0).getStringCellValue();//Key
-                            break;
-                        default:
-                            System.out.println("switch error");
-                    }
-                    switch (row.getCell(targetMonth).getCellType())//Get budget value
-                    {
-                        case XSSFCell.CELL_TYPE_BLANK://Type 3
-                            break;
-                        case XSSFCell.CELL_TYPE_BOOLEAN:
-                            break;
-                        case XSSFCell.CELL_TYPE_FORMULA://Type 2
-                            budgetValue = (int) row.getCell(targetMonth).getNumericCellValue();
-                            break;
-                        case XSSFCell.CELL_TYPE_NUMERIC:
-                            budgetValue = (int) row.getCell(targetMonth).getNumericCellValue();//Value
-                            break;
-                        case XSSFCell.CELL_TYPE_STRING://Type 1
-                            break;
-                        default:
-                            System.out.println("switch error");
-                    }
-                    budgetMap.put(budgetKey, budgetValue);
+                    case XSSFCell.CELL_TYPE_BLANK://Type 3
+                        break;
+                    case XSSFCell.CELL_TYPE_BOOLEAN:
+                        break;
+                    case XSSFCell.CELL_TYPE_FORMULA://Type 2
+                        System.out.println("Found formula...looking for budget key");
+                        break;
+                    case XSSFCell.CELL_TYPE_NUMERIC:
+                        System.out.println("Found number...looking for budget key");
+                        break;
+                    case XSSFCell.CELL_TYPE_STRING://Type 1
+                        budgetKey = row.getCell(0).getStringCellValue();//Key
+                        break;
+                    default:
+                        System.out.println("switch error");
                 }
+                switch (row.getCell(targetMonth).getCellType())//Get budget value
+                {
+                    case XSSFCell.CELL_TYPE_BLANK://Type 3
+                        break;
+                    case XSSFCell.CELL_TYPE_BOOLEAN:
+                        break;
+                    case XSSFCell.CELL_TYPE_FORMULA://Type 2
+                        budgetValue = (int) row.getCell(targetMonth).getNumericCellValue();
+                        break;
+                    case XSSFCell.CELL_TYPE_NUMERIC:
+                        budgetValue = (int) row.getCell(targetMonth).getNumericCellValue();//Value
+                        break;
+                    case XSSFCell.CELL_TYPE_STRING://Type 1
+                        break;
+                    default:
+                        System.out.println("switch error");
+                }
+                budgetMap.put(budgetKey, budgetValue);
+            }
         }
         //budgetMap.forEach((K, V) -> System.out.println( K + " => " + V ));
         System.out.println("(4) Finished reading Budget In budgetReader from " + budgetInputFileName + " to: budgetHashMap, HashMap size: " + budgetMap.size());
