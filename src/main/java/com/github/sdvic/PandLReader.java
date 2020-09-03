@@ -1,16 +1,21 @@
 package com.github.sdvic;
 /******************************************************************************************
  * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
- * version 200829
+ * version 200902
  * copyright 2020 Vic Wintriss
  ******************************************************************************************/
-import org.apache.poi.ss.usermodel.*;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import java.io.*;
+
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.HashMap;
+
 public class PandLReader
 {
     private String inputFileName;
@@ -29,11 +34,11 @@ public class PandLReader
      ******************************************************************************************************************/
     public void readPandL(int targetMonth)
     {
-        System.out.println("(1) Started reading PandL In PandLreader from: " + pandInputlFile + " to: pandlHashMap, HashMap size: " + pandlMap.size());
         try
         {
             inputFileName = "/Users/VicMini/Desktop/" + targetMonth + "The+League+of+Amazing+Programmers_Profit+and+Loss.xlsx";
             pandInputlFile = new File(inputFileName);
+            System.out.println("(1) Started reading QuickBooks PandL Excel file from: " + pandInputlFile + " to pandlHashMap");
             pandlInputFIS = new FileInputStream(pandInputlFile);
             pandlWorkBook = new XSSFWorkbook(pandlInputFIS);
             pandlInputFIS.close();
@@ -46,38 +51,35 @@ public class PandLReader
         evaluator = pandlWorkBook.getCreationHelper().createFormulaEvaluator();
         XSSFFormulaEvaluator.evaluateAllFormulaCells(pandlWorkBook);
         pandlSheet = pandlWorkBook.getSheetAt(0);
-        for (Row row : pandlSheet)//Bring full chart of accounts from Excel (QuickBooks) P&L into HashMap chartOfAcocounts
+        for (int row = 0; row < pandlSheet.getLastRowNum(); row++)
         {
-            for (Cell cell : row)
+            if (pandlSheet.getRow(row) != null)
             {
-                switch (cell.getCellType())
+                if (pandlSheet.getRow(row).getCell(0) != null)
                 {
-                    case XSSFCell.CELL_TYPE_BLANK://Type 3
-                        break;
-                    case XSSFCell.CELL_TYPE_BOOLEAN:
-                        break;
-                    case XSSFCell.CELL_TYPE_FORMULA://Type 2
-                        cellValue = (int)cell.getNumericCellValue();
-                        break;
-                    case XSSFCell.CELL_TYPE_NUMERIC:
-                        cellValue = (int) cell.getNumericCellValue();
-                        break;
-                    case XSSFCell.CELL_TYPE_STRING://Type 1
-                        cellKey = cell.getStringCellValue().trim();
-                        break;
-                    default:
-                        System.out.println("switch error");
+                    Cell keyCell = pandlSheet.getRow(row).getCell(0);
+                    Cell valueCell = pandlSheet.getRow(row).getCell(1);
+                    if (keyCell.getCellType() == XSSFCell.CELL_TYPE_STRING)
+                    {
+                        if (valueCell.getCellType() == XSSFCell.CELL_TYPE_FORMULA)
+                        {
+                            cellKey = keyCell.getStringCellValue().trim();
+                            cellValue = (int) valueCell.getNumericCellValue();
+                            pandlMap.put(cellKey, cellValue);
+                        }
+                    }
                 }
-                pandlMap.put(cellKey, cellValue);
             }
         }
-        //pandlHashMap.forEach((K, V) -> System.out.println( K + " => " + V ));
-        System.out.println("(2) Finished reading PandL In PandLreader from: " + pandInputlFile + " to: pandlHashMap, HashMap size: " + pandlMap.size());
+        //pandlMap.forEach((K, V) -> System.out.println( K + " => " + V ));
+        System.out.println("(2) Finished reading QuickBooks PandL Excel file from: " + pandInputlFile + " to: pandlHashMap, HashMap size: " + pandlMap.size());
     }
+
     public HashMap<String, Integer> getPandlMap()
     {
         return pandlMap;
     }
+
     public XSSFWorkbook getPandlWorkBook()
     {
         return pandlWorkBook;

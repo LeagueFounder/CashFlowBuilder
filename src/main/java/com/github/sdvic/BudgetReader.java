@@ -1,7 +1,7 @@
 package com.github.sdvic;
 /******************************************************************************************
  * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
- * version 200829
+ * version 200902
  * copyright 2020 Vic Wintriss
  ******************************************************************************************/
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
@@ -70,16 +70,16 @@ public class BudgetReader
                     case XSSFCell.CELL_TYPE_BOOLEAN:
                         break;
                     case XSSFCell.CELL_TYPE_FORMULA://Type 2
-                        System.out.println("Found formula...looking for budget key");
+                        System.out.println("Error reading budget sheet...found formula...looking for budget key");
                         break;
                     case XSSFCell.CELL_TYPE_NUMERIC:
-                        System.out.println("Found number...looking for budget key");
+                        System.out.println("Error reading budget sheet...found number...looking for budget key");
                         break;
                     case XSSFCell.CELL_TYPE_STRING://Type 1
-                        budgetKey = row.getCell(0).getStringCellValue();//Key
+                        budgetKey = row.getCell(0).getStringCellValue().trim();//Key
                         break;
                     default:
-                        System.out.println("switch error");
+                        System.out.println("switch error while reading budget sheet key");
                 }
                 switch (row.getCell(targetMonth).getCellType())//Get budget value
                 {
@@ -96,7 +96,7 @@ public class BudgetReader
                     case XSSFCell.CELL_TYPE_STRING://Type 1
                         break;
                     default:
-                        System.out.println("switch error");
+                        System.out.println("switch error while reading budget sheet value");
                 }
                 budgetMap.put(budgetKey, budgetValue);
             }
