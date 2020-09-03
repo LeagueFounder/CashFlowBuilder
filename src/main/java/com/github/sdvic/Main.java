@@ -2,7 +2,7 @@ package com.github.sdvic;
 /******************************************************************************************
  * Application to extract data from Quick Books P&L Excel Reports and update League budget
  * QuickBooks P&L (accrual) must include all rows/columns
- * version 200902
+ * version 200903
  * copyright 2020 Vic Wintriss
  ******************************************************************************************/
 
