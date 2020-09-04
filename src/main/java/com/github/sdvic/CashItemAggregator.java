@@ -1,7 +1,7 @@
 package com.github.sdvic;
 /******************************************************************************************
  * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
- * version 200903
+ * version 200904
  * copyright 2020 Vic Wintriss
  ******************************************************************************************/
 import org.apache.poi.ss.usermodel.Row;
@@ -223,7 +223,7 @@ public class CashItemAggregator
         {
             pandlBusinessExpenses = pandLmap.get("Total 60900 Business Expenses");
             budgetMiscExpenses = budgetMap.get("Misc Expenses");
-            pandlMiscIncome = pandlBusinessExpenses;
+            pandlMiscExpenses = pandlBusinessExpenses;
             miscExpenseVariance = pandlMiscExpenses - budgetMiscExpenses;
             System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Misc Expenses", budgetMiscExpenses, pandlMiscExpenses, miscExpenseVariance);
         }
@@ -238,7 +238,7 @@ public class CashItemAggregator
         {
             budgetTotalExpenses = budgetMap.get("Total Expenses");
             pandlTotalExpenses = pandLmap.get("Total Expenses");
-            pandlTotalExpenses = pandlSalaries + pandlContractServices + pandlRent + pandlOperations;
+            pandlTotalExpenses = pandlSalaries + pandlContractServices + pandlRent + pandlOperations + pandlMiscExpenses;
             expenseTotalVariance = pandlTotalExpenses - budgetTotalExpenses;
             System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Total Expenses", budgetTotalExpenses, pandlTotalExpenses, expenseTotalVariance);
         }
@@ -252,7 +252,7 @@ public class CashItemAggregator
         try
         {
             budgetProfit = budgetMap.get("Profit");
-            pandlProfit = pandLmap.get("Net Income");
+            pandlProfit = pandlTotalIncome - pandlTotalExpenses;
             profitVariance = budgetProfit - pandlProfit;
             profitVariance = pandlProfit - budgetProfit;
             System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Profit", budgetProfit, pandlProfit, profitVariance);

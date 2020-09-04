@@ -1,7 +1,7 @@
 package com.github.sdvic;
 /******************************************************************************************
  * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
- * version 200903
+ * version 200904
  * copyright 2020 Vic Wintriss
  ******************************************************************************************/
 
@@ -71,7 +71,7 @@ public class PandLReader
                 }
             }
         }
-        //pandlMap.forEach((K, V) -> System.out.println( K + " => " + V ));
+        pandlMap.forEach((K, V) -> System.out.println( K + " => " + V ));
         System.out.println("(2) Finished reading QuickBooks PandL Excel file from: " + pandInputlFile + " to: pandlHashMap, HashMap size: " + pandlMap.size());
     }
 
