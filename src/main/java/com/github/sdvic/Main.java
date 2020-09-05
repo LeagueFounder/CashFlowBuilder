@@ -1,10 +1,9 @@
 package com.github.sdvic;
-/******************************************************************************************
- * Application to extract data from Quick Books P&L Excel Reports and update League budget
- * QuickBooks P&L (accrual) must include all rows/columns
- * version 200904
- * copyright 2020 Vic Wintriss
- ******************************************************************************************/
+//******************************************************************************************
+// * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
+// * version 200905
+// * copyright 2020 Vic Wintriss
+//******************************************************************************************
 
 import javax.swing.*;
 

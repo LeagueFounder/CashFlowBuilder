@@ -1,9 +1,9 @@
 package com.github.sdvic;
-/******************************************************************************************
- * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
- * version 200904
- * copyright 2020 Vic Wintriss
- ******************************************************************************************/
+//******************************************************************************************
+// * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
+// * version 200905
+// * copyright 2020 Vic Wintriss
+//******************************************************************************************
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -106,9 +106,9 @@ public class CashItemAggregator
         {
             System.out.println("\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Error processing trying to process GRANTS AND GIFTS, excepetion => " + e.getMessage());
         }
-            /*************************************************************************************************************
-             * TUITION
-             *************************************************************************************************************/
+            //*************************************************************************************************************
+            //* TUITION
+            //*************************************************************************************************************
         try
         {
             pandlProgramIncome = pandLmap.get("Total 47200 Program Income");
@@ -208,6 +208,7 @@ public class CashItemAggregator
             pandlOtherExpenses = pandLmap.get("Total 65100 Other Types of Expenses");
             pandlTravel = pandLmap.get("Total 68300 Travel and Meetings");
             budgetOperations = budgetMap.get("Operations");
+            System.out.println("========================================> 211");
             pandlOperations = pandlOperations + pandlBreakRoomSupplies + pandlOtherExpenses + pandlTravel;
             operationsVariance = pandlOperations - budgetOperations;
             System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Operations", budgetOperations, pandlOperations, operationsVariance);
@@ -266,8 +267,8 @@ public class CashItemAggregator
              *************************************************************************************************************/
         try
         {
-            actualPayingStudents = budgetMap.get("Paying Students (Actual)");
-            budgetPayingStudents = budgetMap.get("Paying Students (Budget)");
+            actualPayingStudents = pandlTuition/240;//Derived...including workshops, slams, etc and partial paying students
+            budgetPayingStudents = budgetMap.get("Paying Students");
             payingStudentsVariance = actualPayingStudents - budgetPayingStudents;
             System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Paying Students", budgetPayingStudents, actualPayingStudents, payingStudentsVariance);
         }
@@ -276,7 +277,7 @@ public class CashItemAggregator
             System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Error processing trying to process STUDENTS");
         }
             /*************************************************************************************************************
-             * RECONCILE
+             * RECONCILE...Profit vairance will equal depreciation, which is disregarded in these numbers
              *************************************************************************************************************/
         try
         {
@@ -372,7 +373,8 @@ public class CashItemAggregator
                     case "Profit Variance":
                         row.getCell(targetMonth).setCellValue(profitVariance);
                         break;
-                    case "Paying Students (Budget)":
+                    case "Paying Students":
+                        row.getCell(targetMonth).setCellValue(actualPayingStudents);
                         row.getCell(13).setCellValue(payingStudentsVariance);
                         break;
                     default:
