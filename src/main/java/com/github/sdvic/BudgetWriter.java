@@ -11,15 +11,14 @@ import java.io.FileOutputStream;
 
 public class BudgetWriter
 {
-    private File updated2020MasterBudgetOutputFile = new File("/Users/vicwintriss/Desktop/Updated2020MasterBudgetOutputFile.xlsx");
-    private FileOutputStream budgetOutputFOS;
+    private final File updated2020MasterBudgetOutputFile = new File("/Users/vicwintriss/Desktop/Updated2020MasterBudgetOutputFile.xlsx");
 
     public void writeBudget(XSSFWorkbook budgetWorkbook)
     {
         System.out.println("(9) Writing budget workbook to File: " + updated2020MasterBudgetOutputFile);
         try
         {
-            budgetOutputFOS = new FileOutputStream(updated2020MasterBudgetOutputFile);
+            FileOutputStream budgetOutputFOS = new FileOutputStream(updated2020MasterBudgetOutputFile);
             budgetWorkbook.write(budgetOutputFOS);
             budgetOutputFOS.close();
         }

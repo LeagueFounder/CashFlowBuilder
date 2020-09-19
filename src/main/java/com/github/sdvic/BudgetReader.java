@@ -19,15 +19,8 @@ import java.util.HashMap;
 public class BudgetReader {
     String budgetInputFileName = "/Users/vicwintriss/Desktop/SarahOriginalBudget2020.xlsx";
     String updateInputFileName = "/Users/vicwintriss/Desktop//Updated2020MasterBudgetOutputFile.xlsx";
-    private File budgetInputFile;
-    private FormulaEvaluator evaluator;
-    private FileInputStream budgetInputFIS;
     private XSSFWorkbook budgetWorkBook;
-    private XSSFSheet budgetSheet;
-    private HashMap<String, Integer> budgetMap = new HashMap<>();
-    private int cellValue;
-    private String keyValue;
-    private XSSFRow row;
+    private final HashMap<String, Integer> budgetMap = new HashMap<>();
     private XSSFCell cell;
     private XSSFCell keyCell;
     private XSSFCell valueCell;
@@ -35,13 +28,15 @@ public class BudgetReader {
 
     public void readBudget(int targetMonth, String followOnAnswer) {
         System.out.println("(3) Starting reading Budget In budgetReader from " + budgetInputFileName + " to: budgetHashMap, HashMap size: " + budgetMap.size());
+        XSSFSheet budgetSheet;
         try {
+            File budgetInputFile;
             if (followOnAnswer.equals("Yes")) {
                 budgetInputFile = new File(budgetInputFileName);
             } else {
                 budgetInputFile = new File(updateInputFileName);
             }
-            budgetInputFIS = new FileInputStream(budgetInputFile);
+            FileInputStream budgetInputFIS = new FileInputStream(budgetInputFile);
             budgetWorkBook = new XSSFWorkbook(budgetInputFIS);
             budgetInputFIS.close();
             budgetSheet = budgetWorkBook.getSheetAt(0);
@@ -52,11 +47,11 @@ public class BudgetReader {
             System.out.println("file IOexception");
             e.printStackTrace();
         }
-        evaluator = budgetWorkBook.getCreationHelper().createFormulaEvaluator();
+        FormulaEvaluator evaluator = budgetWorkBook.getCreationHelper().createFormulaEvaluator();
         XSSFFormulaEvaluator.evaluateAllFormulaCells(budgetWorkBook);
         budgetSheet = budgetWorkBook.getSheetAt(0);
         for (int rowIndex = 0; rowIndex < budgetSheet.getLastRowNum(); rowIndex++) {
-            row = budgetSheet.getRow(rowIndex);
+            XSSFRow row = budgetSheet.getRow(rowIndex);
             if (row != null) {
                 if (row.getCell(targetMonth) == null)
                 {
@@ -68,8 +63,8 @@ public class BudgetReader {
                     Cell valueCell = row.getCell(targetMonth);
                     if (keyCell.getCellType() == XSSFCell.CELL_TYPE_STRING) {
                         if (valueCell.getCellType() == XSSFCell.CELL_TYPE_FORMULA || valueCell.getCellType() == XSSFCell.CELL_TYPE_NUMERIC) {
-                            keyValue = keyCell.getStringCellValue().trim();
-                            cellValue = (int) valueCell.getNumericCellValue();
+                            String keyValue = keyCell.getStringCellValue().trim();
+                            int cellValue = (int) valueCell.getNumericCellValue();
                             budgetMap.put(keyValue, cellValue);
                         }
                     }

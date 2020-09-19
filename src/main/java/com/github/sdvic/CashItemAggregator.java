@@ -15,38 +15,12 @@ import java.util.HashMap;
 public class CashItemAggregator
 {
     private int pandlContractServices;
-    private int budgetTotalExpenses;
-    private int totalIncomeVariance;
     private int pandlSalaries;
-    private int budgetSalaries;
-    private int budgetContractServices;
-    private int pandlPayrollServiceFees;
     private int contractServiceVariance;
-    private int pandlDepreciation;
     private int pandlOperations;
-    private int pandlTravel;
-    private int budgetOperations;
     private int operationsVariance;
-    private int totalExpenseVariance;
     private int payingStudentsVariance;
-    private int budgetTotalIncome;
-    private int budgetProfit;
-    private int pandlContributedServices;
-    private int pandlGiftsInKindGoods;
-    private int pandlProgramIncome;
-    private int grantsAndGifts;
-    private int pandlOtherIncome;
-    private int budgetInvestments;
-    private int budgetRent;
-    private int pandlTotalGrantScholarship;
-    private int pandlOtherExpenses;
-    private int pandlLeagueScholarship;
-    private int pandlTotalProgramIncome;
     private int pandlRent;
-    private int pandlBreakRoomSupplies;
-    private int pandlPenalties;
-    private int pandlInvestments;
-    private int pandlScholarships;
     private int grantsGiftsVariance;
     private int tuitionVariance;
     private int budgetGrantsGifts;
@@ -55,29 +29,20 @@ public class CashItemAggregator
     private int rentVariance;
     private int profitVariance;
     private int budgetPayingStudents;
-    private int targetMonth;
-    private int pandlBusinessExpenses;
-    private int reconcoleIncomeVariance;
-    private int reconcileBudgetTotalIncome;
-    private int budgetTotalExpense;
     private int expenseTotalVariance;
     private int pandlTotalIncome;
     private int incomeTotalVariance;
     private int budgetMiscIncome;
-    private int budgetMiscExpenses;
     private int miscExpenseVariance;
     private int miscIncomeVariance;
     private int MiscExpenseVariance;
-    private int pandlNetIncome;
-    private int padlProfit;
     private int pandlProfit;
-    private int pandlIncome, pandlBottomLineIncome, pandlIncomeVariance;
-    private int pandlTotalExpenses, pandlBottomLineExpense, pandlExpenseVariance;
-    private int pandlAccumulatedProfit, pandlBottomLineProfit, pandlProfitVariance;
+    private int pandlIncome;
+    private int pandlTotalExpenses;
+    private int pandlAccumulatedProfit;
     private int pandlGrantsAndGifts, pandlTuition, pandlMiscIncome;
     private int pandlMiscExpenses;
     private int actualPayingStudents;
-    private int pandlDirectPublicSupport;
 
     /******************************************************************************************
      * Compute budget sheet entries
@@ -91,11 +56,12 @@ public class CashItemAggregator
             /*************************************************************************************************************
              * GRANTS AND GIFTS
              *************************************************************************************************************/
+        int pandlContributedServices;
         try
         {
-            pandlDirectPublicSupport = pandLmap.get("Total 43400 Direct Public Support");
+            int pandlDirectPublicSupport = pandLmap.get("Total 43400 Direct Public Support");
             pandlContributedServices = pandLmap.get("43460 Contributed Services");//Non cash item...must be subtracted
-            pandlGiftsInKindGoods = 0;//pandLmap.get("43440 Gifts in Kind - Goods");//Non cash item...must be subtracted
+            int pandlGiftsInKindGoods = 0;//pandLmap.get("43440 Gifts in Kind - Goods");//Non cash item...must be subtracted
             budgetGrantsGifts = budgetMap.get("Grants and Gifts");
             pandlGrantsAndGifts = pandlDirectPublicSupport - pandlContributedServices - pandlGiftsInKindGoods;
             grantsGiftsVariance = pandlGrantsAndGifts - budgetGrantsGifts;
@@ -110,8 +76,8 @@ public class CashItemAggregator
             //*************************************************************************************************************
         try
         {
-            pandlProgramIncome = pandLmap.get("Total 47200 Program Income");
-            pandlLeagueScholarship = pandLmap.get("Total 47203 League Scholarship");//Non cash item...must be subtracted
+            int pandlProgramIncome = pandLmap.get("Total 47200 Program Income");
+            int pandlLeagueScholarship = pandLmap.get("Total 47203 League Scholarship");//Non cash item...must be subtracted
             budgetTuition = budgetMap.get("Tuition");
             pandlTuition = pandlProgramIncome - pandlLeagueScholarship;
             tuitionVariance = pandlTuition - budgetTuition;
@@ -126,7 +92,7 @@ public class CashItemAggregator
              *************************************************************************************************************/
         try
         {
-            pandlInvestments = pandLmap.get("Total 45000 Investments");
+            int pandlInvestments = pandLmap.get("Total 45000 Investments");
             budgetMiscIncome = budgetMap.get("Misc Income");
             pandlMiscIncome = pandlInvestments;
             miscIncomeVariance = pandlMiscIncome - budgetMiscIncome;
@@ -142,7 +108,7 @@ public class CashItemAggregator
         try
         {
             pandlTotalIncome = pandlGrantsAndGifts + pandlTuition + pandlMiscIncome;
-            budgetTotalIncome = budgetGrantsGifts + budgetTuition + budgetMiscIncome;
+            int budgetTotalIncome = budgetGrantsGifts + budgetTuition + budgetMiscIncome;
             incomeTotalVariance = pandlTotalIncome - budgetTotalIncome;
             System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Total Income", budgetTotalIncome, pandlTotalIncome, incomeTotalVariance);
         }
@@ -157,8 +123,8 @@ public class CashItemAggregator
         {
             pandlSalaries = pandLmap.get("Total 62000 Salaries & Related Expenses");
             pandlContributedServices = pandLmap.get("62010 Salaries contributed services");//Non cash item...must be subtracted
-            pandlPayrollServiceFees = pandLmap.get("62145 Payroll Service Fees");
-            budgetSalaries = budgetMap.get("Salaries");
+            int pandlPayrollServiceFees = pandLmap.get("62145 Payroll Service Fees");
+            int budgetSalaries = budgetMap.get("Salaries");
             pandlSalaries = pandlSalaries + pandlPayrollServiceFees - pandlContributedServices;
             salaryVariance = pandlSalaries - budgetSalaries;
             System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Salaries", budgetSalaries, pandlSalaries, salaryVariance);
@@ -173,7 +139,7 @@ public class CashItemAggregator
         try
         {
             pandlContractServices = pandLmap.get("Total 62100 Contract Services");
-            budgetContractServices = budgetMap.get("Contract Services");
+            int budgetContractServices = budgetMap.get("Contract Services");
             contractServiceVariance = pandlContractServices - budgetContractServices;
             System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Contract Services", budgetContractServices, pandlContractServices, contractServiceVariance);
         }
@@ -187,8 +153,8 @@ public class CashItemAggregator
         try
         {
             pandlRent = pandLmap.get("Total 62800 Facilities and Equipment");
-            budgetRent = budgetMap.get("Rent");
-            pandlDepreciation = pandLmap.get("62810 Depr and Amort - Allowable");//Non cash item...must be subtracted
+            int budgetRent = budgetMap.get("Rent");
+            int pandlDepreciation = pandLmap.get("62810 Depr and Amort - Allowable");//Non cash item...must be subtracted
             pandlRent = pandlRent - pandlDepreciation;
             rentVariance = pandlRent - budgetRent;
             System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Rent", budgetRent, pandlRent, rentVariance);
@@ -203,10 +169,10 @@ public class CashItemAggregator
         try
         {
             pandlOperations = pandLmap.get("Total 65000 Operations");
-            pandlBreakRoomSupplies = pandLmap.get("65055 Breakroom Supplies");
-            pandlOtherExpenses = pandLmap.get("Total 65100 Other Types of Expenses");
-            pandlTravel = pandLmap.get("Total 68300 Travel and Meetings");
-            budgetOperations = budgetMap.get("Operations");
+            int pandlBreakRoomSupplies = pandLmap.get("65055 Breakroom Supplies");
+            int pandlOtherExpenses = pandLmap.get("Total 65100 Other Types of Expenses");
+            int pandlTravel = pandLmap.get("Total 68300 Travel and Meetings");
+            int budgetOperations = budgetMap.get("Operations");
             pandlOperations = pandlOperations + pandlBreakRoomSupplies + pandlOtherExpenses + pandlTravel;
             operationsVariance = pandlOperations - budgetOperations;
             System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Operations", budgetOperations, pandlOperations, operationsVariance);
@@ -220,8 +186,8 @@ public class CashItemAggregator
              *************************************************************************************************************/
         try
         {
-            pandlBusinessExpenses = pandLmap.get("Total 60900 Business Expenses");
-            budgetMiscExpenses = budgetMap.get("Misc Expenses");
+            int pandlBusinessExpenses = pandLmap.get("Total 60900 Business Expenses");
+            int budgetMiscExpenses = budgetMap.get("Misc Expenses");
             pandlMiscExpenses = pandlBusinessExpenses;
             miscExpenseVariance = pandlMiscExpenses - budgetMiscExpenses;
             System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Misc Expenses", budgetMiscExpenses, pandlMiscExpenses, miscExpenseVariance);
@@ -235,7 +201,7 @@ public class CashItemAggregator
              *************************************************************************************************************/
         try
         {
-            budgetTotalExpenses = budgetMap.get("Total Expenses");
+            int budgetTotalExpenses = budgetMap.get("Total Expenses");
             pandlTotalExpenses = pandLmap.get("Total Expenses");
             pandlTotalExpenses = pandlSalaries + pandlContractServices + pandlRent + pandlOperations + pandlMiscExpenses;
             expenseTotalVariance = pandlTotalExpenses - budgetTotalExpenses;
@@ -250,7 +216,7 @@ public class CashItemAggregator
              *************************************************************************************************************/
         try
         {
-            budgetProfit = budgetMap.get("Profit");
+            int budgetProfit = budgetMap.get("Profit");
             pandlProfit = pandlTotalIncome - pandlTotalExpenses;
             profitVariance = budgetProfit - pandlProfit;
             profitVariance = pandlProfit - budgetProfit;
@@ -279,15 +245,15 @@ public class CashItemAggregator
              *************************************************************************************************************/
         try
         {
-            pandlBottomLineProfit = pandLmap.get("Net Income");//Take out in-kind donations!
+            int pandlBottomLineProfit = pandLmap.get("Net Income");//Take out in-kind donations!
             pandlMiscIncome = pandLmap.get("Total 45000 Investments");
-            pandlBottomLineExpense = pandLmap.get("Total Expenses");
-            pandlBottomLineIncome = pandLmap.get("Total Income");
+            int pandlBottomLineExpense = pandLmap.get("Total Expenses");
+            int pandlBottomLineIncome = pandLmap.get("Total Income");
             pandlIncome = pandlGrantsAndGifts + pandlTuition + pandlMiscIncome;
-            pandlIncomeVariance = pandlBottomLineIncome - pandlIncome;
+            int pandlIncomeVariance = pandlBottomLineIncome - pandlIncome;
             pandlTotalExpenses = pandlSalaries + pandlContractServices + pandlRent + pandlOperations + pandlMiscExpenses;
-            pandlExpenseVariance = pandlBottomLineExpense - pandlTotalExpenses;
-            pandlProfitVariance = pandlProfit - pandlBottomLineProfit;
+            int pandlExpenseVariance = pandlBottomLineExpense - pandlTotalExpenses;
+            int pandlProfitVariance = pandlProfit - pandlBottomLineProfit;
             System.out.printf("%n %76s", "P&L RECONCILIATION");
             System.out.printf("%n %-40s %-20s %-20s %-20s %n", "ACCOUNT", "ACCUMULATED", "BOTTOM LINE", "VARIANCE");
             System.out.printf("%-40s %-20s %-20s %-20s %n", "------------------------------------", "------------", "------------", "----------");

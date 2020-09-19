@@ -15,21 +15,15 @@ import java.util.HashMap;
 
 public class PandLReader
 {
-    private String inputFileName;
     private File pandInputlFile;
-    private FileInputStream pandlInputFIS;
     private XSSFWorkbook pandlWorkBook;
-    private XSSFSheet pandlSheet;
-    private XSSFRow row;
     private XSSFCell valueCell;
     private XSSFCell keyCell;
     private String keyValue;
     private int valueValue;
-    private HashMap<String, Integer> pandlMap = new HashMap<>();
-    private FormulaEvaluator evaluator;
+    private final HashMap<String, Integer> pandlMap = new HashMap<>();
     private String errMsg;
     private int cellType;
-    private String switcher;
 
     /*******************************************************************************************************************
      * P&L Reader
@@ -39,10 +33,10 @@ public class PandLReader
     {
         try
         {
-            inputFileName = "/Users/vicwintriss/Desktop/" + targetMonth + "The+League+of+Amazing+Programmers_Profit+and+Loss.xlsx";
+            String inputFileName = "/Users/vicwintriss/Desktop/" + targetMonth + "The+League+of+Amazing+Programmers_Profit+and+Loss.xlsx";
             pandInputlFile = new File(inputFileName);
             System.out.println("(1) Started reading QuickBooks PandL Excel file from: " + pandInputlFile + " to pandlHashMap");
-            pandlInputFIS = new FileInputStream(pandInputlFile);
+            FileInputStream pandlInputFIS = new FileInputStream(pandInputlFile);
             pandlWorkBook = new XSSFWorkbook(pandlInputFIS);
             pandlInputFIS.close();
         }
@@ -51,13 +45,14 @@ public class PandLReader
             System.out.println("FileNotFoundException in readPandLtoHashMap()");
             e.printStackTrace();
         }
-        evaluator = pandlWorkBook.getCreationHelper().createFormulaEvaluator();
+        FormulaEvaluator evaluator = pandlWorkBook.getCreationHelper().createFormulaEvaluator();
         XSSFFormulaEvaluator.evaluateAllFormulaCells(pandlWorkBook);
-        pandlSheet = pandlWorkBook.getSheetAt(0);
+        XSSFSheet pandlSheet = pandlWorkBook.getSheetAt(0);
         for (int rowIndex = 0; rowIndex < pandlSheet.getLastRowNum(); rowIndex++)
         {
-            row = pandlSheet.getRow(rowIndex);
-           try
+            XSSFRow row = pandlSheet.getRow(rowIndex);
+            String switcher;
+            try
            {
                switcher = Integer.toString(row.getCell(0).getCellType());
            }catch (Exception e)
@@ -76,7 +71,7 @@ public class PandLReader
                     System.out.println("Error reading PandL sheet...found formula...looking for PandL key");
                     break;
                 case "3":// BLANK
-                    System.out.println("Error reading PandL sheet...found blank PandL key");
+                    System.out.println("PandL sheet...found blank PandL key");
                     break;
                 case "4"://BOOLEAN
                     System.out.println("Error reading PandL sheet...found boolean PandL key");
@@ -110,7 +105,7 @@ public class PandLReader
                     valueValue = (int) row.getCell(1).getNumericCellValue();//value
                     break;
                 case "3":// BLANK
-                    System.out.println("Error reading PandL sheet...found blank PandL value");
+                    System.out.println("reading PandL sheet...found blank PandL value");
                     break;
                 case "4"://BOOLEAN
                     System.out.println("Error reading PandL sheet...found boolean PandL value");
