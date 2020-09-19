@@ -1,7 +1,7 @@
 package com.github.sdvic;
 //******************************************************************************************
 // * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
-// * version 200905
+// * version 200918
 // * copyright 2020 Vic Wintriss
 //******************************************************************************************
 import org.apache.poi.ss.usermodel.Row;
@@ -12,7 +12,6 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.HashMap;
-
 public class CashItemAggregator
 {
     private int pandlContractServices;
@@ -104,7 +103,7 @@ public class CashItemAggregator
         }
         catch(NullPointerException e)
         {
-            System.out.println("\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Error processing trying to process GRANTS AND GIFTS, excepetion => " + e.getMessage());
+            System.out.println("\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ~Line 107, Error processing trying to process GRANTS AND GIFTS, excepetion => " + e.getMessage());
         }
             //*************************************************************************************************************
             //* TUITION
@@ -208,14 +207,13 @@ public class CashItemAggregator
             pandlOtherExpenses = pandLmap.get("Total 65100 Other Types of Expenses");
             pandlTravel = pandLmap.get("Total 68300 Travel and Meetings");
             budgetOperations = budgetMap.get("Operations");
-            System.out.println("========================================> 211");
             pandlOperations = pandlOperations + pandlBreakRoomSupplies + pandlOtherExpenses + pandlTravel;
             operationsVariance = pandlOperations - budgetOperations;
             System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Operations", budgetOperations, pandlOperations, operationsVariance);
         }
              catch(Exception e)
         {
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Error processing trying to process OPERATIONS");
+            System.out.println("~ Line 218 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Error processing trying to process OPERATIONS, excepetion => " + e.getMessage());
         }
             /*************************************************************************************************************
              * MISC EXPENSES
@@ -268,13 +266,13 @@ public class CashItemAggregator
         try
         {
             actualPayingStudents = pandlTuition/240;//Derived...including workshops, slams, etc and partial paying students
-            budgetPayingStudents = budgetMap.get("Paying Students");
+            //budgetPayingStudents = budgetMap.get("Paying Students");
             payingStudentsVariance = actualPayingStudents - budgetPayingStudents;
             System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Paying Students", budgetPayingStudents, actualPayingStudents, payingStudentsVariance);
         }
              catch(Exception e)
         {
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Error processing trying to process STUDENTS");
+            System.out.println("~ Line 276 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Error processing trying to process STUDENTS, excepetion => " + e.getMessage());
         }
             /*************************************************************************************************************
              * RECONCILE...Profit vairance will equal depreciation, which is disregarded in these numbers
