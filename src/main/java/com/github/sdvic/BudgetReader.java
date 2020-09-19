@@ -1,122 +1,94 @@
 package com.github.sdvic;
 //******************************************************************************************
 // * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
-// * version 200905
+// * version 200918
 // * copyright 2020 Vic Wintriss
 //******************************************************************************************
+
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.xssf.usermodel.*;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 
-public class BudgetReader
-{
-    String budgetInputFileName = "/Users/VicMini/Desktop/SarahOriginalBudget2020.xlsx";
-    String updateInputFileName = "/Users/VicMini/Desktop/Updated2020MasterBudgetOutputFile.xlsx";
+public class BudgetReader {
+    String budgetInputFileName = "/Users/vicwintriss/Desktop/SarahOriginalBudget2020.xlsx";
+    String updateInputFileName = "/Users/vicwintriss/Desktop//Updated2020MasterBudgetOutputFile.xlsx";
     private File budgetInputFile;
     private FormulaEvaluator evaluator;
     private FileInputStream budgetInputFIS;
     private XSSFWorkbook budgetWorkBook;
     private XSSFSheet budgetSheet;
     private HashMap<String, Integer> budgetMap = new HashMap<>();
-    private int budgetValue;
-    private String budgetKey;
+    private int cellValue;
+    private String keyValue;
+    private XSSFRow row;
     private XSSFCell cell;
+    private XSSFCell keyCell;
+    private XSSFCell valueCell;
     private String followOnAnswer;
 
-    public void readBudget(int targetMonth, String followOnAnswer)
-    {
+    public void readBudget(int targetMonth, String followOnAnswer) {
         System.out.println("(3) Starting reading Budget In budgetReader from " + budgetInputFileName + " to: budgetHashMap, HashMap size: " + budgetMap.size());
-        try
-        {
-            if (followOnAnswer.equals("Yes"))
-            {
+        try {
+            if (followOnAnswer.equals("Yes")) {
                 budgetInputFile = new File(budgetInputFileName);
-            }else
-            {
+            } else {
                 budgetInputFile = new File(updateInputFileName);
             }
             budgetInputFIS = new FileInputStream(budgetInputFile);
             budgetWorkBook = new XSSFWorkbook(budgetInputFIS);
             budgetInputFIS.close();
             budgetSheet = budgetWorkBook.getSheetAt(0);
-        }
-        catch (FileNotFoundException e)
-        {
+        } catch (FileNotFoundException e) {
             System.out.println("file not found");
             e.printStackTrace();
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             System.out.println("file IOexception");
             e.printStackTrace();
         }
         evaluator = budgetWorkBook.getCreationHelper().createFormulaEvaluator();
-        evaluator.evaluateAll();
-        for (Row row : budgetSheet)
-        {
-            if (row.getCell(0) != null && row.getCell(targetMonth) != null)
-            {
-                switch (row.getCell(0).getCellType())//Get budget key
+        XSSFFormulaEvaluator.evaluateAllFormulaCells(budgetWorkBook);
+        budgetSheet = budgetWorkBook.getSheetAt(0);
+        for (int rowIndex = 0; rowIndex < budgetSheet.getLastRowNum(); rowIndex++) {
+            row = budgetSheet.getRow(rowIndex);
+            if (row != null) {
+                if (row.getCell(targetMonth) == null)
                 {
-                    case XSSFCell.CELL_TYPE_BLANK://Type 3
-                        break;
-                    case XSSFCell.CELL_TYPE_BOOLEAN:
-                        break;
-                    case XSSFCell.CELL_TYPE_FORMULA://Type 2
-                        System.out.println("Error reading budget sheet...found formula...looking for budget key");
-                        break;
-                    case XSSFCell.CELL_TYPE_NUMERIC:
-                        System.out.println("Error reading budget sheet...found number...looking for budget key");
-                        break;
-                    case XSSFCell.CELL_TYPE_STRING://Type 1
-                        budgetKey = row.getCell(0).getStringCellValue().trim();//Key
-                        break;
-                    default:
-                        System.out.println("switch error while reading budget sheet key");
+                    row.createCell(targetMonth);
+                    row.getCell(targetMonth).setCellValue(0);
                 }
-                switch (row.getCell(targetMonth).getCellType())//Get budget value
-                {
-                    case XSSFCell.CELL_TYPE_BLANK://Type 3
-                        break;
-                    case XSSFCell.CELL_TYPE_BOOLEAN:
-                        break;
-                    case XSSFCell.CELL_TYPE_FORMULA://Type 2
-                        budgetValue = (int) row.getCell(targetMonth).getNumericCellValue();
-                        break;
-                    case XSSFCell.CELL_TYPE_NUMERIC:
-                        budgetValue = (int) row.getCell(targetMonth).getNumericCellValue();//Value
-                        break;
-                    case XSSFCell.CELL_TYPE_STRING://Type 1
-                        break;
-                    default:
-                        System.out.println("switch error while reading budget sheet value");
+                if (row.getCell(0) != null && row.getCell(targetMonth) != null) {
+                    Cell keyCell = row.getCell(0);
+                    Cell valueCell = row.getCell(targetMonth);
+                    if (keyCell.getCellType() == XSSFCell.CELL_TYPE_STRING) {
+                        if (valueCell.getCellType() == XSSFCell.CELL_TYPE_FORMULA || valueCell.getCellType() == XSSFCell.CELL_TYPE_NUMERIC) {
+                            keyValue = keyCell.getStringCellValue().trim();
+                            cellValue = (int) valueCell.getNumericCellValue();
+                            budgetMap.put(keyValue, cellValue);
+                        }
+                    }
                 }
-                budgetMap.put(budgetKey, budgetValue);
             }
         }
-        //budgetMap.forEach((K, V) -> System.out.println( K + " => " + V ));
+        //budgetMap.forEach((K, V) -> System.out.println(K + " => " + V));
         System.out.println("(4) Finished reading Budget In budgetReader from " + budgetInputFileName + " to: budgetHashMap, HashMap size: " + budgetMap.size());
     }
 
-    public HashMap<String, Integer> getBudgetMap()
-    {
+    public HashMap<String, Integer> getBudgetMap() {
         return budgetMap;
     }
 
-    public XSSFWorkbook getBudgetWorkBook()
-    {
+    public XSSFWorkbook getBudgetWorkBook() {
         return budgetWorkBook;
     }
 
-    public void setBudgetWorkBook(XSSFWorkbook budgetWorkBook)
-    {
+    public void setBudgetWorkBook(XSSFWorkbook budgetWorkBook) {
         this.budgetWorkBook = budgetWorkBook;
     }
 }
