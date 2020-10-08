@@ -1,7 +1,7 @@
 package com.github.sdvic;
 //******************************************************************************************
 // * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
-// * version 200918
+// * version 201007
 // * copyright 2020 Vic Wintriss
 //******************************************************************************************
 import org.apache.poi.ss.usermodel.Row;
@@ -32,16 +32,11 @@ public class CashItemAggregator
     private int expenseTotalVariance;
     private int pandlTotalIncome;
     private int incomeTotalVariance;
-    private int budgetMiscIncome;
-    private int miscExpenseVariance;
-    private int miscIncomeVariance;
-    private int MiscExpenseVariance;
     private int pandlProfit;
     private int pandlIncome;
     private int pandlTotalExpenses;
     private int pandlAccumulatedProfit;
-    private int pandlGrantsAndGifts, pandlTuition, pandlMiscIncome;
-    private int pandlMiscExpenses;
+    private int pandlGrantsAndGifts, pandlTuition;
     private int actualPayingStudents;
 
     /******************************************************************************************
@@ -87,28 +82,14 @@ public class CashItemAggregator
         {
             System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Error processing trying to process TUITION");
         }
-            /*************************************************************************************************************
-             * MISC INCOME
-             *************************************************************************************************************/
-        try
-        {
-            int pandlInvestments = pandLmap.get("Total 45000 Investments");
-            budgetMiscIncome = budgetMap.get("Misc Income");
-            pandlMiscIncome = pandlInvestments;
-            miscIncomeVariance = pandlMiscIncome - budgetMiscIncome;
-            System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Misc Income", budgetMiscIncome, pandlMiscIncome, miscIncomeVariance);
-        }
-             catch(Exception e)
-        {
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Error processing trying to process NET INCOME");
-        }
+
             /*************************************************************************************************************
              * TOTAL INCOME
              *************************************************************************************************************/
         try
         {
-            pandlTotalIncome = pandlGrantsAndGifts + pandlTuition + pandlMiscIncome;
-            int budgetTotalIncome = budgetGrantsGifts + budgetTuition + budgetMiscIncome;
+            pandlTotalIncome = pandlGrantsAndGifts + pandlTuition;
+            int budgetTotalIncome = budgetGrantsGifts + budgetTuition;
             incomeTotalVariance = pandlTotalIncome - budgetTotalIncome;
             System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Total Income", budgetTotalIncome, pandlTotalIncome, incomeTotalVariance);
         }
@@ -182,28 +163,13 @@ public class CashItemAggregator
             System.out.println("~ Line 218 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Error processing trying to process OPERATIONS, excepetion => " + e.getMessage());
         }
             /*************************************************************************************************************
-             * MISC EXPENSES
-             *************************************************************************************************************/
-        try
-        {
-            int pandlBusinessExpenses = pandLmap.get("Total 60900 Business Expenses");
-            int budgetMiscExpenses = budgetMap.get("Misc Expenses");
-            pandlMiscExpenses = pandlBusinessExpenses;
-            miscExpenseVariance = pandlMiscExpenses - budgetMiscExpenses;
-            System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Misc Expenses", budgetMiscExpenses, pandlMiscExpenses, miscExpenseVariance);
-        }
-             catch(Exception e)
-        {
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Error processing trying to process MISC EXPENSES");
-        }
-            /*************************************************************************************************************
              * TOTAL EXPENSES
              *************************************************************************************************************/
         try
         {
             int budgetTotalExpenses = budgetMap.get("Total Expenses");
             pandlTotalExpenses = pandLmap.get("Total Expenses");
-            pandlTotalExpenses = pandlSalaries + pandlContractServices + pandlRent + pandlOperations + pandlMiscExpenses;
+            pandlTotalExpenses = pandlSalaries + pandlContractServices + pandlRent + pandlOperations;
             expenseTotalVariance = pandlTotalExpenses - budgetTotalExpenses;
             System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Total Expenses", budgetTotalExpenses, pandlTotalExpenses, expenseTotalVariance);
         }
@@ -246,12 +212,11 @@ public class CashItemAggregator
         try
         {
             int pandlBottomLineProfit = pandLmap.get("Net Income");//Take out in-kind donations!
-            pandlMiscIncome = pandLmap.get("Total 45000 Investments");
             int pandlBottomLineExpense = pandLmap.get("Total Expenses");
             int pandlBottomLineIncome = pandLmap.get("Total Income");
-            pandlIncome = pandlGrantsAndGifts + pandlTuition + pandlMiscIncome;
+            pandlIncome = pandlGrantsAndGifts + pandlTuition;
             int pandlIncomeVariance = pandlBottomLineIncome - pandlIncome;
-            pandlTotalExpenses = pandlSalaries + pandlContractServices + pandlRent + pandlOperations + pandlMiscExpenses;
+            pandlTotalExpenses = pandlSalaries + pandlContractServices + pandlRent + pandlOperations;
             int pandlExpenseVariance = pandlBottomLineExpense - pandlTotalExpenses;
             int pandlProfitVariance = pandlProfit - pandlBottomLineProfit;
             System.out.printf("%n %76s", "P&L RECONCILIATION");
@@ -294,10 +259,6 @@ public class CashItemAggregator
                         row.getCell(targetMonth).setCellValue(pandlTuition);
                         row.getCell(13).setCellValue(tuitionVariance);
                         break;
-                    case "Misc Income":
-                        row.getCell(targetMonth).setCellValue(pandlMiscIncome);
-                        row.getCell(13).setCellValue(miscIncomeVariance);
-                        break;
                     case "Total Income":
                         row.getCell(targetMonth).setCellValue(pandlIncome);
                         row.getCell(13).setCellValue(incomeTotalVariance);
@@ -317,14 +278,6 @@ public class CashItemAggregator
                     case "Operations":
                         row.getCell(targetMonth).setCellValue(pandlOperations);
                         row.getCell(13).setCellValue(operationsVariance);
-                        break;
-                    case "Misc Expenses":
-                        row.getCell(targetMonth).setCellValue(pandlMiscExpenses);
-                        row.getCell(13).setCellValue(miscExpenseVariance);
-                        break;
-                    case "Misc Expense Variance":
-                        row.getCell(targetMonth).setCellValue(MiscExpenseVariance);
-                        row.getCell(13).setCellValue(miscExpenseVariance);
                         break;
                     case "Total Expenses":
                         row.getCell(targetMonth).setCellValue(pandlTotalExpenses);
