@@ -17,7 +17,7 @@ public class Main implements Runnable
     }
     public void run()
     {
-        String version = "201007";
+        String version = "201009";
         System.out.println("Version " + version + "\nCopyright 2020 Vic Wintriss\n");
         int targetMonth = Integer.parseInt(JOptionPane.showInputDialog("Please enter QuickBooks P and L input file (int)month"));
         String followOnAnswer = JOptionPane.showInputDialog("Initial Budget Run? (Yes or Return for No");
