@@ -1,7 +1,7 @@
 package com.github.sdvic;
 //******************************************************************************************
 // * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
-// * version 201007
+// * version 201009
 // * copyright 2020 Vic Wintriss
 //******************************************************************************************
 
@@ -11,7 +11,7 @@ import java.io.FileOutputStream;
 
 public class BudgetWriter
 {
-    private final File updated2020MasterBudgetOutputFile = new File("/Users/vicwintriss/Desktop/Updated2020MasterBudgetOutputFile.xlsx");
+    private final File updated2020MasterBudgetOutputFile = new File("/Users/vicwintriss/-League/Financial/Budget/2020BudgetPandLs/Updated2020MasterBudgetOutputFile.xlsx");
 
     public void writeBudget(XSSFWorkbook budgetWorkbook)
     {

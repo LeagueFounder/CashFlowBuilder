@@ -1,7 +1,7 @@
 package com.github.sdvic;
 //******************************************************************************************
 // * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
-// * version 201007
+// * version 201009
 // * copyright 2020 Vic Wintriss
 //******************************************************************************************
 import org.apache.poi.ss.usermodel.Row;
@@ -38,7 +38,6 @@ public class CashItemAggregator
     private int pandlAccumulatedProfit;
     private int pandlGrantsAndGifts, pandlTuition;
     private int actualPayingStudents;
-
     /******************************************************************************************
      * Compute budget sheet entries
      ******************************************************************************************/
@@ -47,24 +46,24 @@ public class CashItemAggregator
         System.out.println("(5) Computing Combined Budget Sheet Entries");
         System.out.printf("%n %-40s %-20s %-20s %-20s %n", "ACCOUNT", "BUDGET AMOUNT", "P&L AMOUNT", "MONTH " + targetMonth + " VARIANCE");
         System.out.printf("%-40s %-20s %-20s %-20s %n", "------------------------------------", "-------------", "-------------", "---------------------");
+            //*************************************************************************************************************
+             //* GRANTS AND GIFTS
+             //*************************************************************************************************************
 
-            /*************************************************************************************************************
-             * GRANTS AND GIFTS
-             *************************************************************************************************************/
         int pandlContributedServices;
+        budgetGrantsGifts = budgetMap.get("Grants and Gifts");
         try
         {
             int pandlDirectPublicSupport = pandLmap.get("Total 43400 Direct Public Support");
             pandlContributedServices = pandLmap.get("43460 Contributed Services");//Non cash item...must be subtracted
-            int pandlGiftsInKindGoods = 0;//pandLmap.get("43440 Gifts in Kind - Goods");//Non cash item...must be subtracted
-            budgetGrantsGifts = budgetMap.get("Grants and Gifts");
+            int pandlGiftsInKindGoods = pandLmap.get("43440 Gifts in Kind - Goods");//Non cash item...must be subtracted
             pandlGrantsAndGifts = pandlDirectPublicSupport - pandlContributedServices - pandlGiftsInKindGoods;
             grantsGiftsVariance = pandlGrantsAndGifts - budgetGrantsGifts;
             System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Grants and Gifts", budgetGrantsGifts, pandlGrantsAndGifts, grantsGiftsVariance);
         }
-        catch(NullPointerException e)
+        catch(Exception e)
         {
-            System.out.println("\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ~Line 107, Error processing trying to process GRANTS AND GIFTS, excepetion => " + e.getMessage());
+            System.out.println("\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ~Line 74, Error processing trying to process GRANTS AND GIFTS, exception => " + e.getMessage());
         }
             //*************************************************************************************************************
             //* TUITION
@@ -83,9 +82,9 @@ public class CashItemAggregator
             System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Error processing trying to process TUITION");
         }
 
-            /*************************************************************************************************************
-             * TOTAL INCOME
-             *************************************************************************************************************/
+             //*************************************************************************************************************
+             //* TOTAL INCOME
+             //*************************************************************************************************************
         try
         {
             pandlTotalIncome = pandlGrantsAndGifts + pandlTuition;
@@ -198,7 +197,7 @@ public class CashItemAggregator
         try
         {
             actualPayingStudents = pandlTuition/240;//Derived...including workshops, slams, etc and partial paying students
-            //budgetPayingStudents = budgetMap.get("Paying Students");
+            budgetPayingStudents = budgetMap.get("Paying Students");
             payingStudentsVariance = actualPayingStudents - budgetPayingStudents;
             System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Paying Students", budgetPayingStudents, actualPayingStudents, payingStudentsVariance);
         }

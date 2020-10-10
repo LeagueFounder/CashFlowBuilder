@@ -1,7 +1,7 @@
 package com.github.sdvic;
 //******************************************************************************************
 // * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
-// * version 201007
+// * version 201009
 // * copyright 2020 Vic Wintriss
 //******************************************************************************************
 
@@ -17,8 +17,8 @@ import java.io.IOException;
 import java.util.HashMap;
 
 public class BudgetReader {
-    String budgetInputFileName = "/Users/vicwintriss/Desktop/SarahOriginalBudget2020.xlsx";
-    String updateInputFileName = "/Users/vicwintriss/Desktop//Updated2020MasterBudgetOutputFile.xlsx";
+    String budgetInputFileName = "/Users/vicwintriss/-League/Financial/Budget/2020BudgetPandLs/SarahRevisedBudget2020.xlsx";
+    String updateInputFileName = "/Users/vicwintriss/-League/Financial/Budget/2020BudgetPandLs//Updated2020MasterBudgetOutputFile.xlsx";
     private XSSFWorkbook budgetWorkBook;
     private final HashMap<String, Integer> budgetMap = new HashMap<>();
     private XSSFCell cell;
@@ -27,9 +27,10 @@ public class BudgetReader {
     private String followOnAnswer;
 
     public void readBudget(int targetMonth, String followOnAnswer) {
-        System.out.println("(3) Starting reading Budget In budgetReader from " + budgetInputFileName + " to: budgetHashMap, HashMap size: " + budgetMap.size());
+        System.out.println("(3) Starting reading Budget In budgetReader from " + budgetInputFileName + " to: budgetHashMap");
         XSSFSheet budgetSheet;
-        try {
+        try
+        {
             File budgetInputFile;
             if (followOnAnswer.equals("Yes")) {
                 budgetInputFile = new File(budgetInputFileName);
@@ -39,12 +40,10 @@ public class BudgetReader {
             FileInputStream budgetInputFIS = new FileInputStream(budgetInputFile);
             budgetWorkBook = new XSSFWorkbook(budgetInputFIS);
             budgetInputFIS.close();
-            budgetSheet = budgetWorkBook.getSheetAt(0);
-        } catch (FileNotFoundException e) {
-            System.out.println("file not found");
-            e.printStackTrace();
-        } catch (IOException e) {
-            System.out.println("file IOexception");
+        }
+        catch (Exception e)
+        {
+            System.out.println("Exception reading budget...line 46");
             e.printStackTrace();
         }
         FormulaEvaluator evaluator = budgetWorkBook.getCreationHelper().createFormulaEvaluator();
@@ -52,17 +51,15 @@ public class BudgetReader {
         budgetSheet = budgetWorkBook.getSheetAt(0);
         for (int rowIndex = 0; rowIndex < budgetSheet.getLastRowNum(); rowIndex++) {
             XSSFRow row = budgetSheet.getRow(rowIndex);
-            if (row != null) {
-                if (row.getCell(targetMonth) == null)
-                {
-                    row.createCell(targetMonth);
-                    row.getCell(targetMonth).setCellValue(0);
-                }
+            if (row != null)
+            {
                 if (row.getCell(0) != null && row.getCell(targetMonth) != null) {
                     Cell keyCell = row.getCell(0);
                     Cell valueCell = row.getCell(targetMonth);
-                    if (keyCell.getCellType() == XSSFCell.CELL_TYPE_STRING) {
-                        if (valueCell.getCellType() == XSSFCell.CELL_TYPE_FORMULA || valueCell.getCellType() == XSSFCell.CELL_TYPE_NUMERIC) {
+                    if (keyCell.getCellType() == XSSFCell.CELL_TYPE_STRING)
+                    {
+                        if (valueCell.getCellType() == XSSFCell.CELL_TYPE_FORMULA || valueCell.getCellType() == XSSFCell.CELL_TYPE_NUMERIC)
+                        {
                             String keyValue = keyCell.getStringCellValue().trim();
                             int cellValue = (int) valueCell.getNumericCellValue();
                             budgetMap.put(keyValue, cellValue);
@@ -71,7 +68,8 @@ public class BudgetReader {
                 }
             }
         }
-        //budgetMap.forEach((K, V) -> System.out.println(K + " => " + V));
+//        System.out.println("           Budget Map");
+        budgetMap.forEach((K, V) -> System.out.println("      " + K + " => " + V));
         System.out.println("(4) Finished reading Budget In budgetReader from " + budgetInputFileName + " to: budgetHashMap, HashMap size: " + budgetMap.size());
     }
 

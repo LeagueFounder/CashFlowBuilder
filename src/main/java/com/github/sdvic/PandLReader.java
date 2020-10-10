@@ -1,7 +1,7 @@
 package com.github.sdvic;
 //******************************************************************************************
 // * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
-// * version 201008
+// * version 201009
 // * copyright 2020 Vic Wintriss
 //******************************************************************************************
 
@@ -33,7 +33,7 @@ public class PandLReader
     {
         try
         {
-            String inputFileName = "/Users/vicwintriss/Desktop/" + targetMonth + "The+League+of+Amazing+Programmers_Profit+and+Loss.xlsx";
+            String inputFileName = "/Users/vicwintriss/-League/Financial/Budget/2020BudgetPandLs/" + targetMonth + "The+League+of+Amazing+Programmers_Profit+and+Loss.xlsx";
             pandInputlFile = new File(inputFileName);
             System.out.println("(1) Started reading QuickBooks PandL Excel file from: " + pandInputlFile + " to pandlHashMap");
             FileInputStream pandlInputFIS = new FileInputStream(pandInputlFile);
@@ -70,20 +70,13 @@ public class PandLReader
                 case "2"://FORMULA
                     System.out.println("Error reading PandL sheet...found formula...looking for PandL key");
                     break;
-                case "3":// BLANK
-                    System.out.println("PandL sheet...found blank PandL key");
-                    break;
                 case "4"://BOOLEAN
                     System.out.println("Error reading PandL sheet...found boolean PandL key");
                     break;
                 case "5"://ERROR
                     System.out.println("Error reading PandL sheet...found XSSF cell type ERROR PandL key");
                     break;
-                case "null":
-                    System.out.println("Error reading PandL sheet...found null PandL key");
-                    break;
                 default:
-                    System.out.println("Error reading PandL sheet...found switch default PandL key");
                     break;
             }
             try
@@ -104,25 +97,19 @@ public class PandLReader
                 case "2"://FORMULA
                     valueValue = (int) row.getCell(1).getNumericCellValue();//value
                     break;
-                case "3":// BLANK
-                    System.out.println("reading PandL sheet...found blank PandL value");
-                    break;
                 case "4"://BOOLEAN
                     System.out.println("Error reading PandL sheet...found boolean PandL value");
                     break;
                 case "5"://ERROR
                     System.out.println("Error reading PandL sheet...found XSSF cell type ERROR PandL value");
                     break;
-                case "null":
-                    System.out.println("Error reading PandL sheet...found null PandL value");
-                    break;
                 default:
-                    System.out.println("switch default while reading PandL sheet value");
                     break;
             }
             pandlMap.put(keyValue, valueValue);
         }
-        //pandlMap.forEach((K, V) -> System.out.println( K + " => " + V ));
+//        System.out.println("                 PandL Map");
+//        pandlMap.forEach((K, V) -> System.out.println("             " +  K + " => " + V ));
         System.out.println("(2) Finished reading QuickBooks PandL Excel file from: " + pandInputlFile + " to: pandlHashMap, HashMap size: " + pandlMap.size());
     }
 
