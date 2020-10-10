@@ -29,72 +29,39 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c9539f65-5637-4dcf-8cf6-4943f1ccd1a1" name="Default Changelist" comment="Version 201007...Removed miscIncome and miscExpense">
-      <change afterPath="$PROJECT_DIR$/../HostLookup/.idea/HostLookup.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../HostLookup/.idea/description.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../HostLookup/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../HostLookup/.idea/project-template.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MyFirstWebPage/MyFirstWebPage.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../MyFirstWebPage/index" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Selenium2/HendleDropDown3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Selenium2/Selenium2.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Selenium2/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Selenium2/src/main/java/HandleDropDown3.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../demo/lib/javax.ejb.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../demo/lib/javax.jms.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../demo/lib/javax.persistence.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../demo/lib/javax.resource.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../demo/lib/javax.servlet.jsp.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../demo/lib/javax.servlet.jsp.jstl.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../demo/lib/javax.transaction.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../demo/src/main/java/com/example/demo/Customer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../demo/src/main/java/com/example/demo/CustomerRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../demo/src/main/java/com/example/demo/DemoController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../demo/src/main/resources/static/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AmbuPi/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/../AmbuPi/.idea/.name" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AmbuPi/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../AmbuPi/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AmbuPi/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../AmbuPi/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="c9539f65-5637-4dcf-8cf6-4943f1ccd1a1" name="Default Changelist" comment="Version 201009...Moved input/output files to:  /Users/vicwintriss/-League/Financial/Budget/">
+      <change afterPath="$PROJECT_DIR$/../HW/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../HW/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../HW/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../VentilatorProject.git" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ambu3/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ambu3/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ambu3/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ambu3/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ambu3/.idea/libraries" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ambu3/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ambu3/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ambu3/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ambu3/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ambu3/target/ambu3-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ambu3/target/classes/org/example/App.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ambu3/target/maven-archiver/pom.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ambu3/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ambu3/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ambu3/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ambu3/target/original-ambu3-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../samples" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../HW/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../AmbuPi/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../AmbuPi/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AmbuPi/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../AmbuPi/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AmbuPi/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/../AmbuPi/target/classes/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AmbuPi/target/classes/TestSequences.class" beforeDir="false" afterPath="$PROJECT_DIR$/../AmbuPi/target/classes/TestSequences.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AmbuPi/target/classes/UserExperience.class" beforeDir="false" afterPath="$PROJECT_DIR$/../AmbuPi/target/classes/UserExperience.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AmbuPi/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../AmbuPi/target/maven-archiver/pom.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AmbuPi/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/../AmbuPi/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AmbuPi/target/piwork-900.08-jar-with-dependencies.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AmbuPi/target/piwork-900.08.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$" beforeDir="false" afterPath="$PROJECT_DIR$" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/sdvic/BudgetReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/sdvic/BudgetReader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/sdvic/BudgetWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/sdvic/BudgetWriter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/sdvic/CashItemAggregator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/sdvic/CashItemAggregator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/sdvic/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/sdvic/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/sdvic/PandLReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/sdvic/PandLReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/sdvic/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/github/sdvic/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../HostLookup/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../HostLookup/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../HostLookup/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../HostLookup/HostLookup.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../HostLookup/HostLookup.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../HostLookup/src/HostLookup.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../_mac/git.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../_mac/laf.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../_mac/path.macros.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ambu3/dependency-reduced-pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ambu3/dependency-reduced-pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ambu3/src/main/java/org/example/App.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../baseRefactoring.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../codestyles/Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../colors.scheme.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../databaseDrivers.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UM245R/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../UM245R/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../debugger.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../editor.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../filetypes.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../github.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ide.general.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../projectView.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../shared-indexes.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../studioFlags.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../usageView.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hellofx/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../hellofx/.idea/modules.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -465,14 +432,7 @@
       <workItem from="1602209671429" duration="5318000" />
       <workItem from="1602267052125" duration="9866000" />
       <workItem from="1602288983889" duration="460000" />
-      <workItem from="1602289663172" duration="2618000" />
-    </task>
-    <task id="LOCAL-00010" summary="ver 1.3 to get both main and setup">
-      <created>1555386679988</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1555386679988</updated>
+      <workItem from="1602289663172" duration="3869000" />
     </task>
     <task id="LOCAL-00011" summary="ver 1.5 refactoring">
       <created>1555557697039</created>
@@ -810,7 +770,14 @@
       <option name="project" value="LOCAL" />
       <updated>1602129304194</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="Version 201009...Moved input/output files to:  /Users/vicwintriss/-League/Financial/Budget/">
+      <created>1602300675779</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1602300675780</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -841,7 +808,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="version 200717 added YTD variance" />
     <MESSAGE value="version 200725 Working...added error try/catch" />
     <MESSAGE value="version 200726...working except for paying students (Budget)...using 999" />
     <MESSAGE value="version 200729 working...value errors...must have correct original xlsx..." />
@@ -866,7 +832,8 @@
     <MESSAGE value="version 200905 compute paying students from tuition" />
     <MESSAGE value="// * version 200918 complete cell type checking while loading P&amp;L" />
     <MESSAGE value="Version 201007...Removed miscIncome and miscExpense" />
-    <option name="LAST_COMMIT_MESSAGE" value="Version 201007...Removed miscIncome and miscExpense" />
+    <MESSAGE value="Version 201009...Moved input/output files to:  /Users/vicwintriss/-League/Financial/Budget/" />
+    <option name="LAST_COMMIT_MESSAGE" value="Version 201009...Moved input/output files to:  /Users/vicwintriss/-League/Financial/Budget/" />
   </component>
   <component name="WindowStateProjectService">
     <state x="-1657" y="207" key="#Inspections" timestamp="1602127052371">
@@ -936,7 +903,7 @@
     <state x="500" y="112" key="CommitChangelistDialog2/1920.-85.3440.1417/0.23.1920.1002@0.23.1920.1002" timestamp="1599099640802" />
     <state x="500" y="112" key="CommitChangelistDialog2/1920.-85.3440.1417/0.23.1920.1003@0.23.1920.1003" timestamp="1599255637873" />
     <state x="500" y="111" key="CommitChangelistDialog2/1920.-85.3440.1417/0.23.1920.997@0.23.1920.997" timestamp="1598890660187" />
-    <state width="2445" height="535" key="GridCell.Tab.0.bottom" timestamp="1602300253765">
+    <state width="2445" height="222" key="GridCell.Tab.0.bottom" timestamp="1602300564666">
       <screen x="-2560" y="23" width="2560" height="975" />
     </state>
     <state width="2518" height="428" key="GridCell.Tab.0.bottom/0.0.3440.1440/-2560.0.2560.1080@-2560.0.2560.1080" timestamp="1602195908964" />
@@ -956,7 +923,7 @@
     <state width="1577" height="390" key="GridCell.Tab.0.bottom/0.23.3440.1417/-1920.196.1920.1004@-1920.196.1920.1004" timestamp="1597187338929" />
     <state width="2518" height="428" key="GridCell.Tab.0.bottom/0.23.3440.1417/-2560.0.2560.1080@-2560.0.2560.1080" timestamp="1602195811855" />
     <state width="2042" height="227" key="GridCell.Tab.0.bottom/0.23.3440.1417/-2560.23.2560.973@-2560.23.2560.973" timestamp="1602216052784" />
-    <state width="2445" height="535" key="GridCell.Tab.0.bottom/0.23.3440.1417/-2560.23.2560.975@-2560.23.2560.975" timestamp="1602300253765" />
+    <state width="2445" height="222" key="GridCell.Tab.0.bottom/0.23.3440.1417/-2560.23.2560.975@-2560.23.2560.975" timestamp="1602300564666" />
     <state width="2042" height="428" key="GridCell.Tab.0.bottom/0.23.3440.1417/-2560.23.2560.977@-2560.23.2560.977" timestamp="1602195498224" />
     <state width="2042" height="210" key="GridCell.Tab.0.bottom/0.23.3440.1417/-2560.23.2560.978@-2560.23.2560.978" timestamp="1602201153715" />
     <state width="1558" height="154" key="GridCell.Tab.0.bottom/1600.-85.3440.1337/0.23.1600.877@0.23.1600.877" timestamp="1597355947752" />
@@ -973,7 +940,7 @@
     <state width="1630" height="262" key="GridCell.Tab.0.bottom/1920.-85.3440.1417/0.23.1920.1003@0.23.1920.1003" timestamp="1599348331674" />
     <state width="1878" height="320" key="GridCell.Tab.0.bottom/1920.-85.3440.1417/0.23.1920.996@0.23.1920.996" timestamp="1598831614422" />
     <state width="1878" height="320" key="GridCell.Tab.0.bottom/1920.-85.3440.1417/0.23.1920.997@0.23.1920.997" timestamp="1598898383018" />
-    <state width="2445" height="535" key="GridCell.Tab.0.center" timestamp="1602300253764">
+    <state width="2445" height="222" key="GridCell.Tab.0.center" timestamp="1602300564665">
       <screen x="-2560" y="23" width="2560" height="975" />
     </state>
     <state width="2518" height="428" key="GridCell.Tab.0.center/0.0.3440.1440/-2560.0.2560.1080@-2560.0.2560.1080" timestamp="1602195908962" />
@@ -993,7 +960,7 @@
     <state width="1577" height="390" key="GridCell.Tab.0.center/0.23.3440.1417/-1920.196.1920.1004@-1920.196.1920.1004" timestamp="1597187338928" />
     <state width="2518" height="428" key="GridCell.Tab.0.center/0.23.3440.1417/-2560.0.2560.1080@-2560.0.2560.1080" timestamp="1602195811854" />
     <state width="2042" height="227" key="GridCell.Tab.0.center/0.23.3440.1417/-2560.23.2560.973@-2560.23.2560.973" timestamp="1602216052784" />
-    <state width="2445" height="535" key="GridCell.Tab.0.center/0.23.3440.1417/-2560.23.2560.975@-2560.23.2560.975" timestamp="1602300253764" />
+    <state width="2445" height="222" key="GridCell.Tab.0.center/0.23.3440.1417/-2560.23.2560.975@-2560.23.2560.975" timestamp="1602300564665" />
     <state width="2042" height="428" key="GridCell.Tab.0.center/0.23.3440.1417/-2560.23.2560.977@-2560.23.2560.977" timestamp="1602195498224" />
     <state width="2042" height="210" key="GridCell.Tab.0.center/0.23.3440.1417/-2560.23.2560.978@-2560.23.2560.978" timestamp="1602201153715" />
     <state width="1558" height="154" key="GridCell.Tab.0.center/1600.-85.3440.1337/0.23.1600.877@0.23.1600.877" timestamp="1597355947751" />
@@ -1010,7 +977,7 @@
     <state width="1630" height="262" key="GridCell.Tab.0.center/1920.-85.3440.1417/0.23.1920.1003@0.23.1920.1003" timestamp="1599348331671" />
     <state width="1878" height="320" key="GridCell.Tab.0.center/1920.-85.3440.1417/0.23.1920.996@0.23.1920.996" timestamp="1598831614421" />
     <state width="1878" height="320" key="GridCell.Tab.0.center/1920.-85.3440.1417/0.23.1920.997@0.23.1920.997" timestamp="1598898383017" />
-    <state width="2445" height="535" key="GridCell.Tab.0.left" timestamp="1602300253764">
+    <state width="2445" height="222" key="GridCell.Tab.0.left" timestamp="1602300564665">
       <screen x="-2560" y="23" width="2560" height="975" />
     </state>
     <state width="2518" height="428" key="GridCell.Tab.0.left/0.0.3440.1440/-2560.0.2560.1080@-2560.0.2560.1080" timestamp="1602195908962" />
@@ -1030,7 +997,7 @@
     <state width="1577" height="390" key="GridCell.Tab.0.left/0.23.3440.1417/-1920.196.1920.1004@-1920.196.1920.1004" timestamp="1597187338927" />
     <state width="2518" height="428" key="GridCell.Tab.0.left/0.23.3440.1417/-2560.0.2560.1080@-2560.0.2560.1080" timestamp="1602195811853" />
     <state width="2042" height="227" key="GridCell.Tab.0.left/0.23.3440.1417/-2560.23.2560.973@-2560.23.2560.973" timestamp="1602216052783" />
-    <state width="2445" height="535" key="GridCell.Tab.0.left/0.23.3440.1417/-2560.23.2560.975@-2560.23.2560.975" timestamp="1602300253764" />
+    <state width="2445" height="222" key="GridCell.Tab.0.left/0.23.3440.1417/-2560.23.2560.975@-2560.23.2560.975" timestamp="1602300564665" />
     <state width="2042" height="428" key="GridCell.Tab.0.left/0.23.3440.1417/-2560.23.2560.977@-2560.23.2560.977" timestamp="1602195498223" />
     <state width="2042" height="210" key="GridCell.Tab.0.left/0.23.3440.1417/-2560.23.2560.978@-2560.23.2560.978" timestamp="1602201153714" />
     <state width="1558" height="154" key="GridCell.Tab.0.left/1600.-85.3440.1337/0.23.1600.877@0.23.1600.877" timestamp="1597355947751" />
@@ -1047,7 +1014,7 @@
     <state width="1630" height="262" key="GridCell.Tab.0.left/1920.-85.3440.1417/0.23.1920.1003@0.23.1920.1003" timestamp="1599348331669" />
     <state width="1878" height="320" key="GridCell.Tab.0.left/1920.-85.3440.1417/0.23.1920.996@0.23.1920.996" timestamp="1598831614421" />
     <state width="1878" height="320" key="GridCell.Tab.0.left/1920.-85.3440.1417/0.23.1920.997@0.23.1920.997" timestamp="1598898383016" />
-    <state width="2445" height="535" key="GridCell.Tab.0.right" timestamp="1602300253764">
+    <state width="2445" height="222" key="GridCell.Tab.0.right" timestamp="1602300564665">
       <screen x="-2560" y="23" width="2560" height="975" />
     </state>
     <state width="2518" height="428" key="GridCell.Tab.0.right/0.0.3440.1440/-2560.0.2560.1080@-2560.0.2560.1080" timestamp="1602195908963" />
@@ -1067,7 +1034,7 @@
     <state width="1577" height="390" key="GridCell.Tab.0.right/0.23.3440.1417/-1920.196.1920.1004@-1920.196.1920.1004" timestamp="1597187338929" />
     <state width="2518" height="428" key="GridCell.Tab.0.right/0.23.3440.1417/-2560.0.2560.1080@-2560.0.2560.1080" timestamp="1602195811854" />
     <state width="2042" height="227" key="GridCell.Tab.0.right/0.23.3440.1417/-2560.23.2560.973@-2560.23.2560.973" timestamp="1602216052784" />
-    <state width="2445" height="535" key="GridCell.Tab.0.right/0.23.3440.1417/-2560.23.2560.975@-2560.23.2560.975" timestamp="1602300253764" />
+    <state width="2445" height="222" key="GridCell.Tab.0.right/0.23.3440.1417/-2560.23.2560.975@-2560.23.2560.975" timestamp="1602300564665" />
     <state width="2042" height="428" key="GridCell.Tab.0.right/0.23.3440.1417/-2560.23.2560.977@-2560.23.2560.977" timestamp="1602195498224" />
     <state width="2042" height="210" key="GridCell.Tab.0.right/0.23.3440.1417/-2560.23.2560.978@-2560.23.2560.978" timestamp="1602201153715" />
     <state width="1558" height="154" key="GridCell.Tab.0.right/1600.-85.3440.1337/0.23.1600.877@0.23.1600.877" timestamp="1597355947752" />
@@ -1084,6 +1051,10 @@
     <state width="1630" height="262" key="GridCell.Tab.0.right/1920.-85.3440.1417/0.23.1920.1003@0.23.1920.1003" timestamp="1599348331673" />
     <state width="1878" height="320" key="GridCell.Tab.0.right/1920.-85.3440.1417/0.23.1920.996@0.23.1920.996" timestamp="1598831614422" />
     <state width="1878" height="320" key="GridCell.Tab.0.right/1920.-85.3440.1417/0.23.1920.997@0.23.1920.997" timestamp="1598898383018" />
+    <state x="-1602" y="278" key="MultipleFileMergeDialog" timestamp="1602300836535">
+      <screen x="-2560" y="23" width="2560" height="975" />
+    </state>
+    <state x="-1602" y="278" key="MultipleFileMergeDialog/0.23.3440.1417/-2560.23.2560.975@-2560.23.2560.975" timestamp="1602300836535" />
     <state x="-2360" y="89" width="1324" height="722" key="SettingsEditor" timestamp="1602206941054">
       <screen x="-2560" y="23" width="2560" height="973" />
     </state>
@@ -1093,7 +1064,7 @@
     <state x="-2360" y="89" key="SettingsEditor/0.23.3440.1417/-2560.23.2560.973@-2560.23.2560.973" timestamp="1602206941054" />
     <state x="634" y="154" key="SettingsEditor/1920.-85.3440.1417/0.23.1920.1002@0.23.1920.1002" timestamp="1597632542533" />
     <state x="596" y="154" key="SettingsEditor/1920.-85.3440.1417/0.23.1920.1003@0.23.1920.1003" timestamp="1598656529198" />
-    <state x="-1892" y="254" key="Vcs.Push.Dialog.v2" timestamp="1602129372675">
+    <state x="-1892" y="254" key="Vcs.Push.Dialog.v2" timestamp="1602300714122">
       <screen x="-2560" y="23" width="2560" height="975" />
     </state>
     <state x="668" y="255" key="Vcs.Push.Dialog.v2/0.23.2560.981@0.23.2560.981" timestamp="1595823667188" />
@@ -1101,7 +1072,7 @@
     <state x="668" y="256" key="Vcs.Push.Dialog.v2/0.23.2560.985@0.23.2560.985" timestamp="1596250939463" />
     <state x="668" y="256" key="Vcs.Push.Dialog.v2/0.23.2560.986@0.23.2560.986" timestamp="1596562994878" />
     <state x="898" y="340" key="Vcs.Push.Dialog.v2/0.23.3440.1337@0.23.3440.1337" timestamp="1600535219416" />
-    <state x="-1892" y="254" key="Vcs.Push.Dialog.v2/0.23.3440.1417/-2560.23.2560.975@-2560.23.2560.975" timestamp="1602129372675" />
+    <state x="-1892" y="254" key="Vcs.Push.Dialog.v2/0.23.3440.1417/-2560.23.2560.975@-2560.23.2560.975" timestamp="1602300714122" />
     <state x="2498" y="233" key="Vcs.Push.Dialog.v2/1600.-85.3440.1337/0.23.1600.877@1600.-85.3440.1337" timestamp="1597461779884" />
     <state x="501" y="261" key="Vcs.Push.Dialog.v2/1920.-85.3440.1417/0.23.1920.1002@0.23.1920.1002" timestamp="1599099655511" />
     <state x="501" y="261" key="Vcs.Push.Dialog.v2/1920.-85.3440.1417/0.23.1920.1003@0.23.1920.1003" timestamp="1599255660299" />
