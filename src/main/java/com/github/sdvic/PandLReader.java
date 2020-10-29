@@ -1,18 +1,17 @@
 package com.github.sdvic;
 //******************************************************************************************
 // * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
-// * version 201009
+// * version 201029
 // * copyright 2020 Vic Wintriss
 //*******************************************************************************************
-
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.xssf.usermodel.*;
 
+import javax.xml.crypto.dsig.keyinfo.KeyValue;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.HashMap;
-
 public class PandLReader
 {
     private File pandInputlFile;
@@ -24,7 +23,6 @@ public class PandLReader
     private final HashMap<String, Integer> pandlMap = new HashMap<>();
     private String errMsg;
     private int cellType;
-
     /*******************************************************************************************************************
      * P&L Reader
      * Copies entire QuickBooks P&L to Hash Map
@@ -51,73 +49,50 @@ public class PandLReader
         for (int rowIndex = 0; rowIndex < pandlSheet.getLastRowNum(); rowIndex++)
         {
             XSSFRow row = pandlSheet.getRow(rowIndex);
-            String switcher;
-            try
-           {
-               switcher = Integer.toString(row.getCell(0).getCellType());
-           }catch (Exception e)
+            if (row == null)
             {
-               switcher = "null";
+                continue;
             }
-        switch (switcher)//PandL Key
+            XSSFCell keyCell = row.getCell(0); //Key cell
+            if (keyCell == null)
             {
-                case "0"://NUMERIC
-                    System.out.println("Error reading PandL sheet...found number...looking for PandL key string");
-                    break;
-                case "1"://STRING
-                    keyValue = row.getCell(0).getStringCellValue().trim();//Key
-                    break;
-                case "2"://FORMULA
-                    System.out.println("Error reading PandL sheet...found formula...looking for PandL key");
-                    break;
-                case "4"://BOOLEAN
-                    System.out.println("Error reading PandL sheet...found boolean PandL key");
-                    break;
-                case "5"://ERROR
-                    System.out.println("Error reading PandL sheet...found XSSF cell type ERROR PandL key");
-                    break;
-                default:
-                    break;
+                continue;
             }
-            try
+            XSSFCell valueCell = row.getCell(1); //Value cell
+            if (valueCell == null)
             {
-                switcher = Integer.toString(row.getCell(1).getCellType());
-            }catch (Exception e)
-            {
-                switcher = "null";
+                continue;
             }
-            switch (switcher)//PanL Value
+            if (keyCell.getCellType() == XSSFCell.CELL_TYPE_STRING)
             {
-                case "0"://NUMERIC
-                    valueValue = (int) row.getCell(1).getNumericCellValue();//Value
-                    break;
-                case "1"://STRING
-                    System.out.println("Error reading PandL sheet...found string PandL value");
-                    break;
-                case "2"://FORMULA
-                    valueValue = (int) row.getCell(1).getNumericCellValue();//value
-                    break;
-                case "4"://BOOLEAN
-                    System.out.println("Error reading PandL sheet...found boolean PandL value");
-                    break;
-                case "5"://ERROR
-                    System.out.println("Error reading PandL sheet...found XSSF cell type ERROR PandL value");
-                    break;
-                default:
-                    break;
+                keyValue = keyCell.getStringCellValue().trim();//Found Key String
+                // System.out.println("keyValue => " + keyValue);
             }
+            else
+            {
+                keyValue = "No Key found";
+                continue;
+            }
+            if (valueCell.getCellType() == XSSFCell.CELL_TYPE_NUMERIC)
+            {
+                valueValue = (int) valueCell.getNumericCellValue();
+                // System.out.println("valueValue => " + valueValue);
+            }
+            else
+            {
+                valueValue = -1;
+            }
+
             pandlMap.put(keyValue, valueValue);
         }
-//        System.out.println("                 PandL Map");
+//        System.out.println("        ===========PandL Map======================");
 //        pandlMap.forEach((K, V) -> System.out.println("             " +  K + " => " + V ));
         System.out.println("(2) Finished reading QuickBooks PandL Excel file from: " + pandInputlFile + " to: pandlHashMap, HashMap size: " + pandlMap.size());
     }
-
     public HashMap<String, Integer> getPandlMap()
     {
         return pandlMap;
     }
-
     public XSSFWorkbook getPandlWorkBook()
     {
         return pandlWorkBook;

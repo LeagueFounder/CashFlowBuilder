@@ -1,13 +1,14 @@
 package com.github.sdvic;
 //******************************************************************************************
 // * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
-// * version 201009
+// * version 201029
 // * copyright 2020 Vic Wintriss
 //******************************************************************************************
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
@@ -36,10 +37,14 @@ public class CashItemAggregator
     private int pandlIncome;
     private int pandlTotalExpenses;
     private int pandlAccumulatedProfit;
-    private int pandlGrantsAndGifts, pandlTuition;
+    private int pandlGrantsGifts;
+    private int pandlTuition;
     private int actualPayingStudents;
+    private HashMap<String, Integer> budgetMap;
+
     public void computeCombinedCashBudgetSheetEntries(HashMap<String, Integer> pandLmap, HashMap<String, Integer> budgetMap, XSSFWorkbook budgetWorkBook, int targetMonth)
     {
+        this.budgetMap = budgetMap;
         System.out.println("(5) Computing Combined Budget Sheet Entries");
         System.out.printf("%n %-40s %-20s %-20s %-20s %n", "ACCOUNT", "BUDGET AMOUNT", "P&L AMOUNT", "MONTH " + targetMonth + " VARIANCE");
         System.out.printf("%-40s %-20s %-20s %-20s %n", "------------------------------------", "-------------", "-------------", "---------------------");
@@ -47,19 +52,27 @@ public class CashItemAggregator
         //* GRANTS AND GIFTS
         //*************************************************************************************************************
         int pandlContributedServices;
-        budgetGrantsGifts = budgetMap.get("Grants and Gifts");
+        try
+        {
+            budgetGrantsGifts = budgetMap.get("Grants and Gifts");
+        }
+        catch (Exception e)
+        {
+            System.out.println("BudgetMap => " + budgetMap);
+            System.out.println("Can't find \"Grants and Gifts\" at line 56 in CashItemAggregator, error message => " + e.getMessage());
+        }
         try
         {
             int pandlDirectPublicSupport = pandLmap.get("Total 43400 Direct Public Support");
             pandlContributedServices = pandLmap.get("43460 Contributed Services");//Non cash item...must be subtracted
             int pandlGiftsInKindGoods = pandLmap.get("43440 Gifts in Kind - Goods");//Non cash item...must be subtracted
-            pandlGrantsAndGifts = pandlDirectPublicSupport - pandlContributedServices - pandlGiftsInKindGoods;
-            grantsGiftsVariance = pandlGrantsAndGifts - budgetGrantsGifts;
-            System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Grants and Gifts", budgetGrantsGifts, pandlGrantsAndGifts, grantsGiftsVariance);
+            pandlGrantsGifts = pandlDirectPublicSupport - pandlContributedServices - pandlGiftsInKindGoods;
+            grantsGiftsVariance = pandlGrantsGifts - budgetGrantsGifts;
+            System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Grants and Gifts", budgetGrantsGifts, pandlGrantsGifts, grantsGiftsVariance);
         }
-        catch(Exception e)
+        catch (Exception e)
         {
-            System.out.println("\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ~Line 74, Error processing trying to process GRANTS AND GIFTS, exception => " + e.getMessage());
+            System.out.println("\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! CIA error 74 trying to process GRANTS AND GIFTS, exception => " + e.getMessage());
         }
         //*************************************************************************************************************
         //* TUITION
@@ -73,23 +86,23 @@ public class CashItemAggregator
             tuitionVariance = pandlTuition - budgetTuition;
             System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Tuition", budgetTuition, pandlTuition, tuitionVariance);
         }
-             catch(Exception e)
+        catch (Exception e)
         {
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Error processing trying to process TUITION");
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! CIA error 89 trying to process trying to process TUITION, excepetion => " + e.getMessage());
         }
         //*************************************************************************************************************
         //* TOTAL INCOME
         //**************************************************************************************************************
         try
         {
-            pandlTotalIncome = pandlGrantsAndGifts + pandlTuition;
+            pandlTotalIncome = pandlGrantsGifts + pandlTuition;
             int budgetTotalIncome = budgetGrantsGifts + budgetTuition;
             incomeTotalVariance = pandlTotalIncome - budgetTotalIncome;
             System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Total Income", budgetTotalIncome, pandlTotalIncome, incomeTotalVariance);
         }
-             catch(Exception e)
+        catch (Exception e)
         {
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Error processing trying to process TOTAL INCOME");
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! CIA error 103 trying to process TOTAL INCOME, excepetion => " + e.getMessage());
         }
         //*************************************************************************************************************
         //* SALARIES
@@ -104,9 +117,9 @@ public class CashItemAggregator
             salaryVariance = pandlSalaries - budgetSalaries;
             System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Salaries", budgetSalaries, pandlSalaries, salaryVariance);
         }
-             catch(Exception e)
+        catch (Exception e)
         {
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Error processing trying to process SALARIES");
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! CIA error 110 trying to process SALARIES, excepetion => " + e.getMessage());
         }
         //*************************************************************************************************************
         //* CONTRACT SERVICES
@@ -118,9 +131,9 @@ public class CashItemAggregator
             contractServiceVariance = pandlContractServices - budgetContractServices;
             System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Contract Services", budgetContractServices, pandlContractServices, contractServiceVariance);
         }
-             catch(Exception e)
+        catch (Exception e)
         {
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Error processing trying to process CONTRACT SERVICES");
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! CIA error 124 trying to process CONTRACT SERVICES, excepetion => " + e.getMessage());
         }
         //*************************************************************************************************************
         //* RENT
@@ -134,9 +147,9 @@ public class CashItemAggregator
             rentVariance = pandlRent - budgetRent;
             System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Rent", budgetRent, pandlRent, rentVariance);
         }
-             catch(Exception e)
+        catch (Exception e)
         {
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Error processing trying to process RENT");
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! CIA error 140 trying to process RENT, excepetion => " + e.getMessage());
         }
         //*************************************************************************************************************
         //* OPERATIONS
@@ -152,9 +165,9 @@ public class CashItemAggregator
             operationsVariance = pandlOperations - budgetOperations;
             System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Operations", budgetOperations, pandlOperations, operationsVariance);
         }
-             catch(Exception e)
+        catch (Exception e)
         {
-            System.out.println("~ Line 218 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Error processing trying to process OPERATIONS, excepetion => " + e.getMessage());
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! CIA Error 158 trying to process OPERATIONS, excepetion => " + e.getMessage());
         }
         //*************************************************************************************************************
         //* TOTAL EXPENSES
@@ -167,9 +180,9 @@ public class CashItemAggregator
             expenseTotalVariance = pandlTotalExpenses - budgetTotalExpenses;
             System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Total Expenses", budgetTotalExpenses, pandlTotalExpenses, expenseTotalVariance);
         }
-             catch(Exception e)
+        catch (Exception e)
         {
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Error processing trying to process TOTAL EXPENSES");
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! CIA Error 173 processing trying to process TOTAL EXPENSES, excepetion => " + e.getMessage());
         }
         //*************************************************************************************************************
         //* PROFIT
@@ -182,33 +195,33 @@ public class CashItemAggregator
             profitVariance = pandlProfit - budgetProfit;
             System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Profit", budgetProfit, pandlProfit, profitVariance);
         }
-             catch(Exception e)
+        catch (Exception e)
         {
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Error processing trying to process PROFIT");
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! CIA Error 188 processing trying to process PROFIT, excepetion => " + e.getMessage());
         }
         //*************************************************************************************************************
         //* STUDENTS
         // *************************************************************************************************************
         try
         {
-            actualPayingStudents = pandlTuition/240;//Derived...including workshops, slams, etc and partial paying students
+            actualPayingStudents = pandlTuition / 240;//Derived...including workshops, slams, etc and partial paying students
             budgetPayingStudents = budgetMap.get("Paying Students");
             payingStudentsVariance = actualPayingStudents - budgetPayingStudents;
             System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Paying Students", budgetPayingStudents, actualPayingStudents, payingStudentsVariance);
         }
-             catch(Exception e)
+        catch (Exception e)
         {
-            System.out.println("~ Line 276 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Error processing trying to process STUDENTS, excepetion => " + e.getMessage());
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! CIA Error 202 processing trying to process STUDENTS, excepetion => " + e.getMessage());
         }
         //*************************************************************************************************************
-        //* RECONCILE...Profit vairance will equal depreciation, which is disregarded in these numbers
+        //* RECONCILE...Profit variance will equal depreciation, which is disregarded in these numbers
         //*************************************************************************************************************
         try
         {
             int pandlBottomLineProfit = pandLmap.get("Net Income");//Take out in-kind donations!
             int pandlBottomLineExpense = pandLmap.get("Total Expenses");
             int pandlBottomLineIncome = pandLmap.get("Total Income");
-            pandlIncome = pandlGrantsAndGifts + pandlTuition;
+            pandlIncome = pandlGrantsGifts + pandlTuition;
             int pandlIncomeVariance = pandlBottomLineIncome - pandlIncome;
             pandlTotalExpenses = pandlSalaries + pandlContractServices + pandlRent + pandlOperations;
             int pandlExpenseVariance = pandlBottomLineExpense - pandlTotalExpenses;
@@ -220,9 +233,9 @@ public class CashItemAggregator
             System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Expenses", pandlTotalExpenses, pandlBottomLineExpense, pandlExpenseVariance);
             System.out.printf("%-40s %,-20d %,-20d %,-20d %n%n", "Profit", pandlProfit, pandlBottomLineProfit, pandlProfitVariance);
         }
-        catch(Exception e)
+        catch (Exception e)
         {
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Error processing trying to process RECONCILE");
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! CIA Error 226 trying to process RECONCILE");
         }
         System.out.println("(6) Finished computing Budget Sheet Entries");
     }
@@ -246,7 +259,7 @@ public class CashItemAggregator
                 switch (row.getCell(0).getStringCellValue())
                 {
                     case "Grants and Gifts":
-                        row.getCell(targetMonth).setCellValue(pandlGrantsAndGifts);
+                        row.getCell(targetMonth).setCellValue(pandlGrantsGifts);
                         row.getCell(13).setCellValue(grantsGiftsVariance);
                         break;
                     case "Tuition":
