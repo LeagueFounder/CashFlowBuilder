@@ -60,6 +60,7 @@ public class CashItemAggregator
         {
             System.out.println("BudgetMap => " + budgetMap);
             System.out.println("Can't find \"Grants and Gifts\" at line 56 in CashItemAggregator, error message => " + e.getMessage());
+            e.printStackTrace();
         }
         try
         {
