@@ -1,7 +1,7 @@
 package com.github.sdvic;
 //******************************************************************************************
 // * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
-// * version 201029
+// * version 201029B
 // * copyright 2020 Vic Wintriss
 //*******************************************************************************************
 import org.apache.poi.ss.usermodel.Cell;
@@ -61,19 +61,16 @@ public class BudgetReader
             switch (switcher)//Read Budget Key From Excel Spreadsheet
             {
                 case 0://NUMERIC
-//                    System.out.println("***Key error 63 while reading Budget Excel spreadsheet key...found XSSF cell type number instead of String =>  \"" + row.getCell(0) + "\"" + " at row " + (rowIndex + 1));
                     break;
                 case 1://STRING
                     final CellValue keyCellValue = evaluator.evaluate(keyCell);
-                    keyString = keyCellValue.formatAsString().trim();//Found Key String
+                    String keyStringRaw = keyCellValue.formatAsString().trim();//Found Key String
+                    keyString = keyStringRaw.replaceAll("^\"+|\"+$", "");//Strip off quote signs
                     break;
                 case 2://FORMULA
-//                    System.out.println("***Key error 69 while reading Budget Excel spreadsheet key...found XSSF cell type formula instead of String =>  \"" + row.getCell(0) + "\"" + " at row " + (rowIndex + 1));
                     break;
                 case 3://BOOLEAN
-//                    System.out.println("***Key Error 72 while reading Budget Excel spreadsheet key...found XSSF cell type boolean instead of String =>  \"" + row.getCell(0) + "\"" + " at row " + (rowIndex + 1));
                 case 4://ERROR
-//                    System.out.println("***Key error 75 while reading Budget Excel spreadsheet key...found XSSF cell type ERROR instead of String =>  \"" + row.getCell(0) + "\"" + " at row " + (rowIndex + 1));
                     break;
                 default:
                     break;
@@ -87,18 +84,14 @@ public class BudgetReader
                     valueInt = (int) row.getCell(targetMonth).getNumericCellValue();
                     break;
                 case 1://STRING
-//                    System.out.println("***Value error 90 while reading Budget Excel spreadsheet...found XSSF cell type String => \"" + row.getCell(targetMonth)  + "\" instead of number at row " + (rowIndex + 1));
                     break;
 
                 case 2://FORMULA
-//                    System.out.println("***Value error 93 while reading Budget Excel spreadsheet value...found XSSF cell type formula instead of number =>  \"" + row.getCell(targetMonth) + "\"" + " at row " + (rowIndex + 1));
                     break;
                 case 3://BOOLEAN
-//                    System.out.println("***Value error 96 while reading Budget Excel spreadsheet value...found XSSF cell type boolean instead of number =>  \"" + row.getCell(targetMonth) + "\"" + " at row " + (rowIndex + 1));
                     break;
 
                 case 4://ERROR
-//                    System.out.println("***Value error 99 while reading Budget Excel spreadsheet value...found XSSF cell type error instead of number =>  \"" + row.getCell(targetMonth) + "\"" + " at row " + (rowIndex + 1));
                     break;
                 default:
                     break;

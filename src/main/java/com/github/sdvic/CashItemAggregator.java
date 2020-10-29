@@ -1,7 +1,7 @@
 package com.github.sdvic;
 //******************************************************************************************
 // * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
-// * version 201029
+// * version 201029B
 // * copyright 2020 Vic Wintriss
 //******************************************************************************************
 import org.apache.poi.ss.usermodel.Row;
@@ -58,9 +58,7 @@ public class CashItemAggregator
         }
         catch (Exception e)
         {
-            System.out.println("BudgetMap => " + budgetMap);
             System.out.println("Can't find \"Grants and Gifts\" at line 56 in CashItemAggregator, error message => " + e.getMessage());
-            e.printStackTrace();
         }
         try
         {
@@ -69,7 +67,7 @@ public class CashItemAggregator
             int pandlGiftsInKindGoods = pandLmap.get("43440 Gifts in Kind - Goods");//Non cash item...must be subtracted
             pandlGrantsGifts = pandlDirectPublicSupport - pandlContributedServices - pandlGiftsInKindGoods;
             grantsGiftsVariance = pandlGrantsGifts - budgetGrantsGifts;
-            System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Grants and Gifts", budgetGrantsGifts, pandlGrantsGifts, grantsGiftsVariance);
+            printConsoleSummary("Grants and Gifts", budgetGrantsGifts, pandlGrantsGifts, grantsGiftsVariance);
         }
         catch (Exception e)
         {
@@ -85,7 +83,7 @@ public class CashItemAggregator
             budgetTuition = budgetMap.get("Tuition");
             pandlTuition = pandlProgramIncome - pandlLeagueScholarship;
             tuitionVariance = pandlTuition - budgetTuition;
-            System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Tuition", budgetTuition, pandlTuition, tuitionVariance);
+            printConsoleSummary("Tuition", budgetTuition, pandlTuition, tuitionVariance);
         }
         catch (Exception e)
         {
@@ -99,7 +97,7 @@ public class CashItemAggregator
             pandlTotalIncome = pandlGrantsGifts + pandlTuition;
             int budgetTotalIncome = budgetGrantsGifts + budgetTuition;
             incomeTotalVariance = pandlTotalIncome - budgetTotalIncome;
-            System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Total Income", budgetTotalIncome, pandlTotalIncome, incomeTotalVariance);
+            printConsoleSummary("Total Income", budgetTotalIncome, pandlTotalIncome, incomeTotalVariance);
         }
         catch (Exception e)
         {
@@ -116,7 +114,7 @@ public class CashItemAggregator
             int budgetSalaries = budgetMap.get("Salaries");
             pandlSalaries = pandlSalaries + pandlPayrollServiceFees - pandlContributedServices;
             salaryVariance = pandlSalaries - budgetSalaries;
-            System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Salaries", budgetSalaries, pandlSalaries, salaryVariance);
+            printConsoleSummary("Salaries", budgetSalaries, pandlSalaries, salaryVariance);
         }
         catch (Exception e)
         {
@@ -130,7 +128,7 @@ public class CashItemAggregator
             pandlContractServices = pandLmap.get("Total 62100 Contract Services");
             int budgetContractServices = budgetMap.get("Contract Services");
             contractServiceVariance = pandlContractServices - budgetContractServices;
-            System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Contract Services", budgetContractServices, pandlContractServices, contractServiceVariance);
+            printConsoleSummary("Contract Services", budgetContractServices, pandlContractServices, contractServiceVariance);
         }
         catch (Exception e)
         {
@@ -146,7 +144,7 @@ public class CashItemAggregator
             int pandlDepreciation = pandLmap.get("62810 Depr and Amort - Allowable");//Non cash item...must be subtracted
             pandlRent = pandlRent - pandlDepreciation;
             rentVariance = pandlRent - budgetRent;
-            System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Rent", budgetRent, pandlRent, rentVariance);
+            printConsoleSummary("Rent", budgetRent, pandlRent, rentVariance);
         }
         catch (Exception e)
         {
@@ -164,7 +162,7 @@ public class CashItemAggregator
             int budgetOperations = budgetMap.get("Operations");
             pandlOperations = pandlOperations + pandlBreakRoomSupplies + pandlOtherExpenses + pandlTravel;
             operationsVariance = pandlOperations - budgetOperations;
-            System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Operations", budgetOperations, pandlOperations, operationsVariance);
+            printConsoleSummary( "Operations", budgetOperations, pandlOperations, operationsVariance);
         }
         catch (Exception e)
         {
@@ -179,7 +177,7 @@ public class CashItemAggregator
             pandlTotalExpenses = pandLmap.get("Total Expenses");
             pandlTotalExpenses = pandlSalaries + pandlContractServices + pandlRent + pandlOperations;
             expenseTotalVariance = pandlTotalExpenses - budgetTotalExpenses;
-            System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Total Expenses", budgetTotalExpenses, pandlTotalExpenses, expenseTotalVariance);
+            printConsoleSummary("Total Expenses", budgetTotalExpenses, pandlTotalExpenses, expenseTotalVariance);
         }
         catch (Exception e)
         {
@@ -194,7 +192,7 @@ public class CashItemAggregator
             pandlProfit = pandlTotalIncome - pandlTotalExpenses;
             profitVariance = budgetProfit - pandlProfit;
             profitVariance = pandlProfit - budgetProfit;
-            System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Profit", budgetProfit, pandlProfit, profitVariance);
+            printConsoleSummary( "Profit", budgetProfit, pandlProfit, profitVariance);
         }
         catch (Exception e)
         {
@@ -208,7 +206,7 @@ public class CashItemAggregator
             actualPayingStudents = pandlTuition / 240;//Derived...including workshops, slams, etc and partial paying students
             budgetPayingStudents = budgetMap.get("Paying Students");
             payingStudentsVariance = actualPayingStudents - budgetPayingStudents;
-            System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Paying Students", budgetPayingStudents, actualPayingStudents, payingStudentsVariance);
+            printConsoleSummary("Paying Students", budgetPayingStudents, actualPayingStudents, payingStudentsVariance);
         }
         catch (Exception e)
         {
@@ -243,8 +241,8 @@ public class CashItemAggregator
     //******************************************************************************************
     //* Update Budget Excel Workbook
     //******************************************************************************************
-    public void updateBudgetWorkbook(XSSFWorkbook budgetWorkbook, int targetMonth)
-    {
+        public void updateBudgetWorkbook(XSSFWorkbook budgetWorkbook, int targetMonth)
+        {
         System.out.println("(7) Start updating budget XSSFsheet");
         LocalDate localDate = LocalDate.now();
         Date date = Date.from(localDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
@@ -311,5 +309,12 @@ public class CashItemAggregator
         budgetSheet.getRow(1).getCell(13).setCellValue("VARIANCE");
         budgetSheet.getRow(1).getCell(targetMonth).setCellValue(">ACTUAL<");
         System.out.println("(8) Finished updating budget XSSFsheet");
+    }
+    //******************************************************************************************
+    //* Print Console Summary
+    //******************************************************************************************
+    public void printConsoleSummary(String account, int budgetAmount, int actualAmount, int variance)
+    {
+        System.out.printf("%-40s %,-20d %,-20d %,-20d %n", account, budgetAmount, actualAmount, variance);
     }
 }
