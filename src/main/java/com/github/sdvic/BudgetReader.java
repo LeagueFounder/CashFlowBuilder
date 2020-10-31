@@ -1,19 +1,16 @@
 package com.github.sdvic;
 //******************************************************************************************
 // * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
-// * version 201029B
+// * version 201030
 // * copyright 2020 Vic Wintriss
 //*******************************************************************************************
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellValue;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
-import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.*;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.HashMap;
 public class BudgetReader
 {
@@ -25,9 +22,9 @@ public class BudgetReader
     private XSSFCell keyCell;
     private XSSFCell valueCell;
     private String followOnAnswer;
-    public void readBudget(int targetMonth, String followOnAnswer)
+    public BudgetReader(int targetMonth, String followOnAnswer)
     {
-        System.out.println("(3) Starting reading Budget In budgetReader from " + budgetInputFileName + " to: budgetHashMap");
+        System.out.println("(3) Starting reading Budget In budgetReader Constructor from " + budgetInputFileName + " to: budgetHashMap");
         XSSFSheet budgetSheet;
         try
         {
@@ -96,11 +93,11 @@ public class BudgetReader
                 default:
                     break;
             }
-            budgetMap.put(keyString, valueInt);
+            getBudgetMap().put(keyString, valueInt);
         }
 //        System.out.println("           Budget Map For Month " + targetMonth);
 //        budgetMap.forEach((K, V) -> System.out.println("      " + K + " => " + V));
-        System.out.println("(4) Finished reading Budget In budgetReader from " + budgetInputFileName + " to: budgetHashMap, HashMap size: " + budgetMap.size());
+        System.out.println("(4) Finished reading Budget In budgetReader from " + budgetInputFileName + " to: budgetHashMap, HashMap size: " + getBudgetMap().size());
     }
     public HashMap<String, Integer> getBudgetMap()
     {
