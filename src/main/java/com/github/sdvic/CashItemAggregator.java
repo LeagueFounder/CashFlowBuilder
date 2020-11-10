@@ -1,7 +1,7 @@
 package com.github.sdvic;
 //******************************************************************************************
 // * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
-// * version 201031
+// * version 201109
 // * copyright 2020 Vic Wintriss
 //******************************************************************************************
 import org.apache.poi.ss.usermodel.Row;
@@ -87,9 +87,9 @@ public class CashItemAggregator
     public void computeGrantsAndGifts()
     {
         int budgetGrantsGifts = budgetMap.get("Grants and Gifts");
-        int pandLContributedServices = pandLMap.get("43460 Contributed Services");//Non cash item...must be subtracted
         int pandLDirectPublicSupport = pandLMap.get("Total 43400 Direct Public Support");
         int pandLGiftsInKindGoods = pandLMap.get("43440 Gifts in Kind - Goods");//Non cash item...must be subtracted
+        int pandLContributedServices = pandLMap.get("43460 Contributed Services");//Non cash item...must be subtracted
         int pandLGrantsGifts = pandLDirectPublicSupport - pandLContributedServices - pandLGiftsInKindGoods;
         int grantsGiftsVariance = pandLGrantsGifts - budgetGrantsGifts;
         printConsoleSummary("Grants and Gifts", budgetGrantsGifts, pandLGrantsGifts, grantsGiftsVariance);

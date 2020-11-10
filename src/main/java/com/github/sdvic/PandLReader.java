@@ -1,9 +1,10 @@
 package com.github.sdvic;
 //******************************************************************************************
 // * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
-// * version 201031
+// * version 201109
 // * copyright 2020 Vic Wintriss
 //*******************************************************************************************
+import org.apache.poi.ss.usermodel.CellValue;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.xssf.usermodel.*;
 
@@ -56,33 +57,36 @@ public class PandLReader
             {
                 continue;
             }
+            try
+            {
+                keyValue = keyCell.getStringCellValue();
+                final CellValue keyCellValue = evaluator.evaluate(keyCell);
+                String keyStringRaw = ((CellValue) keyCellValue).formatAsString().trim();//Found Key String
+                keyValue = keyStringRaw.replaceAll("^\"+|\"+$", "").trim();//Strip off quote signs
+                keyValue.trim();
+            }
+            catch (Exception e)
+            {
+                System.out.println("Can't get key String value at line 65");
+                continue;
+            }
             XSSFCell valueCell = row.getCell(1); //Value cell
             if (valueCell == null)
             {
                 continue;
             }
-            if (keyCell.getCellType() == XSSFCell.CELL_TYPE_STRING)
-            {
-                keyValue = keyCell.getStringCellValue().trim();//Found Key String
-            }
-            else
-            {
-                keyValue = "No Key found";
-                continue;
-            }
-            if (valueCell.getCellType() == XSSFCell.CELL_TYPE_NUMERIC)
+            try
             {
                 valueValue = (int) valueCell.getNumericCellValue();
             }
-            else
+            catch(Exception e)
             {
-                valueValue = -1;
+                System.out.println("Can't get numeric value at line 80");
             }
-
             getPandLMap().put(keyValue, valueValue);
         }
 //        System.out.println("        ===========PandL Map======================");
-//        pandlMap.forEach((K, V) -> System.out.println("             " +  K + " => " + V ));
+//        getPandLMap().forEach((K, V) -> System.out.println("             " +  K + " => " + V ));
         System.out.println("(2) Finished reading QuickBooks PandL Excel file from: " + pandLInputFile + " to: pandlHashMap, HashMap size: " + getPandLMap().size());
     }
     public HashMap<String, Integer> getPandLMap()
