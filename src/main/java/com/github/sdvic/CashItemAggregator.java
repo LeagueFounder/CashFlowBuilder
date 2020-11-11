@@ -1,17 +1,14 @@
 package com.github.sdvic;
 //******************************************************************************************
 // * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
-// * version 201109
+// * version 201110
 // * copyright 2020 Vic Wintriss
 //******************************************************************************************
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 public class CashItemAggregator
 {
@@ -90,8 +87,8 @@ public class CashItemAggregator
         int pandLDirectPublicSupport = pandLMap.get("Total 43400 Direct Public Support");
         int pandLGiftsInKindGoods = pandLMap.get("43440 Gifts in Kind - Goods");//Non cash item...must be subtracted
         int pandLContributedServices = pandLMap.get("43460 Contributed Services");//Non cash item...must be subtracted
-        int pandLGrantsGifts = pandLDirectPublicSupport - pandLContributedServices - pandLGiftsInKindGoods;
-        int grantsGiftsVariance = pandLGrantsGifts - budgetGrantsGifts;
+        pandLGrantsGifts = pandLDirectPublicSupport - pandLContributedServices - pandLGiftsInKindGoods;
+        grantsGiftsVariance = pandLGrantsGifts - budgetGrantsGifts;
         printConsoleSummary("Grants and Gifts", budgetGrantsGifts, pandLGrantsGifts, grantsGiftsVariance);
     }
     public void computeTuition()
@@ -100,12 +97,12 @@ public class CashItemAggregator
         int pandLLeagueScholarship = pandLMap.get("Total 47203 League Scholarship");//Non cash item...must be subtracted
         int budgetTuition = budgetMap.get("Tuition");
         pandLTuition = pandLProgramIncome - pandLLeagueScholarship;
-        int tuitionVariance = pandLTuition - budgetTuition;
+        tuitionVariance = pandLTuition - budgetTuition;
         printConsoleSummary("Tuition", budgetTuition, pandLTuition, tuitionVariance);
     }
     public void computeSalaries()
     {
-        int pandLSalaries = pandLMap.get("Total 62000 Salaries & Related Expenses");
+        pandLSalaries = pandLMap.get("Total 62000 Salaries & Related Expenses");
         int pandLPayrollServiceFees = pandLMap.get("62145 Payroll Service Fees");
         int budgetSalaries = budgetMap.get("Salaries");
         int pandLContributedServices = pandLMap.get("62010 Salaries contributed services");//Non cash item...must be subtracted
@@ -116,6 +113,8 @@ public class CashItemAggregator
     public void computeTotalIncome()
     {
         pandLTotalIncome = pandLGrantsGifts + pandLTuition;
+        int budgetGrantsGifts = budgetMap.get("Grants and Gifts");
+        int budgetTuition = budgetMap.get("Tuition");
         budgetTotalIncome = budgetGrantsGifts + budgetTuition;
         incomeTotalVariance = pandLTotalIncome - budgetTotalIncome;
         printConsoleSummary("Total Income", budgetTotalIncome, pandLTotalIncome, incomeTotalVariance);
@@ -199,18 +198,29 @@ public class CashItemAggregator
     public void updateBudgetWorkbook(XSSFWorkbook budgetWorkbook, int targetMonth)
     {
         System.out.println("(7) Start updating budget XSSFsheet");
-        LocalDate localDate = LocalDate.now();
-        Date date = Date.from(localDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+        LocalDateTime now = LocalDateTime.now();
         XSSFSheet budgetSheet = budgetWorkbook.getSheetAt(0);
-        budgetSheet.getRow(0).createCell(13, XSSFCell.CELL_TYPE_STRING);
-        budgetSheet.getRow(1).createCell(13, XSSFCell.CELL_TYPE_STRING);
-        budgetSheet.getRow(0).getCell(0).setCellValue("Updated: " + date);
-        budgetSheet.getRow(0).getCell(13).setCellValue("Month " + targetMonth);
-        budgetSheet.getRow(1).getCell(13).setCellValue("VARIANCE");
-        budgetSheet.getRow(1).getCell(targetMonth).setCellValue(">ACTUAL<");
         for (Row row : budgetSheet)
         {
-            row.createCell(13, XSSFCell.CELL_TYPE_NUMERIC);//For month variance numbers
+            if (row.getRowNum() == 0 || row.getRowNum() ==1)
+            {
+                row.createCell(13, XSSFCell.CELL_TYPE_STRING);//For month variance numbers
+                try
+                {
+                    budgetSheet.getRow(0).getCell(0).setCellValue("Updated: " + now);
+                    budgetSheet.getRow(0).getCell(13).setCellValue("Month " + targetMonth);
+                    budgetSheet.getRow(1).getCell(13).setCellValue("VARIANCE");
+                    budgetSheet.getRow(1).getCell(targetMonth).setCellValue(">>ACTUAL<");
+                }
+                catch (Exception e)
+                {
+
+                }
+            }
+            else
+            {
+                row.createCell(13, XSSFCell.CELL_TYPE_NUMERIC);//For month variance numbers
+            }
 
             if (row.getCell(0) != null)
             {
