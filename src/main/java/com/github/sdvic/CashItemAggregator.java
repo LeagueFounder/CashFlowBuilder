@@ -1,7 +1,7 @@
 package com.github.sdvic;
 //******************************************************************************************
 // * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
-// * version 201110
+// * version 201111
 // * copyright 2020 Vic Wintriss
 //******************************************************************************************
 import org.apache.poi.ss.usermodel.Row;
@@ -87,7 +87,8 @@ public class CashItemAggregator
         int pandLDirectPublicSupport = pandLMap.get("Total 43400 Direct Public Support");
         int pandLGiftsInKindGoods = pandLMap.get("43440 Gifts in Kind - Goods");//Non cash item...must be subtracted
         int pandLContributedServices = pandLMap.get("43460 Contributed Services");//Non cash item...must be subtracted
-        pandLGrantsGifts = pandLDirectPublicSupport - pandLContributedServices - pandLGiftsInKindGoods;
+        int pandLInterest = pandLMap.get("Total 45000 Investments");
+        pandLGrantsGifts = pandLDirectPublicSupport - pandLContributedServices - pandLGiftsInKindGoods + pandLInterest;
         grantsGiftsVariance = pandLGrantsGifts - budgetGrantsGifts;
         printConsoleSummary("Grants and Gifts", budgetGrantsGifts, pandLGrantsGifts, grantsGiftsVariance);
     }
@@ -131,7 +132,7 @@ public class CashItemAggregator
         pandLDepreciation = pandLMap.get("62810 Depr and Amort - Allowable");//Non cash item...must be subtracted
         budgetRent = budgetMap.get("Rent");
         pandLRent = pandLMap.get("Total 62800 Facilities and Equipment");
-        pandLRent = pandLRent - pandLDepreciation;
+        pandLRent = pandLRent;// - pandLDepreciation;
         rentVariance = pandLRent - budgetRent;
         printConsoleSummary("Rent", budgetRent, pandLRent, rentVariance);
     }
@@ -149,7 +150,6 @@ public class CashItemAggregator
     public void computeTotalExpenses()
     {
         budgetTotalExpenses = budgetMap.get("Total Expenses");
-        pandLTotalExpenses = pandLMap.get("Total Expenses");
         pandLTotalExpenses = pandLSalaries + pandLContractServices + pandLRent + pandLOperations;
         expenseTotalVariance = pandLTotalExpenses - budgetTotalExpenses;
         printConsoleSummary("Total Expenses", budgetTotalExpenses, pandLTotalExpenses, expenseTotalVariance);
@@ -157,9 +157,7 @@ public class CashItemAggregator
     public void computeProfit()
     {
         budgetProfit = budgetMap.get("Profit");
-        pandLTotalExpenses = pandLMap.get("Total Expenses");
         pandLProfit = pandLTotalIncome - pandLTotalExpenses;
-        profitVariance = budgetProfit - pandLProfit;
         profitVariance = pandLProfit - budgetProfit;
         printConsoleSummary("Profit", budgetProfit, pandLProfit, profitVariance);
     }
