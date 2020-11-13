@@ -1,11 +1,14 @@
 package com.github.sdvic;
 //******************************************************************************************
 // * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
-// * version 201111
+// * version 201112
 // * copyright 2020 Vic Wintriss
 //******************************************************************************************
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.DataFormat;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFDataFormat;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.time.LocalDateTime;
@@ -13,61 +16,62 @@ import java.util.HashMap;
 public class CashItemAggregator
 {
     private int targetMonth;
-    private int pandLContractServices = 0;
-    private int pandLSalaries;
-    private int contractServiceVariance;
-    private int pandLOperations;
-    private int operationsVariance;
-    private int payingStudentsVariance;
-    private int pandLRent;
-    private int grantsGiftsVariance;
-    private int tuitionVariance;
-    private int budgetGrantsGifts;
-    private int budgetTuition;
-    private int salaryVariance;
-    private int rentVariance;
-    private int profitVariance;
-    private int budgetPayingStudents;
-    private int expenseTotalVariance;
-    private int incomeTotalVariance;
-    private int pandLProfit;
-    private int pandLIncome;
-    private int pandLTotalExpenses;
-    private int pandLAccumulatedProfit;
-    private int pandLGrantsGifts;
-    private int pandLTuition;
-    private int actualPayingStudents;
-    private int pandLContributedServices;
-    private int pandLDirectPublicSupport;
-    private int pandLGiftsInKindGoods;
-    private int budgetContractServices;
-    private int pandLProgramIncome;
-    private int pandLLeagueScholarship;
-    private int budgetTotalIncome;
-    private int pandLTotalIncome;
-    private int pandLPayrollServiceFees;
-    private int budgetSalaries;
-    private int budgetRent;
-    private int pandLBreakRoomSupplies;
-    private int pandLOtherExpenses;
-    private int pandLTravel;
-    private int budgetOperations;
-    private int pandLDepreciation;
-    private int budgetTotalExpenses;
-    private int budgetProfit;
-    private int pandLBottomLineProfit;
-    private int pandLBottomLineExpense;
-    private int pandLBottomLineIncome;
+    private double pandLContractServices = 0;
+    private double pandLSalaries;
+    private double contractServiceVariance;
+    private double pandLOperations;
+    private double operationsVariance;
+    private double payingStudentsVariance;
+    private double pandLRent;
+    private double grantsGiftsVariance;
+    private double tuitionVariance;
+    private double budgetGrantsGifts;
+    private double budgetTuition;
+    private double salaryVariance;
+    private double rentVariance;
+    private double profitVariance;
+    private double budgetPayingStudents;
+    private double expenseTotalVariance;
+    private double incomeTotalVariance;
+    private double pandLProfit;
+    private double pandLIncome;
+    private double pandLTotalExpenses;
+    private double pandLAccumulatedProfit;
+    private double pandLGrantsGifts;
+    private double pandLTuition;
+    private double actualPayingStudents;
+    private double pandLContributedServices;
+    private double pandLDirectPublicSupport;
+    private double pandLGiftsInKindGoods;
+    private double budgetContractServices;
+    private double pandLProgramIncome;
+    private double pandLLeagueScholarship;
+    private double budgetTotalIncome;
+    private double pandLTotalIncome;
+    private double pandLPayrollServiceFees;
+    private double budgetSalaries;
+    private double budgetRent;
+    private double pandLBreakRoomSupplies;
+    private double pandLOtherExpenses;
+    private double pandLTravel;
+    private double budgetOperations;
+    private double pandLDepreciation;
+    private double budgetTotalExpenses;
+    private double budgetProfit;
+    private double pandLBottomLineProfit;
+    private double pandLBottomLineExpense;
+    private double pandLBottomLineIncome;
     private HashMap<String, Integer> budgetMap;
-    private HashMap<String, Integer> pandLMap;
-    public CashItemAggregator(HashMap<String, Integer> budgetMap, HashMap<String, Integer> pandLMap, int targetMonth)
+    private HashMap<String, Double> pandLMap;
+    public CashItemAggregator(HashMap<String, Integer> budgetMap, HashMap<String, Double> pandLMap, int targetMonth)
     {
         this.budgetMap = budgetMap;
         this.pandLMap = pandLMap;
         this.targetMonth = targetMonth;
         System.out.println("(5) Computing Combined Budget Sheet Entries");
-        System.out.printf("%n %-40s %-20s %-20s %-20s %n", "ACCOUNT", "BUDGET AMOUNT", "P&L AMOUNT", "MONTH " + targetMonth + " VARIANCE");
-        System.out.printf("%-40s %-20s %-20s %-20s %n", "------------------------------------", "-------------", "-------------", "---------------------");
+        printConsoleSummary("ACCOUNT", "BUDGET AMOUNT", "P&L AMOUNT", "MONTH " + targetMonth + " VARIANCE");
+        printConsoleSummary( "------------------------------------", "-------------", "-------------", "---------------------");
+        System.out.println();
         computeGrantsAndGifts();
         computeTuition();
         computeSalaries();
@@ -83,20 +87,20 @@ public class CashItemAggregator
     }
     public void computeGrantsAndGifts()
     {
-        int budgetGrantsGifts = budgetMap.get("Grants and Gifts");
-        int pandLDirectPublicSupport = pandLMap.get("Total 43400 Direct Public Support");
-        int pandLGiftsInKindGoods = pandLMap.get("43440 Gifts in Kind - Goods");//Non cash item...must be subtracted
-        int pandLContributedServices = pandLMap.get("43460 Contributed Services");//Non cash item...must be subtracted
-        int pandLInterest = pandLMap.get("Total 45000 Investments");
+        double budgetGrantsGifts = budgetMap.get("Grants and Gifts");
+        double pandLDirectPublicSupport = pandLMap.get("Total 43400 Direct Public Support");
+        double pandLGiftsInKindGoods = pandLMap.get("43440 Gifts in Kind - Goods");//Non cash item...must be subtracted
+        double pandLContributedServices = pandLMap.get("43460 Contributed Services");//Non cash item...must be subtracted
+        double pandLInterest = pandLMap.get("Total 45000 Investments");
         pandLGrantsGifts = pandLDirectPublicSupport - pandLContributedServices - pandLGiftsInKindGoods + pandLInterest;
         grantsGiftsVariance = pandLGrantsGifts - budgetGrantsGifts;
         printConsoleSummary("Grants and Gifts", budgetGrantsGifts, pandLGrantsGifts, grantsGiftsVariance);
     }
     public void computeTuition()
     {
-        int pandLProgramIncome = pandLMap.get("Total 47200 Program Income");
-        int pandLLeagueScholarship = pandLMap.get("Total 47203 League Scholarship");//Non cash item...must be subtracted
-        int budgetTuition = budgetMap.get("Tuition");
+        double pandLProgramIncome = pandLMap.get("Total 47200 Program Income");
+        double pandLLeagueScholarship = pandLMap.get("Total 47203 League Scholarship");//Non cash item...must be subtracted
+        double budgetTuition = budgetMap.get("Tuition");
         pandLTuition = pandLProgramIncome - pandLLeagueScholarship;
         tuitionVariance = pandLTuition - budgetTuition;
         printConsoleSummary("Tuition", budgetTuition, pandLTuition, tuitionVariance);
@@ -104,9 +108,9 @@ public class CashItemAggregator
     public void computeSalaries()
     {
         pandLSalaries = pandLMap.get("Total 62000 Salaries & Related Expenses");
-        int pandLPayrollServiceFees = pandLMap.get("62145 Payroll Service Fees");
-        int budgetSalaries = budgetMap.get("Salaries");
-        int pandLContributedServices = pandLMap.get("62010 Salaries contributed services");//Non cash item...must be subtracted
+        double pandLPayrollServiceFees = pandLMap.get("62145 Payroll Service Fees");
+        double budgetSalaries = budgetMap.get("Salaries");
+        double pandLContributedServices = pandLMap.get("62010 Salaries contributed services");//Non cash item...must be subtracted
         pandLSalaries = pandLSalaries + pandLPayrollServiceFees - pandLContributedServices;
         salaryVariance = pandLSalaries - budgetSalaries;
         printConsoleSummary("Salaries", budgetSalaries, pandLSalaries, salaryVariance);
@@ -114,8 +118,8 @@ public class CashItemAggregator
     public void computeTotalIncome()
     {
         pandLTotalIncome = pandLGrantsGifts + pandLTuition;
-        int budgetGrantsGifts = budgetMap.get("Grants and Gifts");
-        int budgetTuition = budgetMap.get("Tuition");
+        double budgetGrantsGifts = budgetMap.get("Grants and Gifts");
+        double budgetTuition = budgetMap.get("Tuition");
         budgetTotalIncome = budgetGrantsGifts + budgetTuition;
         incomeTotalVariance = pandLTotalIncome - budgetTotalIncome;
         printConsoleSummary("Total Income", budgetTotalIncome, pandLTotalIncome, incomeTotalVariance);
@@ -174,21 +178,27 @@ public class CashItemAggregator
         pandLBottomLineIncome = pandLMap.get("Total Income");
         pandLBottomLineProfit = pandLMap.get("Net Income");//Take out in-kind donations!
         pandLIncome = pandLGrantsGifts + pandLTuition;
-        int pandlIncomeVariance = pandLBottomLineIncome - pandLIncome;
+        double pandlIncomeVariance = pandLBottomLineIncome - pandLIncome;
         pandLTotalExpenses = pandLSalaries + pandLContractServices + pandLRent + pandLOperations;
-        int pandlExpenseVariance = pandLBottomLineExpense - pandLTotalExpenses;
-        int pandlProfitVariance = pandLProfit - pandLBottomLineProfit;
-        System.out.printf("%n %76s", "P&L RECONCILIATION");
-        System.out.printf("%n %-40s %-20s %-20s %-20s %n", "ACCOUNT", "ACCUMULATED", "BOTTOM LINE", "VARIANCE");
-        System.out.printf("%-40s %-20s %-20s %-20s %n", "------------------------------------", "------------", "------------", "----------");
-        System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Income", pandLIncome, pandLBottomLineIncome, pandlIncomeVariance);
-        System.out.printf("%-40s %,-20d %,-20d %,-20d %n", "Expenses", pandLTotalExpenses, pandLBottomLineExpense, pandlExpenseVariance);
-        System.out.printf("%-40s %,-20d %,-20d %,-20d %n%n", "Profit", pandLProfit, pandLBottomLineProfit, pandlProfitVariance);
+        double pandlExpenseVariance = pandLBottomLineExpense - pandLTotalExpenses;
+        double pandlProfitVariance = pandLProfit - pandLBottomLineProfit;
+        printConsoleSummary("", "", "P&L RECONCILIATION", "");
+        printConsoleSummary("ACCOUNT", "ACCUMULATED", "BOTTOM LINE", "VARIANCE");
+        printConsoleSummary(  "------------------------------------", "------------", "------------", "----------");
+        System.out.println();
+        printConsoleSummary("Profit", pandLProfit, pandLBottomLineProfit, pandlProfitVariance);
+        printConsoleSummary("Income", pandLIncome, pandLBottomLineIncome, pandlIncomeVariance);
+        printConsoleSummary("Expenses", pandLTotalExpenses, pandLBottomLineExpense, pandlExpenseVariance);
+        printConsoleSummary("Expenses", pandLTotalExpenses, pandLBottomLineExpense, pandlExpenseVariance);
         System.out.println("(6) Finished computing Budget Sheet Entries");
     }
-    public void printConsoleSummary(String account, int budgetAmount, int actualAmount, int variance)
+    public void printConsoleSummary(String account, double budgetAmount, double actualAmount, double variance)
     {
-        System.out.printf("%-40s %,-20d %,-20d %,-20d %n", account, budgetAmount, actualAmount, variance);
+        System.out.printf("%-40s %,-20.0f %,-20.0f %,-20.0f %n", account, budgetAmount, actualAmount, variance);
+    }
+    public void printConsoleSummary(String title1, String title2, String title3, String title4)
+    {
+        System.out.printf("%n %-40s %-20s %-20s %-20s", title1, title2, title3, title4);
     }
     //******************************************************************************************
     //* Update Budget Excel Workbook
@@ -208,7 +218,7 @@ public class CashItemAggregator
                     budgetSheet.getRow(0).getCell(0).setCellValue("Updated: " + now);
                     budgetSheet.getRow(0).getCell(13).setCellValue("Month " + targetMonth);
                     budgetSheet.getRow(1).getCell(13).setCellValue("VARIANCE");
-                    budgetSheet.getRow(1).getCell(targetMonth).setCellValue(">>ACTUAL<");
+                    budgetSheet.getRow(1).getCell((int) targetMonth).setCellValue(">>ACTUAL<");
                 }
                 catch (Exception e)
                 {
@@ -218,54 +228,57 @@ public class CashItemAggregator
             else
             {
                 row.createCell(13, XSSFCell.CELL_TYPE_NUMERIC);//For month variance numbers
+                DataFormat format = budgetWorkbook.createDataFormat();
+                CellStyle cellstyle = budgetWorkbook.createCellStyle();
+                cellstyle.setDataFormat(format.getFormat("#,##0"));
+                row.getCell(13).setCellStyle(cellstyle);
             }
-
             if (row.getCell(0) != null)
             {
                 switch (row.getCell(0).getStringCellValue())
                 {
                     case "Grants and Gifts":
-                        row.getCell(targetMonth).setCellValue(pandLGrantsGifts);
-                        row.getCell(13).setCellValue(grantsGiftsVariance);
+                        row.getCell((int) targetMonth).setCellValue(pandLGrantsGifts);
+                        row.getCell(13).setCellValue((int)grantsGiftsVariance);
                         break;
                     case "Tuition":
-                        row.getCell(targetMonth).setCellValue(pandLTuition);
+                        row.getCell((int) targetMonth).setCellValue(pandLTuition);
                         row.getCell(13).setCellValue(tuitionVariance);
                         break;
                     case "Total Income":
-                        row.getCell(targetMonth).setCellValue(pandLIncome);
-                        row.getCell(13).setCellValue(incomeTotalVariance);
+                        row.getCell((int) targetMonth).setCellValue(pandLIncome);
+                        row.getCell(13).setCellValue((int)incomeTotalVariance);
                         break;
                     case "Salaries":
-                        row.getCell(targetMonth).setCellValue(pandLSalaries);
-                        row.getCell(13).setCellValue(salaryVariance);
+                        row.getCell((int) targetMonth).setCellValue(pandLSalaries);
+                        row.getCell(13).setCellValue((int)salaryVariance);
                         break;
                     case "Contract Services":
-                        row.getCell(targetMonth).setCellValue(pandLContractServices);
-                        row.getCell(13).setCellValue(contractServiceVariance);
+                        row.getCell((int) targetMonth).setCellValue(pandLContractServices);
+                        row.getCell(13).setCellValue((int)contractServiceVariance);
                         break;
                     case "Rent":
-                        row.getCell(targetMonth).setCellValue(pandLRent);
-                        row.getCell(13).setCellValue(rentVariance);
+                        row.getCell((int) targetMonth).setCellValue(pandLRent);
+                        row.getCell(13).setCellValue((int)rentVariance);
                         break;
                     case "Operations":
-                        row.getCell(targetMonth).setCellValue(pandLOperations);
-                        row.getCell(13).setCellValue(operationsVariance);
+                        row.getCell((int) targetMonth).setCellValue(pandLOperations);
+                        row.getCell(13).setCellValue((int)operationsVariance);
                         break;
                     case "Total Expenses":
-                        row.getCell(targetMonth).setCellValue(pandLTotalExpenses);
-                        row.getCell(13).setCellValue(expenseTotalVariance);
+                        row.getCell((int) targetMonth).setCellValue(pandLTotalExpenses);
+                        row.getCell(13).setCellValue((int)expenseTotalVariance);
                         break;
                     case "Profit":
-                        row.getCell(targetMonth).setCellValue(pandLProfit);
-                        row.getCell(13).setCellValue(profitVariance);
+                        row.getCell((int) targetMonth).setCellValue(pandLProfit);
+                        row.getCell(13).setCellValue((int)profitVariance);
                         break;
                     case "Profit Variance":
-                        row.getCell(targetMonth).setCellValue(profitVariance);
+                        row.getCell(targetMonth).setCellValue((int)profitVariance);
                         break;
                     case "Paying Students":
-                        row.getCell(targetMonth).setCellValue(actualPayingStudents);
-                        row.getCell(13).setCellValue(payingStudentsVariance);
+                        row.getCell((int) targetMonth).setCellValue(actualPayingStudents);
+                        row.getCell(13).setCellValue((int)payingStudentsVariance);
                         break;
                     default:
                 }

@@ -1,7 +1,7 @@
 package com.github.sdvic;
 //******************************************************************************************
 // * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
-// * version 201111
+// * version 201112
 // * copyright 2020 Vic Wintriss
 //*******************************************************************************************
 import org.apache.poi.ss.usermodel.CellValue;
@@ -18,8 +18,8 @@ public class PandLReader
     private XSSFCell valueCell;
     private XSSFCell keyCell;
     private String keyValue;
-    private int valueValue;
-    private final HashMap<String, Integer> pandLMap = new HashMap<>();
+    private double valueValue;
+    private final HashMap<String, Double> pandLMap = new HashMap<>();
     private String errMsg;
     private int cellType;
     /*******************************************************************************************************************
@@ -77,7 +77,7 @@ public class PandLReader
             }
             try
             {
-                valueValue = (int) valueCell.getNumericCellValue();
+                valueValue = valueCell.getNumericCellValue();
             }
             catch(Exception e)
             {
@@ -89,7 +89,7 @@ public class PandLReader
 //        getPandLMap().forEach((K, V) -> System.out.println("             " +  K + " => " + V ));
         System.out.println("(2) Finished reading QuickBooks PandL Excel file from: " + pandLInputFile + " to: pandlHashMap, HashMap size: " + getPandLMap().size());
     }
-    public HashMap<String, Integer> getPandLMap()
+    public HashMap<String, Double> getPandLMap()
     {
         return pandLMap;
     }
