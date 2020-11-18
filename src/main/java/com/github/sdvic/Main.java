@@ -1,7 +1,7 @@
 package com.github.sdvic;
 //******************************************************************************************
 // * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
-// * version 201116
+// * version 201117
 // * copyright 2020 Vic Wintriss
 //*******************************************************************************************
 import javax.swing.*;
