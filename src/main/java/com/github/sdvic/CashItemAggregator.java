@@ -1,7 +1,7 @@
 package com.github.sdvic;
 //******************************************************************************************
 // * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
-// * version 201117A
+// * version 201119
 // * copyright 2020 Vic Wintriss
 //******************************************************************************************
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -15,6 +15,8 @@ import java.util.HashMap;
 public class CashItemAggregator
 {
     private int targetMonth;
+    private HashMap<String, Integer> budgetMap;
+    private HashMap<String, Double> pandLMap;
     private double pl62100ContractServices;
     private double pl62000Salaries;
     private double contractServiceVariance;
@@ -22,7 +24,7 @@ public class CashItemAggregator
     private double operationsVariance;
     private double payingStudentsVariance;
     private double pl62800Rent;
-    private double grantsGiftsVariance;
+    private double donationVariance;
     private double tuitionVariance;
     private double budgetGrantsGifts;
     private double budgetTuition;
@@ -39,7 +41,6 @@ public class CashItemAggregator
     private double pandLDonations;
     private double pandLTuition;
     private double actualPayingStudents;
-    private double pl43460ContributedServices;
     private double pandLDirectPublicSupport;
     private double pandLGiftsInKindGoods;
     private double budgetContractServices;
@@ -60,9 +61,6 @@ public class CashItemAggregator
     private double pandLBottomLineProfit;
     private double pandLBottomLineExpense;
     private double pandLBottomLineIncome;
-    private HashMap<String, Integer> budgetMap;
-    private HashMap<String, Double> pandLMap;
-    private double pl47204GrantScholarships;
     private double miscIncomeVariance;
     private double pandLMiscIncome;
     private double budgetMiscExpense;
@@ -72,52 +70,85 @@ public class CashItemAggregator
     private double pl46400OtherIncome;
     private double pl45000Investments;
     private double budgetMiscIncome;
-    private double updateBudgetProfit;
+    private double pl43400DirectPublicSupport;
+    private double pl43460ContributedServices;//Non cash item...musdoublet be subtracted
+    private double pl47204GrantScholarships;
+    private double pl47200ProgramIncome;
+    private double budgetDonations;
+    private double pandLOtherIncome;
+    private double pl62145PayrollServiceFees;
+    private double pandLExpense;
+    private double pandLNetIncome;
+
     public CashItemAggregator(HashMap<String, Integer> budgetMap, HashMap<String, Double> pandLMap, int targetMonth)
     {
         this.budgetMap = budgetMap;
         this.pandLMap = pandLMap;
         this.targetMonth = targetMonth;
+        extractMapValues();
         System.out.println("(5) Computing Combined Budget Sheet Entries");
         printConsoleSummary("ACCOUNT", "BUDGET AMOUNT", "P&L AMOUNT", "MONTH " + targetMonth + " VARIANCE");
-        printConsoleSummary( "------------------------------------", "-------------", "-------------", "---------------------");
+        printConsoleSummary("------------------------------------", "-------------", "-------------", "---------------------");
         System.out.println();
     }
-
-    public void computeDonations()
+    public void extractMapValues()
     {
-        double budgetDonations = budgetMap.get("Donations");
-        double pl43400DirectPublicSupport = pandLMap.get("Total 43400 Direct Public Support");
+        pl43400DirectPublicSupport = pandLMap.get("Total 43400 Direct Public Support");
         pl43460ContributedServices = pandLMap.get("43460 Contributed Services");//Non cash item...must be subtracted
         pl47204GrantScholarships = pandLMap.get("Total 47204 Grant Scholarship");
+        pl47200ProgramIncome = pandLMap.get("Total 47200 Program Income");
+        pl47203LeagueScholarship = pandLMap.get("Total 47203 League Scholarship");//Non cash item...must be subtracted
+        budgetTuition = budgetMap.get("Tuition");
+        budgetDonations = budgetMap.get("Donations");
+        budgetMiscIncome = budgetMap.get("Misc Income");
+        pl45000Investments = pandLMap.get("Total 45000 Investments");
+        pl46400OtherIncome = pandLMap.get("Total 46400 Other Types of Income");
+        budgetGrantsGifts = budgetMap.get("Donations");
+        budgetTuition = budgetMap.get("Tuition");
+        pl45000Investments = pandLMap.get("Total 45000 Investments");
+        pandLOtherIncome = pandLMap.get("Total 46400 Other Types of Income");
+        pl62000Salaries = pandLMap.get("Total 62000 Salaries & Related Expenses");
+        pl62145PayrollServiceFees = pandLMap.get("62145 Payroll Service Fees");
+        budgetSalaries = budgetMap.get("Salaries");
+        pl62100ContractServices = pandLMap.get("Total 62100 Contract Services");
+        budgetContractServices = budgetMap.get("Contract Services");
+        budgetRent = budgetMap.get("Rent");
+        pl62800Rent = pandLMap.get("Total 62800 Facilities and Equipment");
+        budgetOperations = budgetMap.get("Operations");
+        pl68300Travel = pandLMap.get("Total 68300 Travel and Meetings");
+        pl65100OtherExpenses = pandLMap.get("Total 65100 Other Types of Expenses");
+        pl65055BreakRoomSupplies = pandLMap.get("65055 Breakroom Supplies");
+        pl65000Operations = pandLMap.get("Total 65000 Operations");
+        pl60900BusinessExpenses = pandLMap.get("Total 60900 Business Expenses");
+        pandLMiscExpense = pandLMap.get("Total Other Expenses");
+        budgetMiscExpense = budgetMap.get("Misc Expense");
+        budgetTotalExpenses = budgetMap.get("Total Expenses");
+        budgetProfit = budgetMap.get("Profit");
+        budgetPayingStudents = budgetMap.get("Paying Students");
+        pandLExpense = pandLMap.get("Total Expenses");
+        pandLIncome = pandLMap.get("Total Income");
+        pandLNetIncome = pandLMap.get("Net Income");
+    }
+    public void computeDonations()
+    {
         pandLDonations = pl43400DirectPublicSupport - pl43460ContributedServices + pl47204GrantScholarships;
-        grantsGiftsVariance = pandLDonations - budgetDonations;
-        printConsoleSummary("Donations", budgetDonations, pandLDonations, grantsGiftsVariance);
+        donationVariance = pandLDonations - budgetDonations;
+        printConsoleSummary("Donations", budgetDonations, pandLDonations, donationVariance);
     }
     public void computeTuition()
     {
-        double pl47200ProgramIncome = pandLMap.get("Total 47200 Program Income");
-        pl47203LeagueScholarship = pandLMap.get("Total 47203 League Scholarship");//Non cash item...must be subtracted
-        double budgetTuition = budgetMap.get("Tuition");
         pandLTuition = pl47200ProgramIncome - pl47203LeagueScholarship;
         tuitionVariance = pandLTuition - budgetTuition;
         printConsoleSummary("Tuition", budgetTuition, pandLTuition, tuitionVariance);
     }
     public void computeMiscIncome()
     {
-        double budgetMiscIncome = budgetMap.get("Misc Income");
-        pl45000Investments = pandLMap.get("Total 45000 Investments");
-        pl46400OtherIncome = pandLMap.get("Total 46400 Other Types of Income");
         pandLMiscIncome = pl46400OtherIncome + pl45000Investments;
         miscIncomeVariance = pandLMiscIncome - budgetMiscIncome;
         printConsoleSummary("MiscIncome", budgetMiscIncome, pandLMiscIncome, miscIncomeVariance);
     }
     public void computeTotalIncome()
     {
-        double budgetGrantsGifts = budgetMap.get("Donations");
-        double budgetTuition = budgetMap.get("Tuition");
-        pl45000Investments = pandLMap.get("Total 45000 Investments");
-        double pandLOtherIncome = pandLMap.get("Total 46400 Other Types of Income");
         double pandLMiscIncome = pl45000Investments + pandLOtherIncome;
         pandLTotalIncome = pandLDonations + pandLTuition + pandLMiscIncome - pl47204GrantScholarships;//grants in both Tuition and Donations
         budgetTotalIncome = budgetGrantsGifts + budgetTuition + budgetMiscIncome;
@@ -126,80 +157,59 @@ public class CashItemAggregator
     }
     public void computeSalaries()
     {
-        pl62000Salaries = pandLMap.get("Total 62000 Salaries & Related Expenses");
-        double pl62145PayrollServiceFees = pandLMap.get("62145 Payroll Service Fees");
-        double budgetSalaries = budgetMap.get("Salaries");
         pl62000Salaries = pl62000Salaries + pl62145PayrollServiceFees - pl43460ContributedServices;
         salaryVariance = pl62000Salaries - budgetSalaries;
         printConsoleSummary("Salaries", budgetSalaries, pl62000Salaries, salaryVariance);
     }
     public void computeContractServices()
     {
-        pl62100ContractServices = pandLMap.get("Total 62100 Contract Services");
-        budgetContractServices = budgetMap.get("Contract Services");
         contractServiceVariance = pl62100ContractServices - budgetContractServices;
         printConsoleSummary("Contract Services", budgetContractServices, pl62100ContractServices, contractServiceVariance);
     }
     public void computeRent()
     {
-        budgetRent = budgetMap.get("Rent");
-        pl62800Rent = pandLMap.get("Total 62800 Facilities and Equipment");
         rentVariance = pl62800Rent - budgetRent;
         printConsoleSummary("Rent", budgetRent, pl62800Rent, rentVariance);
     }
     public void computeOperatons()
     {
-        budgetOperations = budgetMap.get("Operations");
-        pl68300Travel = pandLMap.get("Total 68300 Travel and Meetings");
-        pl65100OtherExpenses = pandLMap.get("Total 65100 Other Types of Expenses");
-        pl65055BreakRoomSupplies = pandLMap.get("65055 Breakroom Supplies");
-        pl65000Operations = pandLMap.get("Total 65000 Operations");
-        pl60900BusinessExpenses = pandLMap.get("Total 60900 Business Expenses");
         pl65000Operations = pl65000Operations + pl65055BreakRoomSupplies + pl65100OtherExpenses + pl68300Travel + pl60900BusinessExpenses;
         operationsVariance = pl65000Operations - budgetOperations;
         printConsoleSummary("Operations", budgetOperations, pl65000Operations, operationsVariance);
     }
     public void computeMiscExpense()
     {
-        pandLMiscExpense = pandLMap.get("Total Other Expenses");
-        budgetMiscExpense = budgetMap.get("Misc Expense");
         miscExpenseVariance = budgetMiscExpense + pandLMiscExpense;
         printConsoleSummary("Misc Expense", budgetMiscExpense, pandLMiscExpense, miscExpenseVariance);
 
     }
     public void computeTotalExpenses()
     {
-        budgetTotalExpenses = budgetMap.get("Total Expenses");
         pandLTotalExpenses = pl62000Salaries + pl62100ContractServices + pl62800Rent + pl65000Operations + pandLMiscExpense;
         expenseTotalVariance = pandLTotalExpenses - budgetTotalExpenses;
         printConsoleSummary("Total Expenses", budgetTotalExpenses, pandLTotalExpenses, expenseTotalVariance);
     }
     public void computeProfit()
     {
-        budgetProfit = budgetMap.get("Profit");
         pandLProfit = pandLTotalIncome - pandLTotalExpenses;
         profitVariance = pandLProfit - budgetProfit;
         printConsoleSummary("Profit", budgetProfit, pandLProfit, profitVariance);
     }
     public void computeStudents()
     {
-        budgetPayingStudents = budgetMap.get("Paying Students");
-        actualPayingStudents = (int)(pandLTuition / 240);//Derived...including workshops, slams, etc and partial paying students
+        actualPayingStudents = (int) (pandLTuition / 240);//Derived...including workshops, slams, etc and partial paying students
         payingStudentsVariance = actualPayingStudents - budgetPayingStudents;
         printConsoleSummary("Paying Students", budgetPayingStudents, actualPayingStudents, payingStudentsVariance);
     }
     public void reconcile()
     {
-        double pandLExpense = pandLMap.get("Total Expenses");
-        pandLIncome = pandLMap.get("Total Income");
-        double pandLNetIncome = pandLMap.get("Net Income");
         double pandlIncomeVariance = pandLIncome - pandLIncome;
         pandLTotalExpenses = pl62000Salaries + pl62100ContractServices + pl62800Rent + pl65000Operations;
         double pandlExpenseVariance = pandLBottomLineExpense - pandLTotalExpenses;
         double pandlProfitVariance = pandLProfit - pandLNetIncome;
         printConsoleSummary("", "", "P&L RECONCILIATION", "");
         printConsoleSummary("ACCOUNT", "BUDGET", "P&L", "VARIANCE", "-LSC");
-        printConsoleSummary(  "------------------------------------", "------------", "------------", "----------", "---------------");
+        printConsoleSummary("------------------------------------", "------------", "------------", "----------", "---------------");
         System.out.println();
         printConsoleSummary("Income", pandLTotalIncome, pandLIncome, pandlIncomeVariance, pl47203LeagueScholarship);
         printConsoleSummary("Expenses", pandLTotalExpenses, pandLBottomLineExpense, pandlExpenseVariance);
@@ -232,7 +242,7 @@ public class CashItemAggregator
         XSSFSheet budgetSheet = budgetWorkbook.getSheetAt(0);
         for (Row row : budgetSheet)
         {
-            if (row.getRowNum() == 0 || row.getRowNum() ==1)
+            if (row.getRowNum() == 0 || row.getRowNum() == 1)
             {
                 row.createCell(13, XSSFCell.CELL_TYPE_STRING);//For month variance numbers
                 try
@@ -260,55 +270,66 @@ public class CashItemAggregator
                 switch (row.getCell(0).getStringCellValue())
                 {
                     case "Donations":
+                        computeDonations();
                         row.getCell((int) targetMonth).setCellValue(pandLDonations);
-                        row.getCell(13).setCellValue((int)grantsGiftsVariance);
+                        row.getCell(13).setCellValue((int) donationVariance);
                         break;
                     case "Tuition":
+                        computeTuition();
                         row.getCell((int) targetMonth).setCellValue(pandLTuition);
                         row.getCell(13).setCellValue(tuitionVariance);
                         break;
                     case "Misc Income":
-                        row.getCell((int) targetMonth).setCellValue((int)pandLMiscIncome);
+                        computeMiscIncome();
+                        row.getCell((int) targetMonth).setCellValue((int) pandLMiscIncome);
                         row.getCell(13).setCellValue(miscIncomeVariance);
                         break;
                     case "Total Income":
+                        computeTotalIncome();
                         row.getCell((int) targetMonth).setCellValue(pandLTotalIncome);
-                        row.getCell(13).setCellValue((int)incomeTotalVariance);
+                        row.getCell(13).setCellValue((int) incomeTotalVariance);
                         break;
                     case "Salaries":
+                        computeSalaries();
                         row.getCell((int) targetMonth).setCellValue(pl62000Salaries);
-                        row.getCell(13).setCellValue((int)salaryVariance);
+                        row.getCell(13).setCellValue((int) salaryVariance);
                         break;
                     case "Contract Services":
+                        computeContractServices();
                         row.getCell((int) targetMonth).setCellValue(pl62100ContractServices);
-                        row.getCell(13).setCellValue((int)contractServiceVariance);
+                        row.getCell(13).setCellValue((int) contractServiceVariance);
                         break;
                     case "Rent":
+                        computeRent();
                         row.getCell((int) targetMonth).setCellValue(pl62800Rent);
-                        row.getCell(13).setCellValue((int)rentVariance);
+                        row.getCell(13).setCellValue((int) rentVariance);
                         break;
                     case "Operations":
+                        computeOperatons();
                         row.getCell((int) targetMonth).setCellValue(pl65000Operations);
-                        row.getCell(13).setCellValue((int)operationsVariance);
+                        row.getCell(13).setCellValue((int) operationsVariance);
                         break;
                     case "Misc Expense":
+                        computeMiscExpense();
                         row.getCell((int) targetMonth).setCellValue(pandLMiscExpense);
-                        row.getCell(13).setCellValue((int)miscExpenseVariance);
+                        row.getCell(13).setCellValue((int) miscExpenseVariance);
                         break;
                     case "Total Expenses":
+                        computeTotalExpenses();
                         row.getCell((int) targetMonth).setCellValue(pandLTotalExpenses);
-                        row.getCell(13).setCellValue((int)expenseTotalVariance);
+                        row.getCell(13).setCellValue((int) expenseTotalVariance);
                         break;
                     case "Profit":
+                        computeProfit();
                         row.getCell((int) targetMonth).setCellValue(pandLProfit);
-                        row.getCell(13).setCellValue((int)profitVariance);
+                        row.getCell(13).setCellValue((int) profitVariance);
                         break;
                     case "Profit Variance":
-                        row.getCell(targetMonth).setCellValue((int)profitVariance);
+                        row.getCell(targetMonth).setCellValue((int) profitVariance);
                         break;
                     case "Paying Students":
                         row.getCell((int) targetMonth).setCellValue(actualPayingStudents);
-                        row.getCell(13).setCellValue((int)payingStudentsVariance);
+                        row.getCell(13).setCellValue((int) payingStudentsVariance);
                         break;
                     default:
                 }
