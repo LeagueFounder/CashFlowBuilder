@@ -1,7 +1,7 @@
 package com.github.sdvic;
 //******************************************************************************************
 // * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
-// * version 201119
+// * version 201120
 // * copyright 2020 Vic Wintriss
 //******************************************************************************************
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -37,7 +37,6 @@ public class CashItemAggregator
     private double pandLProfit;
     private double pandLIncome;
     private double pandLTotalExpenses;
-    private double pandLAccumulatedProfit;
     private double pandLDonations;
     private double pandLTuition;
     private double actualPayingStudents;
@@ -48,28 +47,23 @@ public class CashItemAggregator
     private double pl47203LeagueScholarship;
     private double budgetTotalIncome;
     private double pandLTotalIncome;
-    private double pandLPayrollServiceFees;
     private double budgetSalaries;
     private double budgetRent;
     private double pl65055BreakRoomSupplies;
     private double pl65100OtherExpenses;
     private double pl68300Travel;
     private double budgetOperations;
-    private double pandLDepreciation;
     private double budgetTotalExpenses;
     private double budgetProfit;
-    private double pandLBottomLineProfit;
-    private double pandLBottomLineExpense;
-    private double pandLBottomLineIncome;
     private double miscIncomeVariance;
     private double pandLMiscIncome;
-    private double budgetMiscExpense;
+    private int budgetMiscExpense;
     private double pandLMiscExpense;
     private double miscExpenseVariance;
     private double pl60900BusinessExpenses;
     private double pl46400OtherIncome;
     private double pl45000Investments;
-    private double budgetMiscIncome;
+    private int budgetMiscIncome;
     private double pl43400DirectPublicSupport;
     private double pl43460ContributedServices;//Non cash item...musdoublet be subtracted
     private double pl47204GrantScholarships;
@@ -79,7 +73,7 @@ public class CashItemAggregator
     private double pl62145PayrollServiceFees;
     private double pandLExpense;
     private double pandLNetIncome;
-
+    private double pandlProfitVariance;
     public CashItemAggregator(HashMap<String, Integer> budgetMap, HashMap<String, Double> pandLMap, int targetMonth)
     {
         this.budgetMap = budgetMap;
@@ -87,9 +81,6 @@ public class CashItemAggregator
         this.targetMonth = targetMonth;
         extractMapValues();
         System.out.println("(5) Computing Combined Budget Sheet Entries");
-        printConsoleSummary("ACCOUNT", "BUDGET AMOUNT", "P&L AMOUNT", "MONTH " + targetMonth + " VARIANCE");
-        printConsoleSummary("------------------------------------", "-------------", "-------------", "---------------------");
-        System.out.println();
     }
     public void extractMapValues()
     {
@@ -100,7 +91,7 @@ public class CashItemAggregator
         pl47203LeagueScholarship = pandLMap.get("Total 47203 League Scholarship");//Non cash item...must be subtracted
         budgetTuition = budgetMap.get("Tuition");
         budgetDonations = budgetMap.get("Donations");
-        budgetMiscIncome = budgetMap.get("Misc Income");
+        budgetMiscIncome = (int)budgetMap.get("Misc Income");
         pl45000Investments = pandLMap.get("Total 45000 Investments");
         pl46400OtherIncome = pandLMap.get("Total 46400 Other Types of Income");
         budgetGrantsGifts = budgetMap.get("Donations");
@@ -143,13 +134,13 @@ public class CashItemAggregator
     }
     public void computeMiscIncome()
     {
-        pandLMiscIncome = pl46400OtherIncome + pl45000Investments;
+        pandLMiscIncome = (int)(pl46400OtherIncome + (int)pl45000Investments);
         miscIncomeVariance = pandLMiscIncome - budgetMiscIncome;
-        printConsoleSummary("MiscIncome", budgetMiscIncome, pandLMiscIncome, miscIncomeVariance);
+        printConsoleSummary("MiscIncome", (int)budgetMiscIncome, (int)pandLMiscIncome, miscIncomeVariance);
     }
     public void computeTotalIncome()
     {
-        double pandLMiscIncome = pl45000Investments + pandLOtherIncome;
+        pandLMiscIncome = pl45000Investments + pandLOtherIncome;
         pandLTotalIncome = pandLDonations + pandLTuition + pandLMiscIncome - pl47204GrantScholarships;//grants in both Tuition and Donations
         budgetTotalIncome = budgetGrantsGifts + budgetTuition + budgetMiscIncome;
         incomeTotalVariance = pandLTotalIncome - budgetTotalIncome;
@@ -203,16 +194,11 @@ public class CashItemAggregator
     }
     public void reconcile()
     {
-        double pandlIncomeVariance = pandLIncome - pandLIncome;
-        pandLTotalExpenses = pl62000Salaries + pl62100ContractServices + pl62800Rent + pl65000Operations;
-        double pandlExpenseVariance = pandLBottomLineExpense - pandLTotalExpenses;
-        double pandlProfitVariance = pandLProfit - pandLNetIncome;
-        printConsoleSummary("", "", "P&L RECONCILIATION", "");
-        printConsoleSummary("ACCOUNT", "BUDGET", "P&L", "VARIANCE", "-LSC");
-        printConsoleSummary("------------------------------------", "------------", "------------", "----------", "---------------");
+        pandlProfitVariance = pandLProfit - pandLNetIncome;
+        printConsoleSummary("", "", "PROFIT RECONCILIATION", "");
+        printConsoleSummary("ACCOUNT", "BUDGET NUMBERS", "P&L NUMBERS", "VARIANCE");//Reconciliation
+        printConsoleSummary("------------------------------------", "------------", "------------", "----------");
         System.out.println();
-        printConsoleSummary("Income", pandLTotalIncome, pandLIncome, pandlIncomeVariance, pl47203LeagueScholarship);
-        printConsoleSummary("Expenses", pandLTotalExpenses, pandLBottomLineExpense, pandlExpenseVariance);
         printConsoleSummary("Profit", pandLProfit, pandLNetIncome, pandlProfitVariance);
         System.out.println("(6) Finished computing Budget Sheet Entries");
     }
@@ -220,17 +206,9 @@ public class CashItemAggregator
     {
         System.out.printf("%-40s %,-20.0f %,-20.0f %,-20.0f %n", title1, title2, title3, title4);
     }
-    public void printConsoleSummary(String title1, double title2, double title3, double title4, double title5)
-    {
-        System.out.printf("%-40s %,-20.0f %,-20.0f %,-20.0f -20.0f %n", title1, title2, title3, title4, title5);
-    }
     public void printConsoleSummary(String title1, String title2, String title3, String title4)
     {
         System.out.printf("%n %-40s %-20s %-20s %-20s", title1, title2, title3, title4);
-    }
-    public void printConsoleSummary(String title1, String title2, String title3, String title4, String title5)
-    {
-        System.out.printf("%n %-40s %-20s %-20s %-20s %-40s", title1, title2, title3, title4, title5);
     }
     //******************************************************************************************
     //* Update Budget Excel Workbook
@@ -238,6 +216,9 @@ public class CashItemAggregator
     public void updateBudgetWorkbook(XSSFWorkbook budgetWorkbook, int targetMonth)
     {
         System.out.println("(7) Start updating budget XSSFsheet");
+        printConsoleSummary("ACCOUNT", "BUDGET AMOUNT", "P&L AMOUNT", "MONTH " + targetMonth + " VARIANCE");
+        printConsoleSummary("------------------------------------", "-------------", "-------------", "---------------------");
+        System.out.println();
         LocalDateTime now = LocalDateTime.now();
         XSSFSheet budgetSheet = budgetWorkbook.getSheetAt(0);
         for (Row row : budgetSheet)
@@ -254,7 +235,7 @@ public class CashItemAggregator
                 }
                 catch (Exception e)
                 {
-
+                    System.out.println("Error updating budget shet in CashItemAggregator line 238");
                 }
             }
             else

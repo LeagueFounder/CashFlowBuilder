@@ -1,7 +1,7 @@
 package com.github.sdvic;
 //******************************************************************************************
 // * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
-// * version 201119
+// * version 201120
 // * copyright 2020 Vic Wintriss
 //*******************************************************************************************
 import org.apache.poi.ss.usermodel.CellValue;
@@ -31,7 +31,7 @@ public class PandLReader
         try
         {
             String inputFileName = "/Users/vicwintriss/-League/Financial/Budget/2020BudgetPandLs/" + targetMonth + "The+League+of+Amazing+Programmers_Profit+and+Loss.xlsx";
-            pandLInputFile = new File(inputFileName);
+            File pandLInputFile = new File(inputFileName);
             System.out.println("(1) Started reading QuickBooks PandL Excel file from: " + pandLInputFile + " to pandlHashMap");
             FileInputStream pandlInputFIS = new FileInputStream(pandLInputFile);
             pandLWorkBook = new XSSFWorkbook(pandlInputFIS);
@@ -67,7 +67,7 @@ public class PandLReader
             }
             catch (Exception e)
             {
-                System.out.println("Can't get key String value at line 65");
+                System.out.println("Can't get key String value at line 65 while reading P & L");
                 continue;
             }
             XSSFCell valueCell = row.getCell(1); //Value cell
