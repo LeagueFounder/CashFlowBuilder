@@ -10,6 +10,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import java.time.LocalDateTime;
 import java.util.HashMap;
 public class CashItemAggregator
@@ -27,7 +28,7 @@ public class CashItemAggregator
     private double donationVariance;
     private double tuitionVariance;
     private double budgetGrantsGifts;
-    private double budgetTuition;
+    private double budgetMonthlyTuition;
     private double salaryVariance;
     private double rentVariance;
     private double profitVariance;
@@ -68,13 +69,12 @@ public class CashItemAggregator
     private double pl43460ContributedServices;//Non cash item...musdoublet be subtracted
     private double pl47204GrantScholarships;
     private double pl47200ProgramIncome;
-    private double budgetDonations;
+    private double budgetGrantsAndGifts;
     private double pandLOtherIncome;
     private double pl62145PayrollServiceFees;
     private double pandLExpense;
     private double pandLNetIncome;
     private double pandlProfitVariance;
-    private double budgetMonthlyTuition;
     private double budgetWorkshops;
     private double budgetWorkshopsCamps;
     private double budgetPayingStudentsFTE;
@@ -121,29 +121,23 @@ public class CashItemAggregator
         pandLIncome = pandLMap.get("Total Income");
         pandLNetIncome = pandLMap.get("Net Income");
     }
-    public void computeDonations()
+    public void computeGrantsAndGifts()
     {
         pandLDonations = pl43400DirectPublicSupport - pl43460ContributedServices + pl47204GrantScholarships;
-        donationVariance = pandLDonations - budgetDonations;
-        printConsoleSummary("Donations", budgetDonations, pandLDonations, donationVariance);
+        donationVariance = pandLDonations - budgetGrantsAndGifts;
+        printConsoleSummary("Grants And Gifts", budgetGrantsAndGifts, pandLDonations, donationVariance);
     }
-    public void computeTuition()
+    public void computeMonthlyTuition()
     {
         pandLTuition = pl47200ProgramIncome - pl47203LeagueScholarship;
-        tuitionVariance = pandLTuition - budgetTuition;
-        printConsoleSummary("Tuition", budgetTuition, pandLTuition, tuitionVariance);
-    }
-    public void computeMiscIncome()
-    {
-        pandLMiscIncome = (int)(pl46400OtherIncome + (int)pl45000Investments);
-        miscIncomeVariance = pandLMiscIncome - budgetMiscIncome;
-        printConsoleSummary("MiscIncome", (int)budgetMiscIncome, (int)pandLMiscIncome, miscIncomeVariance);
+        tuitionVariance = pandLTuition - budgetMonthlyTuition;
+        printConsoleSummary("Monthly Tuition", budgetMonthlyTuition, pandLTuition, tuitionVariance);
     }
     public void computeTotalIncome()
     {
         pandLMiscIncome = pl45000Investments + pandLOtherIncome;
         pandLTotalIncome = pandLDonations + pandLTuition + pandLMiscIncome - pl47204GrantScholarships;//grants in both Tuition and Donations
-        budgetTotalIncome = budgetGrantsGifts + budgetTuition + budgetMiscIncome;
+        budgetTotalIncome = budgetGrantsGifts + budgetMonthlyTuition + budgetWorkshopsCamps;
         incomeTotalVariance = pandLTotalIncome - budgetTotalIncome;
         printConsoleSummary("Total Income", budgetTotalIncome, pandLTotalIncome, incomeTotalVariance);
     }
@@ -168,12 +162,6 @@ public class CashItemAggregator
         pl65000Operations = pl65000Operations + pl65055BreakRoomSupplies + pl65100OtherExpenses + pl68300Travel + pl60900BusinessExpenses;
         operationsVariance = pl65000Operations - budgetOperations;
         printConsoleSummary("Operations", budgetOperations, pl65000Operations, operationsVariance);
-    }
-    public void computeMiscExpense()
-    {
-        miscExpenseVariance = budgetMiscExpense + pandLMiscExpense;
-        printConsoleSummary("Misc Expense", budgetMiscExpense, pandLMiscExpense, miscExpenseVariance);
-
     }
     public void computeTotalExpenses()
     {
@@ -236,7 +224,7 @@ public class CashItemAggregator
                 }
                 catch (Exception e)
                 {
-                    System.out.println("Error updating budget shet in CashItemAggregator line 238");
+                    System.out.println("Error updating budget sheet in CashItemAggregator line 238");
                 }
             }
             else
@@ -251,20 +239,15 @@ public class CashItemAggregator
             {
                 switch (row.getCell(0).getStringCellValue())
                 {
-                    case "Donations":
-                        computeDonations();
+                    case "Grants and Gifts":
+                        computeGrantsAndGifts();
                         row.getCell((int) targetMonth).setCellValue(pandLDonations);
                         row.getCell(13).setCellValue((int) donationVariance);
                         break;
-                    case "Tuition":
-                        computeTuition();
+                    case "Monthly Tuition":
+                        computeMonthlyTuition();
                         row.getCell((int) targetMonth).setCellValue(pandLTuition);
                         row.getCell(13).setCellValue(tuitionVariance);
-                        break;
-                    case "Misc Income":
-                        computeMiscIncome();
-                        row.getCell((int) targetMonth).setCellValue((int) pandLMiscIncome);
-                        row.getCell(13).setCellValue(miscIncomeVariance);
                         break;
                     case "Total Income":
                         computeTotalIncome();
@@ -290,11 +273,6 @@ public class CashItemAggregator
                         computeOperatons();
                         row.getCell((int) targetMonth).setCellValue(pl65000Operations);
                         row.getCell(13).setCellValue((int) operationsVariance);
-                        break;
-                    case "Misc Expense":
-                        computeMiscExpense();
-                        row.getCell((int) targetMonth).setCellValue(pandLMiscExpense);
-                        row.getCell(13).setCellValue((int) miscExpenseVariance);
                         break;
                     case "Total Expenses":
                         computeTotalExpenses();
