@@ -1,7 +1,7 @@
 package com.github.sdvic;
 //******************************************************************************************
 // * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
-// * version 201120
+// * version 201222
 // * copyright 2020 Vic Wintriss
 //*******************************************************************************************
 import org.apache.poi.ss.usermodel.Cell;
@@ -46,7 +46,9 @@ public class BudgetReader
         FormulaEvaluator evaluator = budgetWorkBook.getCreationHelper().createFormulaEvaluator();
         XSSFFormulaEvaluator.evaluateAllFormulaCells(budgetWorkBook);
         budgetSheet = budgetWorkBook.getSheetAt(0);
-        for (int rowIndex = 0; rowIndex < budgetSheet.getLastRowNum(); rowIndex++)
+        System.out.println("budget sheet => " + budgetSheet);
+        System.out.println("Last budget row number is => " + budgetSheet.getLastRowNum());
+        for (int rowIndex = 0; rowIndex < 34; rowIndex++)
         {
             XSSFRow budgetRow = budgetSheet.getRow(rowIndex);
             Cell keyCell = budgetRow.getCell(0);

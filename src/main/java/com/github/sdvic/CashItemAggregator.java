@@ -1,7 +1,7 @@
 package com.github.sdvic;
 //******************************************************************************************
 // * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
-// * version 201120
+// * version 201222
 // * copyright 2020 Vic Wintriss
 //******************************************************************************************
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -74,6 +74,10 @@ public class CashItemAggregator
     private double pandLExpense;
     private double pandLNetIncome;
     private double pandlProfitVariance;
+    private double budgetMonthlyTuition;
+    private double budgetWorkshops;
+    private double budgetWorkshopsCamps;
+    private double budgetPayingStudentsFTE;
     public CashItemAggregator(HashMap<String, Integer> budgetMap, HashMap<String, Double> pandLMap, int targetMonth)
     {
         this.budgetMap = budgetMap;
@@ -89,33 +93,30 @@ public class CashItemAggregator
         pl47204GrantScholarships = pandLMap.get("Total 47204 Grant Scholarship");
         pl47200ProgramIncome = pandLMap.get("Total 47200 Program Income");
         pl47203LeagueScholarship = pandLMap.get("Total 47203 League Scholarship");//Non cash item...must be subtracted
-        budgetTuition = budgetMap.get("Tuition");
-        budgetDonations = budgetMap.get("Donations");
-        budgetMiscIncome = (int)budgetMap.get("Misc Income");
         pl45000Investments = pandLMap.get("Total 45000 Investments");
         pl46400OtherIncome = pandLMap.get("Total 46400 Other Types of Income");
-        budgetGrantsGifts = budgetMap.get("Donations");
-        budgetTuition = budgetMap.get("Tuition");
         pl45000Investments = pandLMap.get("Total 45000 Investments");
         pandLOtherIncome = pandLMap.get("Total 46400 Other Types of Income");
         pl62000Salaries = pandLMap.get("Total 62000 Salaries & Related Expenses");
         pl62145PayrollServiceFees = pandLMap.get("62145 Payroll Service Fees");
+        budgetGrantsGifts = budgetMap.get("Grants and Gifts");
+        budgetMonthlyTuition = budgetMap.get("Monthly Tuition");
+        budgetWorkshopsCamps = budgetMap.get("Workshops/Camps");
         budgetSalaries = budgetMap.get("Salaries");
-        pl62100ContractServices = pandLMap.get("Total 62100 Contract Services");
         budgetContractServices = budgetMap.get("Contract Services");
         budgetRent = budgetMap.get("Rent");
-        pl62800Rent = pandLMap.get("Total 62800 Facilities and Equipment");
         budgetOperations = budgetMap.get("Operations");
+        budgetTotalExpenses = budgetMap.get("Total Expenses");
+        budgetProfit = budgetMap.get("Profit");
+        budgetPayingStudentsFTE = budgetMap.get("Paying Students (FTE)");
+        pl62100ContractServices = pandLMap.get("Total 62100 Contract Services");
+        pl62800Rent = pandLMap.get("Total 62800 Facilities and Equipment");
         pl68300Travel = pandLMap.get("Total 68300 Travel and Meetings");
         pl65100OtherExpenses = pandLMap.get("Total 65100 Other Types of Expenses");
         pl65055BreakRoomSupplies = pandLMap.get("65055 Breakroom Supplies");
         pl65000Operations = pandLMap.get("Total 65000 Operations");
         pl60900BusinessExpenses = pandLMap.get("Total 60900 Business Expenses");
         pandLMiscExpense = pandLMap.get("Total Other Expenses");
-        budgetMiscExpense = budgetMap.get("Misc Expense");
-        budgetTotalExpenses = budgetMap.get("Total Expenses");
-        budgetProfit = budgetMap.get("Profit");
-        budgetPayingStudents = budgetMap.get("Paying Students");
         pandLExpense = pandLMap.get("Total Expenses");
         pandLIncome = pandLMap.get("Total Income");
         pandLNetIncome = pandLMap.get("Net Income");
