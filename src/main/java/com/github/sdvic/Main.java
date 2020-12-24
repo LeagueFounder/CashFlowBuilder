@@ -1,7 +1,7 @@
 package com.github.sdvic;
 //******************************************************************************************
 // * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
-// * version 201222
+// * version 201223
 // * copyright 2020 Vic Wintriss
 //*******************************************************************************************
 import javax.swing.*;
@@ -17,10 +17,10 @@ public class Main implements Runnable
     {
         String version = "201120";
         System.out.println("Version " + version + "\nCopyright 2020 Vic Wintriss\n");
-//        targetMonth = Integer.parseInt(JOptionPane.showInputDialog("Please enter QuickBooks P and L input file (int)month"));
-//        followOnAnswer = JOptionPane.showInputDialog("Initial Budget Run? (Yes or Return for No");
-        targetMonth = 12;
-        followOnAnswer = "Yes";
+        targetMonth = Integer.parseInt(JOptionPane.showInputDialog("Please enter QuickBooks P and L input file (int)month"));
+        followOnAnswer = JOptionPane.showInputDialog("Initial Budget Run? (Yes or Return for No");
+//        targetMonth = 11;
+//        followOnAnswer = "Yes";
         PandLReader pandLReader = new PandLReader(targetMonth);
         BudgetReader budgetReader = new BudgetReader(targetMonth, followOnAnswer);
         BudgetWriter budgetWriter = new BudgetWriter();

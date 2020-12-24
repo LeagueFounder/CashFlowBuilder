@@ -1,7 +1,7 @@
 package com.github.sdvic;
 //******************************************************************************************
 // * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
-// * version 201222
+// * version 201223
 // * copyright 2020 Vic Wintriss
 //******************************************************************************************
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -78,6 +78,7 @@ public class CashItemAggregator
     private double budgetWorkshops;
     private double budgetWorkshopsCamps;
     private double budgetPayingStudentsFTE;
+    private final int MONTH_VARIANCE_COLUMN = 25;
     public CashItemAggregator(HashMap<String, Integer> budgetMap, HashMap<String, Double> pandLMap, int targetMonth)
     {
         this.budgetMap = budgetMap;
@@ -214,12 +215,12 @@ public class CashItemAggregator
         {
             if (row.getRowNum() == 0 || row.getRowNum() == 1)
             {
-                row.createCell(13, XSSFCell.CELL_TYPE_STRING);//For month variance numbers
+                row.createCell(MONTH_VARIANCE_COLUMN, XSSFCell.CELL_TYPE_STRING);//For month variance numbers
                 try
                 {
                     budgetSheet.getRow(0).getCell(0).setCellValue("Updated: " + now);
-                    budgetSheet.getRow(0).getCell(13).setCellValue("Month " + targetMonth);
-                    budgetSheet.getRow(1).getCell(13).setCellValue("VARIANCE");
+                    budgetSheet.getRow(0).getCell(MONTH_VARIANCE_COLUMN).setCellValue("Month " + targetMonth);
+                    budgetSheet.getRow(1).getCell(MONTH_VARIANCE_COLUMN).setCellValue("VARIANCE");
                     budgetSheet.getRow(1).getCell((int) targetMonth).setCellValue(">>ACTUAL<");
                 }
                 catch (Exception e)
@@ -229,11 +230,11 @@ public class CashItemAggregator
             }
             else
             {
-                row.createCell(13, XSSFCell.CELL_TYPE_NUMERIC);//For month variance numbers
+                row.createCell(MONTH_VARIANCE_COLUMN, XSSFCell.CELL_TYPE_NUMERIC);//For month variance numbers
                 DataFormat format = budgetWorkbook.createDataFormat();
                 CellStyle cellstyle = budgetWorkbook.createCellStyle();
                 cellstyle.setDataFormat(format.getFormat("#,##0"));
-                row.getCell(13).setCellStyle(cellstyle);
+                row.getCell(MONTH_VARIANCE_COLUMN).setCellStyle(cellstyle);
             }
             if (row.getCell(0) != null)
             {
@@ -242,12 +243,12 @@ public class CashItemAggregator
                     case "Grants and Gifts":
                         computeGrantsAndGifts();
                         row.getCell((int) targetMonth).setCellValue(pandLDonations);
-                        row.getCell(13).setCellValue((int) donationVariance);
+                        row.getCell(MONTH_VARIANCE_COLUMN).setCellValue((int) donationVariance);
                         break;
                     case "Monthly Tuition":
                         computeMonthlyTuition();
                         row.getCell((int) targetMonth).setCellValue(pandLTuition);
-                        row.getCell(13).setCellValue(tuitionVariance);
+                        row.getCell(MONTH_VARIANCE_COLUMN).setCellValue(tuitionVariance);
                         break;
                     case "Total Income":
                         computeTotalIncome();
@@ -257,12 +258,12 @@ public class CashItemAggregator
                     case "Salaries":
                         computeSalaries();
                         row.getCell((int) targetMonth).setCellValue(pl62000Salaries);
-                        row.getCell(13).setCellValue((int) salaryVariance);
+                        row.getCell(MONTH_VARIANCE_COLUMN).setCellValue((int) salaryVariance);
                         break;
                     case "Contract Services":
                         computeContractServices();
                         row.getCell((int) targetMonth).setCellValue(pl62100ContractServices);
-                        row.getCell(13).setCellValue((int) contractServiceVariance);
+                        row.getCell(MONTH_VARIANCE_COLUMN).setCellValue((int) contractServiceVariance);
                         break;
                     case "Rent":
                         computeRent();
@@ -272,24 +273,24 @@ public class CashItemAggregator
                     case "Operations":
                         computeOperatons();
                         row.getCell((int) targetMonth).setCellValue(pl65000Operations);
-                        row.getCell(13).setCellValue((int) operationsVariance);
+                        row.getCell(MONTH_VARIANCE_COLUMN).setCellValue((int) operationsVariance);
                         break;
                     case "Total Expenses":
                         computeTotalExpenses();
                         row.getCell((int) targetMonth).setCellValue(pandLTotalExpenses);
-                        row.getCell(13).setCellValue((int) expenseTotalVariance);
+                        row.getCell(MONTH_VARIANCE_COLUMN).setCellValue((int) expenseTotalVariance);
                         break;
                     case "Profit":
                         computeProfit();
                         row.getCell((int) targetMonth).setCellValue(pandLProfit);
-                        row.getCell(13).setCellValue((int) profitVariance);
+                        row.getCell(MONTH_VARIANCE_COLUMN).setCellValue((int) profitVariance);
                         break;
                     case "Profit Variance":
                         row.getCell(targetMonth).setCellValue((int) profitVariance);
                         break;
                     case "Paying Students":
                         row.getCell((int) targetMonth).setCellValue(actualPayingStudents);
-                        row.getCell(13).setCellValue((int) payingStudentsVariance);
+                        row.getCell(MONTH_VARIANCE_COLUMN).setCellValue((int) payingStudentsVariance);
                         break;
                     default:
                 }
