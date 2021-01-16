@@ -1,7 +1,7 @@
 package com.github.sdvic;
 //******************************************************************************************
 // * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
-// * version 201223
+// * version 210115
 // * copyright 2020 Vic Wintriss
 //*******************************************************************************************
 import org.apache.poi.ss.usermodel.CellValue;
@@ -30,7 +30,7 @@ public class PandLReader
     {
         try
         {
-            String inputFileName = "/Users/vicwintriss/-League/Financial/Budget/2020BudgetPandLs/" + targetMonth + "The+League+of+Amazing+Programmers_Profit+and+Loss.xlsx";
+            String inputFileName = "/Users/vicwintriss/-League/Financial/Budget/Budget2021/" + targetMonth + "The+League+of+Amazing+Programmers_Profit+and+Loss.xlsx";
             File pandLInputFile = new File(inputFileName);
             System.out.println("(1) Started reading QuickBooks PandL Excel file from: " + pandLInputFile + " to pandlHashMap");
             FileInputStream pandlInputFIS = new FileInputStream(pandLInputFile);

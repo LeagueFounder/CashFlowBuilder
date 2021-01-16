@@ -1,7 +1,7 @@
 package com.github.sdvic;
 //******************************************************************************************
 // * Application to extract Cash Flow data from Quick Books P&L and build Cash Projections
-// * version 201223
+// * version 210115
 // * copyright 2020 Vic Wintriss
 //*******************************************************************************************
 import org.apache.poi.ss.usermodel.Cell;
@@ -17,8 +17,8 @@ public class BudgetReader
     private XSSFSheet budgetSheet;
     private XSSFCell keyCell;
     private XSSFRow budgetRow;
-    String budgetInputFileName = "/Users/vicwintriss/-League/Financial/Budget/2020BudgetPandLs/SarahRevisedBudget2020.xlsx";
-    String updatedInputFileName = "/Users/vicwintriss/-League/Financial/Budget/2020BudgetPandLs/Updated2020MasterBudgetOutputFile.xlsx";
+    String budgetInputFileName = "/Users/vicwintriss/-League/Financial/Budget/Budget2021/Budget2021.xlsx";
+    String updatedInputFileName = "/Users/vicwintriss/-League/Financial/Budget/Budget2021/UpdatedBudget2021.xlsx";
     private XSSFWorkbook budgetWorkBook;
     private final HashMap<String, Integer> budgetMap = new HashMap<>();
     public BudgetReader(int targetMonth, String followOnAnswer)
